@@ -9,26 +9,29 @@
 #import "PaintView.h"
 #import <QuartzCore/QuartzCore.h>
 
+@interface PaintView()
+
+@property (strong, nonatomic) UIBezierPath *path;
+@property (strong, nonatomic) UIImage *tempImage;
+@property (nonatomic) CGSize viewSize;
+@property (strong, nonatomic) NSMutableArray *points;
+@property (nonatomic) uint index;
+
+@end
+
 @implementation PaintView
-{
-    UIBezierPath *path;
-    UIImage *incrImage;
-    CGSize viewSize;
-    
-    CGPoint pts[5];
-    uint cnt;
-}
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         
-        path = [UIBezierPath bezierPath];
-        path.lineWidth = 5.0;
-        path.lineCapStyle = kCGLineCapRound;
+        self.path = [UIBezierPath bezierPath];
+        self.path.lineWidth = 5.0;
+        self.path.lineCapStyle = kCGLineCapRound;
         self.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0];
-        viewSize = self.bounds.size;
+        self.viewSize = self.bounds.size;
+        self.points = [[NSMutableArray alloc] initWithCapacity:5];
     }
     
     return self;
@@ -37,11 +40,9 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
-//    CGPoint p = [touch locationInView:self];
-//    [path moveToPoint:p];
-//    
-    cnt = 0;
-    pts[0] = [touch locationInView:self];
+    
+    self.index = 0;
+    self.points[0] = [NSValue valueWithCGPoint:[touch locationInView:self]];
     
     NSLog(@"touch begins!");
 }
@@ -50,39 +51,35 @@
     UITouch *touch = [touches anyObject];
     CGPoint p = [touch locationInView:self];
     
-    cnt++;
-    pts[cnt] = p;
-    if(cnt==4)
+    self.index++;
+    self.points[self.index] = [NSValue valueWithCGPoint:p];
+    
+    if(self.index==4)
     {
-        pts[3] = CGPointMake((pts[2].x + pts[4].x)/2.0, (pts[2].y + pts[4].y)/2.0);
-        [path moveToPoint:pts[0]];
-        [path addCurveToPoint:pts[3] controlPoint1:pts[1] controlPoint2:pts[2]];
-        [self setNeedsDisplay];
-//        
-//        [path moveToPoint:pts[0]];
-//        [path addCurveToPoint:pts[3] controlPoint1:pts[1] controlPoint2:pts[2]];
-//        [self setNeedsDisplay];
+        float x = ([self.points[2] CGPointValue].x + [self.points[4] CGPointValue].x)/2.0;
+        float y = ([self.points[2] CGPointValue].y + [self.points[4] CGPointValue].y)/2.0;
+        self.points[3] = [NSValue valueWithCGPoint:CGPointMake(x, y)];
+        [self.path moveToPoint:[self.points[0] CGPointValue]];
         
-        pts[0] = pts[3];
-        pts[1] = pts[4];
-        cnt = 1;
+        [self.path addCurveToPoint:[self.points[3] CGPointValue] controlPoint1:[self.points[1] CGPointValue]
+                                                               controlPoint2:[self.points[2] CGPointValue]];
+        [self setNeedsDisplay];
+
+        self.points[0] = self.points[3];
+        self.points[1] = self.points[4];
+        self.index = 1;
         
     }
     
-//    [path addLineToPoint:p];
-//    [self setNeedsDisplay];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-//    UITouch *touch = [touches anyObject];
-//    CGPoint p = [touch locationInView:self];
-//    [path addLineToPoint:p];
-//    
+
     [self drawBitmap];
     [self setNeedsDisplay];
-    [path removeAllPoints];
-    cnt = 0;
+    [self.path removeAllPoints];
+    self.index = 0;
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
@@ -92,27 +89,27 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    [incrImage drawInRect:rect];
+    [self.tempImage drawInRect:rect];
     [[UIColor blackColor] setStroke];
-    [path stroke];
+    [self.path stroke];
 }
 
 - (void)drawBitmap
 {
-    UIGraphicsBeginImageContextWithOptions(viewSize, NO, 0.0);
+    UIGraphicsBeginImageContextWithOptions(self.viewSize, NO, 0.0);
     [[UIColor blackColor] setStroke];
-    if (!incrImage) // first draw; paint background white by ...
+    if (!self.tempImage)
     {
-        UIBezierPath *rectpath = [UIBezierPath bezierPathWithRect:self.bounds]; // enclosing bitmap by a rectangle defined by another UIBezierPath object
+        UIBezierPath *rectpath = [UIBezierPath bezierPathWithRect:self.bounds];
         [[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0] setFill];
-        [rectpath fill]; // filling it with white
+        [rectpath fill];
         NSLog(@"First draw!!");
     }
-    [incrImage drawAtPoint:CGPointZero];
-    [path stroke];
+    [self.tempImage drawAtPoint:CGPointZero];
+    [self.path stroke];
     
     [self.layer renderInContext:UIGraphicsGetCurrentContext()];
-    incrImage = UIGraphicsGetImageFromCurrentImageContext();
+    self.tempImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     NSLog(@"Touches ended! Draw bitmap!");
 }

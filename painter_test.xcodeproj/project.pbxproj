@@ -39,8 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1806E4DE18EAC77A000D8594 /* PaintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintView.h; sourceTree = "<group>"; };
-		1806E4DF18EAC77A000D8594 /* PaintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintView.m; sourceTree = "<group>"; };
+		1806E4DE18EAC77A000D8594 /* PaintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaintView.h; path = ../PaintView.h; sourceTree = "<group>"; };
+		1806E4DF18EAC77A000D8594 /* PaintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaintView.m; path = ../PaintView.m; sourceTree = "<group>"; };
 		1806E4E118EAE057000D8594 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		1869229318E83166001474AD /* painter_test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = painter_test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1869229618E83166001474AD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -96,8 +96,6 @@
 		1869228A18E83166001474AD = {
 			isa = PBXGroup;
 			children = (
-				1806E4DE18EAC77A000D8594 /* PaintView.h */,
-				1806E4DF18EAC77A000D8594 /* PaintView.m */,
 				1869229E18E83166001474AD /* painter_test */,
 				186922C518E83167001474AD /* painter_testTests */,
 				1869229518E83166001474AD /* Frameworks */,
@@ -130,12 +128,8 @@
 		1869229E18E83166001474AD /* painter_test */ = {
 			isa = PBXGroup;
 			children = (
-				186922AA18E83166001474AD /* Main_iPhone.storyboard */,
-				186922AD18E83166001474AD /* Main_iPad.storyboard */,
-				186922B018E83166001474AD /* ViewController.h */,
-				186922B118E83166001474AD /* ViewController.m */,
-				186922B318E83166001474AD /* MyScene.h */,
-				186922B418E83166001474AD /* MyScene.m */,
+				1C3FA86C18EAFCB800B87A88 /* Controllers */,
+				1C3FA86B18EAFCAB00B87A88 /* Views */,
 				186922B818E83166001474AD /* Images.xcassets */,
 				1869229F18E83166001474AD /* Supporting Files */,
 			);
@@ -171,6 +165,28 @@
 				186922C818E83167001474AD /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1C3FA86B18EAFCAB00B87A88 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				186922AA18E83166001474AD /* Main_iPhone.storyboard */,
+				186922AD18E83166001474AD /* Main_iPad.storyboard */,
+				186922B318E83166001474AD /* MyScene.h */,
+				186922B418E83166001474AD /* MyScene.m */,
+				1806E4DE18EAC77A000D8594 /* PaintView.h */,
+				1806E4DF18EAC77A000D8594 /* PaintView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		1C3FA86C18EAFCB800B87A88 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				186922B018E83166001474AD /* ViewController.h */,
+				186922B118E83166001474AD /* ViewController.m */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
