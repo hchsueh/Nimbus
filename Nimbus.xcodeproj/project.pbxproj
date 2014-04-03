@@ -25,7 +25,9 @@
 		186922C118E83167001474AD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1869229618E83166001474AD /* Foundation.framework */; };
 		186922C218E83167001474AD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1869229A18E83166001474AD /* UIKit.framework */; };
 		186922CA18E83167001474AD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 186922C818E83167001474AD /* InfoPlist.strings */; };
-		186922CC18E83167001474AD /* painter_testTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 186922CB18E83167001474AD /* painter_testTests.m */; };
+		186922CC18E83167001474AD /* NimbusTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 186922CB18E83167001474AD /* NimbusTest.m */; };
+		1C3FA87018EBDB7800B87A88 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C3FA86E18EBDB7800B87A88 /* spark.png */; };
+		1C3FA87518EBECAC00B87A88 /* Particle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1C3FA87418EBECAC00B87A88 /* Particle.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,15 +44,15 @@
 		1806E4DE18EAC77A000D8594 /* PaintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaintView.h; path = ../PaintView.h; sourceTree = "<group>"; };
 		1806E4DF18EAC77A000D8594 /* PaintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaintView.m; path = ../PaintView.m; sourceTree = "<group>"; };
 		1806E4E118EAE057000D8594 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		1869229318E83166001474AD /* painter_test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = painter_test.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1869229318E83166001474AD /* Nimbus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nimbus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1869229618E83166001474AD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1869229818E83166001474AD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		1869229A18E83166001474AD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1869229C18E83166001474AD /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
-		186922A018E83166001474AD /* painter_test-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "painter_test-Info.plist"; sourceTree = "<group>"; };
+		186922A018E83166001474AD /* Nimbus-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Nimbus-Info.plist"; sourceTree = "<group>"; };
 		186922A218E83166001474AD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		186922A418E83166001474AD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		186922A618E83166001474AD /* painter_test-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "painter_test-Prefix.pch"; sourceTree = "<group>"; };
+		186922A618E83166001474AD /* Nimbus-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nimbus-Prefix.pch"; sourceTree = "<group>"; };
 		186922A718E83166001474AD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		186922A818E83166001474AD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		186922AB18E83166001474AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
@@ -60,11 +62,13 @@
 		186922B318E83166001474AD /* MyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
 		186922B418E83166001474AD /* MyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
 		186922B818E83166001474AD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		186922BE18E83167001474AD /* painter_testTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = painter_testTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		186922BE18E83167001474AD /* NimbusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NimbusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		186922BF18E83167001474AD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		186922C718E83167001474AD /* painter_testTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "painter_testTests-Info.plist"; sourceTree = "<group>"; };
+		186922C718E83167001474AD /* NimbusTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NimbusTests-Info.plist"; sourceTree = "<group>"; };
 		186922C918E83167001474AD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		186922CB18E83167001474AD /* painter_testTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = painter_testTests.m; sourceTree = "<group>"; };
+		186922CB18E83167001474AD /* NimbusTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NimbusTest.m; sourceTree = "<group>"; };
+		1C3FA86E18EBDB7800B87A88 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spark.png; path = Resources/spark.png; sourceTree = "<group>"; };
+		1C3FA87418EBECAC00B87A88 /* Particle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Particle.sks; path = Resources/Particle.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,8 +100,8 @@
 		1869228A18E83166001474AD = {
 			isa = PBXGroup;
 			children = (
-				1869229E18E83166001474AD /* painter_test */,
-				186922C518E83167001474AD /* painter_testTests */,
+				1869229E18E83166001474AD /* Nimbus */,
+				186922C518E83167001474AD /* Numbus_Tests */,
 				1869229518E83166001474AD /* Frameworks */,
 				1869229418E83166001474AD /* Products */,
 			);
@@ -106,8 +110,8 @@
 		1869229418E83166001474AD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1869229318E83166001474AD /* painter_test.app */,
-				186922BE18E83167001474AD /* painter_testTests.xctest */,
+				1869229318E83166001474AD /* Nimbus.app */,
+				186922BE18E83167001474AD /* NimbusTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -125,15 +129,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		1869229E18E83166001474AD /* painter_test */ = {
+		1869229E18E83166001474AD /* Nimbus */ = {
 			isa = PBXGroup;
 			children = (
 				1C3FA86C18EAFCB800B87A88 /* Controllers */,
 				1C3FA86B18EAFCAB00B87A88 /* Views */,
 				186922B818E83166001474AD /* Images.xcassets */,
 				1869229F18E83166001474AD /* Supporting Files */,
+				1C3FA87118EBEC2900B87A88 /* Resources */,
 			);
-			path = painter_test;
+			path = Nimbus;
 			sourceTree = "<group>";
 		};
 		1869229F18E83166001474AD /* Supporting Files */ = {
@@ -141,27 +146,28 @@
 			children = (
 				186922A718E83166001474AD /* AppDelegate.h */,
 				186922A818E83166001474AD /* AppDelegate.m */,
-				186922A018E83166001474AD /* painter_test-Info.plist */,
+				186922A018E83166001474AD /* Nimbus-Info.plist */,
 				186922A118E83166001474AD /* InfoPlist.strings */,
 				186922A418E83166001474AD /* main.m */,
-				186922A618E83166001474AD /* painter_test-Prefix.pch */,
+				186922A618E83166001474AD /* Nimbus-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		186922C518E83167001474AD /* painter_testTests */ = {
+		186922C518E83167001474AD /* Numbus_Tests */ = {
 			isa = PBXGroup;
 			children = (
-				186922CB18E83167001474AD /* painter_testTests.m */,
+				186922CB18E83167001474AD /* NimbusTest.m */,
 				186922C618E83167001474AD /* Supporting Files */,
 			);
-			path = painter_testTests;
+			name = Numbus_Tests;
+			path = Nimbus_Tests;
 			sourceTree = "<group>";
 		};
 		186922C618E83167001474AD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				186922C718E83167001474AD /* painter_testTests-Info.plist */,
+				186922C718E83167001474AD /* NimbusTests-Info.plist */,
 				186922C818E83167001474AD /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -189,12 +195,22 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		1C3FA87118EBEC2900B87A88 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1C3FA86E18EBDB7800B87A88 /* spark.png */,
+				1C3FA87418EBECAC00B87A88 /* Particle.sks */,
+			);
+			name = Resources;
+			path = ..;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1869229218E83166001474AD /* painter_test */ = {
+		1869229218E83166001474AD /* Nimbus */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 186922CF18E83167001474AD /* Build configuration list for PBXNativeTarget "painter_test" */;
+			buildConfigurationList = 186922CF18E83167001474AD /* Build configuration list for PBXNativeTarget "Nimbus" */;
 			buildPhases = (
 				1869228F18E83166001474AD /* Sources */,
 				1869229018E83166001474AD /* Frameworks */,
@@ -204,14 +220,14 @@
 			);
 			dependencies = (
 			);
-			name = painter_test;
+			name = Nimbus;
 			productName = painter_test;
-			productReference = 1869229318E83166001474AD /* painter_test.app */;
+			productReference = 1869229318E83166001474AD /* Nimbus.app */;
 			productType = "com.apple.product-type.application";
 		};
-		186922BD18E83167001474AD /* painter_testTests */ = {
+		186922BD18E83167001474AD /* NimbusTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 186922D218E83167001474AD /* Build configuration list for PBXNativeTarget "painter_testTests" */;
+			buildConfigurationList = 186922D218E83167001474AD /* Build configuration list for PBXNativeTarget "NimbusTests" */;
 			buildPhases = (
 				186922BA18E83167001474AD /* Sources */,
 				186922BB18E83167001474AD /* Frameworks */,
@@ -222,9 +238,9 @@
 			dependencies = (
 				186922C418E83167001474AD /* PBXTargetDependency */,
 			);
-			name = painter_testTests;
+			name = NimbusTests;
 			productName = painter_testTests;
-			productReference = 186922BE18E83167001474AD /* painter_testTests.xctest */;
+			productReference = 186922BE18E83167001474AD /* NimbusTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -234,14 +250,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0500;
-				ORGANIZATIONNAME = Hsueh;
+				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					186922BD18E83167001474AD = {
 						TestTargetID = 1869229218E83166001474AD;
 					};
 				};
 			};
-			buildConfigurationList = 1869228E18E83166001474AD /* Build configuration list for PBXProject "painter_test" */;
+			buildConfigurationList = 1869228E18E83166001474AD /* Build configuration list for PBXProject "Nimbus" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -254,8 +270,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1869229218E83166001474AD /* painter_test */,
-				186922BD18E83167001474AD /* painter_testTests */,
+				1869229218E83166001474AD /* Nimbus */,
+				186922BD18E83167001474AD /* NimbusTests */,
 			);
 		};
 /* End PBXProject section */
@@ -265,6 +281,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C3FA87018EBDB7800B87A88 /* spark.png in Resources */,
+				1C3FA87518EBECAC00B87A88 /* Particle.sks in Resources */,
 				186922B918E83166001474AD /* Images.xcassets in Resources */,
 				186922AF18E83166001474AD /* Main_iPad.storyboard in Resources */,
 				186922AC18E83166001474AD /* Main_iPhone.storyboard in Resources */,
@@ -299,7 +317,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				186922CC18E83167001474AD /* painter_testTests.m in Sources */,
+				186922CC18E83167001474AD /* NimbusTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,7 +326,7 @@
 /* Begin PBXTargetDependency section */
 		186922C418E83167001474AD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 1869229218E83166001474AD /* painter_test */;
+			target = 1869229218E83166001474AD /* Nimbus */;
 			targetProxy = 186922C318E83167001474AD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -428,10 +446,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "painter_test/painter_test-Prefix.pch";
-				INFOPLIST_FILE = "painter_test/painter_test-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "Nimbus/Nimbus-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Nimbus/Nimbus-Info.plist";
+				PRODUCT_NAME = Nimbus;
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -442,10 +461,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "painter_test/painter_test-Prefix.pch";
-				INFOPLIST_FILE = "painter_test/painter_test-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "Nimbus/Nimbus-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Nimbus/Nimbus-Info.plist";
+				PRODUCT_NAME = Nimbus;
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -468,7 +488,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "painter_testTests/painter_testTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = NimbusTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -487,7 +507,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "painter_test/painter_test-Prefix.pch";
 				INFOPLIST_FILE = "painter_testTests/painter_testTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = NimbusTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -496,7 +516,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1869228E18E83166001474AD /* Build configuration list for PBXProject "painter_test" */ = {
+		1869228E18E83166001474AD /* Build configuration list for PBXProject "Nimbus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				186922CD18E83167001474AD /* Debug */,
@@ -505,7 +525,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		186922CF18E83167001474AD /* Build configuration list for PBXNativeTarget "painter_test" */ = {
+		186922CF18E83167001474AD /* Build configuration list for PBXNativeTarget "Nimbus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				186922D018E83167001474AD /* Debug */,
@@ -514,7 +534,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		186922D218E83167001474AD /* Build configuration list for PBXNativeTarget "painter_testTests" */ = {
+		186922D218E83167001474AD /* Build configuration list for PBXNativeTarget "NimbusTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				186922D318E83167001474AD /* Debug */,

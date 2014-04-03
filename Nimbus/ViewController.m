@@ -30,9 +30,8 @@
     [skView presentScene: scene];
     
 
-    PaintView *paint = [[PaintView alloc]initWithFrame: self.view.bounds];
-    [self.view addSubview: paint];
-
+    PaintView *paintView = [[PaintView alloc]initWithFrame: self.view.bounds];
+    [self.view addSubview: paintView];
 
     [super viewDidLoad];
     

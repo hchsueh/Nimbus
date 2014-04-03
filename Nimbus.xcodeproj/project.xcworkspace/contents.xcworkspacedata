@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:painter_test.xcodeproj">
+      location = "self:Nimbus.xcodeproj">
    </FileRef>
 </Workspace>

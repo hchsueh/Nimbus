@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1869229218E83166001474AD"
                BuildableName = "painter_test.app"
-               BlueprintName = "painter_test"
-               ReferencedContainer = "container:painter_test.xcodeproj">
+               BlueprintName = "Nimbus"
+               ReferencedContainer = "container:Nimbus.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "186922BD18E83167001474AD"
                BuildableName = "painter_testTests.xctest"
-               BlueprintName = "painter_testTests"
-               ReferencedContainer = "container:painter_test.xcodeproj">
+               BlueprintName = "NimbusTests"
+               ReferencedContainer = "container:Nimbus.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,8 +44,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1869229218E83166001474AD"
             BuildableName = "painter_test.app"
-            BlueprintName = "painter_test"
-            ReferencedContainer = "container:painter_test.xcodeproj">
+            BlueprintName = "Nimbus"
+            ReferencedContainer = "container:Nimbus.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -63,8 +63,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1869229218E83166001474AD"
             BuildableName = "painter_test.app"
-            BlueprintName = "painter_test"
-            ReferencedContainer = "container:painter_test.xcodeproj">
+            BlueprintName = "Nimbus"
+            ReferencedContainer = "container:Nimbus.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -81,8 +81,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1869229218E83166001474AD"
             BuildableName = "painter_test.app"
-            BlueprintName = "painter_test"
-            ReferencedContainer = "container:painter_test.xcodeproj">
+            BlueprintName = "Nimbus"
+            ReferencedContainer = "container:Nimbus.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
