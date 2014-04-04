@@ -88,6 +88,8 @@
     [self drawBitmap];
     self.index = 0;
     [self.delegate closePath];
+    [self.delegate pauseDrawing];
+
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event

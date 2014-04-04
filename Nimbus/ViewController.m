@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) PaintView *paintView;
 @property (strong, nonatomic) ParticleScene *particleScene;
+@property (strong, nonatomic) NSTimer *timer;
 
 @end
 
@@ -48,21 +49,31 @@
 
 - (void)stopDrawing {
 
-    [self.particleScene clearAll];
     self.paintView.canDraw = false;
+    self.particleScene.alpha = 0;
 
 }
 
 // Protocol Methods
 
+- (void)pauseDrawing {
+
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                  target:self
+                                                selector:@selector(stopDrawing)
+                                                userInfo:nil
+                                                 repeats:NO];
+
+}
+
 - (void)startDrawing {
-
-    [NSTimer scheduledTimerWithTimeInterval:2.0
-                                     target:self
-                                   selector:@selector(stopDrawing)
-                                   userInfo:nil
-                                    repeats:NO];
-
+    
+    [NSTimer scheduledTimerWithTimeInterval:10.0
+                                    target:self
+                                  selector:@selector(stopDrawing)
+                                  userInfo:nil
+                                   repeats:NO];
+    
 }
 
 - (void)createPath:(UIBezierPath *)path withTimeInterval:(NSTimeInterval)interval {
@@ -80,6 +91,7 @@
 - (void)beginPath:(CGPoint)position{
 
     [self.particleScene beginMoving:position];
+    [self.timer invalidate];
 
 }
 

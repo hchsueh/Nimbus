@@ -21,7 +21,6 @@
     if (self = [super initWithSize:size]) {
         
         self.backgroundColor = [SKColor colorWithRed:0 green:0 blue:0 alpha:1.0];
-
         
     }
     return self;
@@ -60,17 +59,16 @@
     [self addChild:self.particle];
     [self addChild:self.fire];
 
-
 }
 
--(void)clearAll{
-
-    self.particle.particleAlpha = 0;
-    self.particle.particleAlphaRange = 0;
-    self.fire.particleAlpha = 0;
-    self.fire.particleAlphaRange = 0;
-    
-}
+//-(void)clearAll{
+//
+//    self.particle.particleAlpha = 0;
+//    self.particle.particleAlphaRange = 0;
+//    self.fire.particleAlpha = 0;
+//    self.fire.particleAlphaRange = 0;
+//    
+//}
 
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */

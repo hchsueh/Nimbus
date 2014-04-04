@@ -14,6 +14,7 @@
 - (void)createPath:(UIBezierPath *)path withTimeInterval:(NSTimeInterval)interval;
 - (void)closePath;
 - (void)beginPath;
+- (void)pauseDrawing;
 - (void)startDrawing;
 
 @end

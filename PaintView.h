@@ -14,6 +14,7 @@
 - (void)closePath;
 - (void)beginPath:(CGPoint)position;
 - (void)startDrawing;
+- (void)pauseDrawing;
 
 @end
 
