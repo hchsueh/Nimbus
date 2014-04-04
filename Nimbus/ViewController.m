@@ -7,40 +7,85 @@
 //
 
 #import "ViewController.h"
-#import "MyScene.h"
+#import "ParticleScene.h"
 #import "PaintView.h"
+
+@interface ViewController()
+
+@property (strong, nonatomic) PaintView *paintView;
+@property (strong, nonatomic) ParticleScene *particleScene;
+
+@end
 
 @implementation ViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     
     // Configure the view.
     SKView * skView = (SKView *)self.view;
-    skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
+    skView.showsFPS = NO;
+    skView.showsNodeCount = NO;
     
     // Create and configure the scene.
-    SKScene * scene = [MyScene sceneWithSize: skView.bounds.size];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
+    self.particleScene = [ParticleScene sceneWithSize: skView.bounds.size];
+    self.particleScene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.
-    [skView presentScene: scene];
+    [skView presentScene: self.particleScene];
     
-
-    PaintView *paintView = [[PaintView alloc]initWithFrame: self.view.bounds];
-    [self.view addSubview: paintView];
+    // put paintView
+    self.paintView = [[PaintView alloc] initWithFrame: self.view.bounds];
+    self.paintView.delegate = self;
+    self.paintView.canDraw = true;
+    [self.view addSubview: self.paintView];
 
     [super viewDidLoad];
     
     
 }
 
+- (void)stopDrawing {
+
+    [self.particleScene clearAll];
+    self.paintView.canDraw = false;
+
+}
+
+// Protocol Methods
+
+- (void)startDrawing {
+
+    [NSTimer scheduledTimerWithTimeInterval:2.0
+                                     target:self
+                                   selector:@selector(stopDrawing)
+                                   userInfo:nil
+                                    repeats:NO];
+
+}
+
+- (void)createPath:(UIBezierPath *)path withTimeInterval:(NSTimeInterval)interval {
+
+    [self.particleScene followPath:path withTimeInterval:interval];
+
+}
+
+- (void)closePath{
+
+    [self.particleScene endMoving];
+
+}
+
+- (void)beginPath:(CGPoint)position{
+
+    [self.particleScene beginMoving:position];
+
+}
+
 - (BOOL)shouldAutorotate
 {
-    return YES;
+    return NO;
 }
 
 - (NSUInteger)supportedInterfaceOrientations

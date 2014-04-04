@@ -11,11 +11,13 @@
 
 @interface PaintView()
 
-@property (strong, nonatomic) UIBezierPath *path;
-@property (strong, nonatomic) UIImage *tempImage;
+@property (strong, nonatomic) UIImage *storedImage;
+@property (strong, nonatomic) UIImage *glowPathImage;
 @property (nonatomic) CGSize viewSize;
 @property (strong, nonatomic) NSMutableArray *points;
 @property (nonatomic) uint index;
+@property (strong, nonatomic) NSDate *pathBeganTime;
+@property (nonatomic) BOOL isFirstDraw;
 
 @end
 
@@ -26,12 +28,12 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        self.path = [UIBezierPath bezierPath];
-        self.path.lineWidth = 5.0;
-        self.path.lineCapStyle = kCGLineCapRound;
-        self.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0];
         self.viewSize = self.bounds.size;
         self.points = [[NSMutableArray alloc] initWithCapacity:5];
+        self.paths = [NSMutableArray array];
+        self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+        self.isFirstDraw = true;
+
     }
     
     return self;
@@ -39,47 +41,53 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    UITouch *touch = [touches anyObject];
-    
-    self.index = 0;
-    self.points[0] = [NSValue valueWithCGPoint:[touch locationInView:self]];
-    
-    NSLog(@"touch begins!");
+    if(self.canDraw){
+        
+        UITouch *touch = [touches anyObject];
+        
+        // initiate path
+        UIBezierPath *path = [UIBezierPath bezierPath];
+        [self.paths addObject:path];
+        
+        self.index = 0;
+        CGPoint p = [touch locationInView:self];
+        self.points[0] = [NSValue valueWithCGPoint:p];
+        
+        self.pathBeganTime = [NSDate date];
+        
+        [self.delegate beginPath: CGPointMake(p.x, self.frame.size.height - p.y)];
+        if(self.isFirstDraw){
+        
+            self.isFirstDraw = false;
+            [self.delegate startDrawing];
+        
+        }
+    }
 }
 
-- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = [touches anyObject];
-    CGPoint p = [touch locationInView:self];
-    
-    self.index++;
-    self.points[self.index] = [NSValue valueWithCGPoint:p];
-    
-    if(self.index==4)
-    {
-        float x = ([self.points[2] CGPointValue].x + [self.points[4] CGPointValue].x)/2.0;
-        float y = ([self.points[2] CGPointValue].y + [self.points[4] CGPointValue].y)/2.0;
-        self.points[3] = [NSValue valueWithCGPoint:CGPointMake(x, y)];
-        [self.path moveToPoint:[self.points[0] CGPointValue]];
+- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if(self.canDraw){
+        UITouch *touch = [touches anyObject];
+        CGPoint p = [touch locationInView:self];
         
-        [self.path addCurveToPoint:[self.points[3] CGPointValue] controlPoint1:[self.points[1] CGPointValue]
-                                                               controlPoint2:[self.points[2] CGPointValue]];
-        [self setNeedsDisplay];
-
-        self.points[0] = self.points[3];
-        self.points[1] = self.points[4];
-        self.index = 1;
+        self.index++;
+        self.points[self.index] = [NSValue valueWithCGPoint:p];
         
+        if(self.index == 4){
+            
+            [self.delegate createPath:[self createBezier] withTimeInterval:[self.pathBeganTime timeIntervalSinceNow]*(-1)];
+            self.pathBeganTime = [NSDate date];
+            
+        }
     }
-    
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-
     [self drawBitmap];
-    [self setNeedsDisplay];
-    [self.path removeAllPoints];
     self.index = 0;
+    [self.delegate closePath];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
@@ -89,29 +97,58 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    [self.tempImage drawInRect:rect];
-    [[UIColor blackColor] setStroke];
-    [self.path stroke];
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//    
+//    // clear context
+//    CGContextClearRect(context, self.bounds);
+//
+//    // draw stored image
+//    [self.storedImage drawInRect:rect];
+//
+//    // set color of path and shadow/glow
+//    CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
+//    CGContextSetShadowWithColor(context, CGSizeMake(0, 0), 5.0, [UIColor whiteColor].CGColor);
+//    
+//    // put path on
+//    CGContextAddPath(context, [[self.paths lastObject] CGPath]);
+//    CGContextSetLineWidth(context,  1);
+//    CGContextStrokePath(context);
 }
 
 - (void)drawBitmap
 {
     UIGraphicsBeginImageContextWithOptions(self.viewSize, NO, 0.0);
-    [[UIColor blackColor] setStroke];
-    if (!self.tempImage)
-    {
-        UIBezierPath *rectpath = [UIBezierPath bezierPathWithRect:self.bounds];
-        [[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0] setFill];
-        [rectpath fill];
-        NSLog(@"First draw!!");
-    }
-    [self.tempImage drawAtPoint:CGPointZero];
-    [self.path stroke];
-    
+    [self.storedImage drawAtPoint:CGPointZero];
     [self.layer renderInContext:UIGraphicsGetCurrentContext()];
-    self.tempImage = UIGraphicsGetImageFromCurrentImageContext();
+    self.storedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    NSLog(@"Touches ended! Draw bitmap!");
+}
+
+- (UIBezierPath *)createBezier
+{
+    
+    float x = ([self.points[2] CGPointValue].x + [self.points[4] CGPointValue].x)/2.0;
+    float y = ([self.points[2] CGPointValue].y + [self.points[4] CGPointValue].y)/2.0;
+    self.points[3] = [NSValue valueWithCGPoint:CGPointMake(x, y)];
+    
+    UIBezierPath *pathSegment = [UIBezierPath bezierPath];
+    [[self.paths lastObject] moveToPoint:[self.points[0] CGPointValue]];
+    [pathSegment moveToPoint:[self.points[0] CGPointValue]];
+    
+    [[self.paths lastObject] addCurveToPoint:[self.points[3] CGPointValue]
+            controlPoint1:[self.points[1] CGPointValue]
+            controlPoint2:[self.points[2] CGPointValue]];
+    [pathSegment addCurveToPoint:[self.points[3] CGPointValue]
+                   controlPoint1:[self.points[1] CGPointValue]
+                   controlPoint2:[self.points[2] CGPointValue]];
+    
+    self.points[0] = self.points[3];
+    self.points[1] = self.points[4];
+    self.index = 1;
+    
+    [self setNeedsDisplay];
+    return pathSegment;
+    
 }
 
 @end

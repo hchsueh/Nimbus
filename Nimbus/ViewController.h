@@ -11,4 +11,9 @@
 
 @interface ViewController : UIViewController
 
+- (void)createPath:(UIBezierPath *)path withTimeInterval:(NSTimeInterval)interval;
+- (void)closePath;
+- (void)beginPath;
+- (void)startDrawing;
+
 @end

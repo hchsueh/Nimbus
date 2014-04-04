@@ -8,6 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PaintView : UIView
+@protocol PathDelegate
+
+- (void)createPath:(UIBezierPath *)path withTimeInterval:(NSTimeInterval)interval;
+- (void)closePath;
+- (void)beginPath:(CGPoint)position;
+- (void)startDrawing;
+
+@end
+
+@interface PaintView : UIView <PathDelegate>
+
+@property (strong, nonatomic) NSMutableArray *paths;
+@property (assign, nonatomic) id delegate;
+@property (nonatomic) BOOL canDraw;
 
 @end
