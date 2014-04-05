@@ -9,12 +9,14 @@
 #import "ViewController.h"
 #import "ParticleScene.h"
 #import "PaintView.h"
+#import "PatternCollection.h"
 
 @interface ViewController()
 
 @property (strong, nonatomic) PaintView *paintView;
 @property (strong, nonatomic) ParticleScene *particleScene;
 @property (strong, nonatomic) NSTimer *timer;
+@property (strong, nonatomic) PatternCollection *collection;
 
 @end
 
@@ -44,6 +46,14 @@
 
     [super viewDidLoad];
     
+    self.collection = [[PatternCollection alloc] initWithFirstPattern];
+    for (Pattern *pattern in self.collection.patternsInCollection)
+    {
+        NSLog(@"there's a pattern in the collection named: %@ !", pattern.name);
+    }
+    
+    NSMutableArray *matchedResult = [self.collection matchWithPatternsInCollection:[UIImage imageNamed:@"BabyGoldenSnitchPattern"]];
+    NSLog(@"matched result: %d", [[matchedResult objectAtIndex:1] boolValue]);
     
 }
 
@@ -51,7 +61,7 @@
 
     self.paintView.canDraw = false;
     self.particleScene.alpha = 0;
-
+    
 }
 
 // Protocol Methods

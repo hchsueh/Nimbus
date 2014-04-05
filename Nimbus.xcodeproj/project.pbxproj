@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1806E4E018EAC77A000D8594 /* PaintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1806E4DF18EAC77A000D8594 /* PaintView.m */; };
 		1806E4E218EAE057000D8594 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1806E4E118EAE057000D8594 /* QuartzCore.framework */; };
+		1806E4F618EF25A0000D8594 /* Pattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 1806E4F318EF25A0000D8594 /* Pattern.m */; };
+		1806E4F718EF25A0000D8594 /* PatternCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1806E4F518EF25A0000D8594 /* PatternCollection.m */; };
 		1869229718E83166001474AD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1869229618E83166001474AD /* Foundation.framework */; };
 		1869229918E83166001474AD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1869229818E83166001474AD /* CoreGraphics.framework */; };
 		1869229B18E83166001474AD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1869229A18E83166001474AD /* UIKit.framework */; };
@@ -45,6 +47,10 @@
 		1806E4DE18EAC77A000D8594 /* PaintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaintView.h; path = ../PaintView.h; sourceTree = "<group>"; };
 		1806E4DF18EAC77A000D8594 /* PaintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaintView.m; path = ../PaintView.m; sourceTree = "<group>"; };
 		1806E4E118EAE057000D8594 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		1806E4F218EF25A0000D8594 /* Pattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Pattern.h; path = ../../Pattern.h; sourceTree = "<group>"; };
+		1806E4F318EF25A0000D8594 /* Pattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Pattern.m; path = ../../Pattern.m; sourceTree = "<group>"; };
+		1806E4F418EF25A0000D8594 /* PatternCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PatternCollection.h; path = ../../PatternCollection.h; sourceTree = "<group>"; };
+		1806E4F518EF25A0000D8594 /* PatternCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PatternCollection.m; path = ../../PatternCollection.m; sourceTree = "<group>"; };
 		1869229318E83166001474AD /* Nimbus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nimbus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1869229618E83166001474AD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1869229818E83166001474AD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -99,6 +105,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1806E4F118EF2589000D8594 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1806E4F218EF25A0000D8594 /* Pattern.h */,
+				1806E4F318EF25A0000D8594 /* Pattern.m */,
+				1806E4F418EF25A0000D8594 /* PatternCollection.h */,
+				1806E4F518EF25A0000D8594 /* PatternCollection.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		1869228A18E83166001474AD = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +151,7 @@
 		1869229E18E83166001474AD /* Nimbus */ = {
 			isa = PBXGroup;
 			children = (
+				1806E4F118EF2589000D8594 /* Models */,
 				1C3FA86C18EAFCB800B87A88 /* Controllers */,
 				1C3FA86B18EAFCAB00B87A88 /* Views */,
 				186922B818E83166001474AD /* Images.xcassets */,
@@ -309,7 +327,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1806E4F618EF25A0000D8594 /* Pattern.m in Sources */,
 				186922B518E83166001474AD /* ParticleScene.m in Sources */,
+				1806E4F718EF25A0000D8594 /* PatternCollection.m in Sources */,
 				186922B218E83166001474AD /* ViewController.m in Sources */,
 				186922A918E83166001474AD /* AppDelegate.m in Sources */,
 				1806E4E018EAC77A000D8594 /* PaintView.m in Sources */,
