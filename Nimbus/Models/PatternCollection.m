@@ -24,7 +24,7 @@
         //temporarily adding the first pattern to collection just for testing
         Pattern *pattern = [[Pattern alloc] init];
         pattern.name = @"Baby Golden Snitch";
-//        pattern.patternImage = [UIImage imageNamed:@"BabyGoldenSnitchPattern"];
+        pattern.patternImage = [UIImage imageNamed:@"BabyGoldenSnitchPattern"];
 //        pattern.guardianImage = nil;
 //        [self.patternsInCollection addObject:@"NANAN"];
         [self.patternsInCollection addObject:pattern];
@@ -34,8 +34,11 @@
 
 -(NSMutableArray *) patternsInCollection
 {
-    if (!_patternsInCollection) _patternsInCollection = [[NSMutableArray alloc] init];
-    NSLog(@"init patternsInCollection");
+    if (!_patternsInCollection)
+    {
+        _patternsInCollection = [[NSMutableArray alloc] init];
+        NSLog(@"init patternsInCollection");
+    }
     return _patternsInCollection;
 }
 

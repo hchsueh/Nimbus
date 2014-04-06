@@ -31,7 +31,7 @@
         self.viewSize = self.bounds.size;
         self.points = [[NSMutableArray alloc] initWithCapacity:5];
         self.paths = [NSMutableArray array];
-        self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+        self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0]; // transparent!
         self.isFirstDraw = true;
 
     }

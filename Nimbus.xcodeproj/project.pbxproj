@@ -28,6 +28,7 @@
 		186922C218E83167001474AD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1869229A18E83166001474AD /* UIKit.framework */; };
 		186922CA18E83167001474AD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 186922C818E83167001474AD /* InfoPlist.strings */; };
 		186922CC18E83167001474AD /* NimbusTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 186922CB18E83167001474AD /* NimbusTest.m */; };
+		18F0252518F0F75E002743CD /* AuxiliaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0252418F0F75E002743CD /* AuxiliaryView.m */; };
 		1C3FA87018EBDB7800B87A88 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C3FA86E18EBDB7800B87A88 /* spark.png */; };
 		1C3FA87518EBECAC00B87A88 /* Particle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1C3FA87418EBECAC00B87A88 /* Particle.sks */; };
 		1C3FA87F18EDDBB500B87A88 /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1C3FA87E18EDDBB500B87A88 /* Fire.sks */; };
@@ -74,6 +75,8 @@
 		186922C718E83167001474AD /* NimbusTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NimbusTests-Info.plist"; sourceTree = "<group>"; };
 		186922C918E83167001474AD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		186922CB18E83167001474AD /* NimbusTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NimbusTest.m; sourceTree = "<group>"; };
+		18F0252318F0F75E002743CD /* AuxiliaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuxiliaryView.h; sourceTree = "<group>"; };
+		18F0252418F0F75E002743CD /* AuxiliaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuxiliaryView.m; sourceTree = "<group>"; };
 		1C3FA86E18EBDB7800B87A88 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spark.png; path = Resources/spark.png; sourceTree = "<group>"; };
 		1C3FA87418EBECAC00B87A88 /* Particle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Particle.sks; path = Resources/Particle.sks; sourceTree = "<group>"; };
 		1C3FA87E18EDDBB500B87A88 /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Fire.sks; path = Resources/Fire.sks; sourceTree = "<group>"; };
@@ -202,6 +205,8 @@
 				186922B418E83166001474AD /* ParticleScene.m */,
 				1806E4DE18EAC77A000D8594 /* PaintView.h */,
 				1806E4DF18EAC77A000D8594 /* PaintView.m */,
+				18F0252318F0F75E002743CD /* AuxiliaryView.h */,
+				18F0252418F0F75E002743CD /* AuxiliaryView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -332,6 +337,7 @@
 				1806E4F718EF25A0000D8594 /* PatternCollection.m in Sources */,
 				186922B218E83166001474AD /* ViewController.m in Sources */,
 				186922A918E83166001474AD /* AppDelegate.m in Sources */,
+				18F0252518F0F75E002743CD /* AuxiliaryView.m in Sources */,
 				1806E4E018EAC77A000D8594 /* PaintView.m in Sources */,
 				186922A518E83166001474AD /* main.m in Sources */,
 			);

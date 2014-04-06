@@ -14,23 +14,35 @@
 
 - (CGContextRef) createARGBBitmapContextFromImage:(CGImageRef) inImage;
 
-- (UIColor*) getPixelColorAtLocation:(CGPoint)point ofImage:(UIImage *) image;
+- (NSNumber*) getPixelColorAtLocation:(CGPoint)point ofImage:(UIImage *) image;
 
 @end
 
 @implementation Pattern
 
--(float) match:(UIImage *) playerDrawnimage
+-(float) match:(UIImage *) playerDrawnImage
 {
     float score = 0;
     
     //perform matching operation
     NSMutableArray *standard = [self getRGBAsFromImage:self.patternImage];
-    NSMutableArray *player   = [self getRGBAsFromImage:playerDrawnimage];
+    
+    NSLog(@"Get array of standard pattern for operation!");
+    
+    NSMutableArray *player   = [self getRGBAsFromImage:playerDrawnImage];
+    
+    NSLog(@"Get two arrays for operation!");
     
     NSInteger count = [standard count];
+    NSLog(@"array count: %d",count);
+    
     for(int i=0 ; i<count ; i++)
     {
+        if([[standard objectAtIndex:i] floatValue] != [[player objectAtIndex:i] floatValue])
+        {
+//            NSLog(@"the two UIImage is different!");
+        }
+        
         score += fabsf( [[standard objectAtIndex:i] floatValue]
                         - [[player objectAtIndex:i] floatValue] );
     }
@@ -48,10 +60,10 @@
     {
         for( int j=0 ; j<height ; j++)
         {
-            [result addObject:[self getPixelColorAtLocation:CGPointMake((float)i, (float)j) ofImage:image]];
+            NSNumber *newNum = [self getPixelColorAtLocation:CGPointMake((float)i, (float)j) ofImage:image];
+            [result addObject:newNum];
         }
     }
-    
     return result;
 }
 
@@ -81,13 +93,13 @@
         //offset locates the pixel in the data from x,y.
         //4 for 4 bytes of data per pixel, w is width of one row of data.
         int offset = 4*((w*round(point.y))+round(point.x));
-        //int alpha =  data[offset];
-        int red = data[offset+1];
-        int green = data[offset+2];
-        int blue = data[offset+3];
+        int alpha =  data[offset];
+//        int red = data[offset+1];
+//        int green = data[offset+2];
+//        int blue = data[offset+3];
 //        NSLog(@"offset: %i colors: RGB A %i %i %i  %i",offset,red,green,blue,alpha);
-        
-        grayValue = [NSNumber numberWithFloat:(red + green + blue)/255.0];
+//        if(alpha != 0) NSLog(@"get non-zero alpha! alpha: %d",alpha);
+        grayValue = [NSNumber numberWithFloat:alpha/255.0];
 //        color = [UIColor colorWithRed:(red/255.0f) green:(green/255.0f) blue:(blue/255.0f) alpha:(alpha/255.0f)];
     }
     

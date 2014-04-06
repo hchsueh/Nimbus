@@ -20,7 +20,8 @@
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
         
-        self.backgroundColor = [SKColor colorWithRed:0 green:0 blue:0 alpha:1.0];
+//        self.backgroundColor = [SKColor colorWithRed:0 green:0 blue:0 alpha:1.0];
+        self.backgroundColor = [SKColor colorWithRed:0.3 green:0.3 blue:0.8 alpha:1.0];
         
     }
     return self;
