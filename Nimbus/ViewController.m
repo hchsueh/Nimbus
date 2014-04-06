@@ -54,8 +54,8 @@
     
     self.collection = [[PatternCollection alloc] initWithFirstPattern];
     
-    NSMutableArray *matchedResult = [self.collection matchWithPatternsInCollection:[UIImage imageNamed:@"BabyGoldenSnitchPattern"]];
-    NSLog(@"matched result: %d", [[matchedResult objectAtIndex:1] boolValue]);
+//    NSMutableArray *testMatchedResult = [self.collection matchWithPatternsInCollection:[UIImage imageNamed:@"BabyGoldenSnitchPattern"]];
+//    NSLog(@"test match result: %d", [[testMatchedResult objectAtIndex:1] boolValue]);
     
     self.playerDrawnImage = nil;
     
@@ -71,7 +71,7 @@
     
     NSMutableArray *temp = [self strokeImageWithColor:[UIColor blackColor] withPathsInArray:self.paintView.paths];
     UIImage *rawImage = [temp objectAtIndex:0];
-    NSLog(@"rawImage width:%f, height:%f", rawImage.size.width, rawImage.size.height);
+//    NSLog(@"rawImage width:%f, height:%f", rawImage.size.width, rawImage.size.height);
     CGRect rawImageBounds = [[temp objectAtIndex:1] CGRectValue];
     
     UIImageView *playerDrawnPathView = [[UIImageView alloc] initWithFrame:rawImageBounds];
@@ -80,9 +80,9 @@
     [playerDrawnPathView.layer setBorderWidth: 1.0];
     [self.view addSubview:playerDrawnPathView];
     
-    self.playerDrawnImage = [self imageWithImage:rawImage scaledToSize:CGSizeMake(200, 200)];
+    self.playerDrawnImage = [self imageWithImage:rawImage scaledToSize:CGSizeMake(100, 100)];
     
-    NSLog(@"playerDrawnImage get! height: %f, width: %f", self.playerDrawnImage.size.height, self.playerDrawnImage.size.width);
+//    NSLog(@"playerDrawnImage get! height: %f, width: %f", self.playerDrawnImage.size.height, self.playerDrawnImage.size.width);
 
     NSMutableArray *matchedResult = [self.collection matchWithPatternsInCollection:self.playerDrawnImage];
 //    NSLog(@"playerDrawnImage matching result: %d", [[matchedResult objectAtIndex:1] boolValue]);
@@ -140,6 +140,8 @@
     {
         [connectedPath appendPath:path];
     }
+    connectedPath.lineWidth = 5.0;
+    connectedPath.lineCapStyle = kCGLineCapRound;
     
     // adjust bounds to account for extra space needed for lineWidth
     CGFloat width = connectedPath.bounds.size.width + connectedPath.lineWidth * 2;
@@ -160,7 +162,18 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     // translate matrix so that path will be centered in bounds
-    CGContextTranslateCTM(context, -(bounds.origin.x - connectedPath.lineWidth), -(bounds.origin.y - connectedPath.lineWidth));
+    if( height > width )
+    {
+        CGContextTranslateCTM(context, -(bounds.origin.x - connectedPath.lineWidth) + (sideLength - width)/2,
+                              -(bounds.origin.y - connectedPath.lineWidth));
+//        NSLog(@"height > width, h:%f, w:%f, sideLength:%f", height, width, sideLength);
+    }
+    else
+    {
+        CGContextTranslateCTM(context, -(bounds.origin.x - connectedPath.lineWidth),
+                              -(bounds.origin.y - connectedPath.lineWidth) + (sideLength - height)/2);
+//        NSLog(@"width > height, w:%f, h:%f, sideLength:%f", width, height, sideLength);
+    }
     
     // set color
     [color set];
