@@ -6,6 +6,7 @@
 //
 //
 
+#import <Foundation/Foundation.h>
 #import "Pattern.h"
 
 @interface PatternCollection : NSObject
@@ -13,6 +14,6 @@
 @property (nonatomic, strong) NSMutableArray *patternsInCollection;
 
 -(instancetype) initWithFirstPattern;
--(NSMutableArray *) matchWithPatternsInCollection: (UIImage *) playerDrawnImage;
+-(NSMutableArray *) matchWithImage: (UIImage *) playerDrawnImage;
 
 @end

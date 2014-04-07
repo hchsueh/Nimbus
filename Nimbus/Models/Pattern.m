@@ -10,7 +10,7 @@
 
 @interface Pattern()
 
-@property (nonatomic, strong, readwrite) NSMutableArray *patternPixelInGrayscale;
+@property (nonatomic, strong) NSMutableArray *patternPixelInGrayscale;
 
 - (NSMutableArray*) getRGBAsFromImage:(UIImage*) image;
 - (CGContextRef) createARGBBitmapContextFromImage:(CGImageRef) inImage;
@@ -20,44 +20,40 @@
 
 @implementation Pattern
 
--(instancetype) initWithFirstPattern
+-(void) addFirstPatternPixel
 {
-    self = [super init];
+    self.patternPixelInGrayscale = [NSMutableArray arrayWithArray:[self getRGBAsFromImage:self.patternImage]];
+//    self.patternPixelInGrayscale = [self getRGBAsFromImage:self.patternImage];
+    NSLog(@"addFirstPatternPixel, array count: %d", [self.patternPixelInGrayscale count]);
 
-    if(self)
-    {
-        _name = @"Baby Golden Snitch";
-        self.patternImage = [UIImage imageNamed:@"BabyGoldenSnitchPattern"];
-        NSLog(@"self.patternImage w:%f, h:%f", self.patternImage.size.width, self.patternImage.size.height);
-        self.guardianImage = nil;
-//        self.patternPixelInGrayscale = [self getRGBAsFromImage:self.patternImage];
-        _patternPixelInGrayscale = [self getRGBAsFromImage:self.patternImage];
-//        for( NSNumber *value in self.patternPixelInGrayscale)
-//        {
-//            float valueFloat = [value floatValue];
-//            if( valueFloat != 0.0 ) NSLog(@"non-zero value!");
-//        }
-    }
-    
-    return self;
 }
 
 -(float) match:(UIImage *) playerDrawnImage
 {
     float score = 0;
     
-    //perform matching operation
-    NSMutableArray *standard = [self getRGBAsFromImage:self.patternImage];
-    NSMutableArray *standard2 = self.patternPixelInGrayscale;
-//    NSLog(@"self.name = %@", self.name);
-    NSLog(@"NAnana!");
-    NSLog(@"Equality check: %d", [standard isEqualToArray:standard2]);
-
-    // Get array of standard pattern for operation!
-    NSMutableArray *player   = [self getRGBAsFromImage:playerDrawnImage];
+    NSMutableArray *standard = [NSMutableArray arrayWithArray: [self getRGBAsFromImage:self.patternImage]];
+    
+//    NSLog(@"isNil? %d",[self.patternPixelInGrayscale isEqual:nil]);
+//    
+//    NSLog(@"standard == self.patternPixelInGrayscale? %d", [standard isEqualToArray:self.patternPixelInGrayscale]);
+    
+    for( int i=0; i<10000 ; i++)
+    {
+        NSNumber *num1 = [standard objectAtIndex:i];
+        NSNumber *num2 = [self.patternPixelInGrayscale objectAtIndex:i];
+        if( [num1 floatValue]!= [num2 floatValue]){
+            NSLog(@"oops!!!!!!!QQ at %d; %f != %f", i, [num1 floatValue], [num2 floatValue]);
+        }
+    }
+    
+    NSMutableArray *player   = [NSMutableArray arrayWithArray:[self getRGBAsFromImage:playerDrawnImage]];
     
     NSInteger count = [standard count];
 //    NSLog(@"array count: %d",count);
+//    NSInteger count2 = [self.patternPixelInGrayscale count];
+//    NSLog(@"array count2: %d",count2);
+
 //    NSInteger countPlayerImage = [player count];
 //    NSLog(@"player array count: %d", countPlayerImage);
     
@@ -66,15 +62,17 @@
         score += fabsf( [[standard objectAtIndex:i] floatValue]
                         - [[player objectAtIndex:i] floatValue] );
     }
+    
     return score;
 }
 
 - (NSMutableArray*) getRGBAsFromImage:(UIImage*)image
 {
-    NSMutableArray *result = [[NSMutableArray alloc] init];
     
     int width = image.size.width;
     int height = image.size.height;
+    
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:width*height];
     
     for( int i=0 ; i<width ; i++)
     {

@@ -19,31 +19,23 @@
     self = [super init];
     if(self)
     {
-        NSLog(@"initWithFirstPattern called!");
+        NSLog(@"LALALA initWithFirstPattern called!");
         
         //temporarily adding the first pattern to collection just for testing
-        Pattern *pattern = [[Pattern alloc] initWithFirstPattern];
+        Pattern *pattern = [[Pattern alloc] init];
+        pattern.name = @"Baby Golden Snitch";
+        pattern.patternImage = [UIImage imageNamed:@"BabyGoldenSnitchPattern"];
+        pattern.guardianImage = nil;
+        NSLog(@"initWithFirstPattern, patternImage w:%f, h:%f", pattern.patternImage.size.width, pattern.patternImage.size.height);
+        [pattern addFirstPatternPixel];
         
-//        Pattern *pattern = [[Pattern alloc] init];
-//        pattern.name = @"Baby Golden Snitch";
-//        pattern.patternImage = [UIImage imageNamed:@"BabyGoldenSnitchPattern"];
-//        pattern.guardianImage = nil;
-        [self.patternsInCollection addObject:pattern];
+        _patternsInCollection = [[NSMutableArray alloc] init];
+        [_patternsInCollection addObject:pattern];
     }
     return self;
 }
 
--(NSMutableArray *) patternsInCollection
-{
-    if (!_patternsInCollection)
-    {
-        _patternsInCollection = [[NSMutableArray alloc] init];
-        NSLog(@"init patternsInCollection");
-    }
-    return _patternsInCollection;
-}
-
--(NSMutableArray *) matchWithPatternsInCollection:(UIImage *)playerDrawnImage
+-(NSMutableArray *) matchWithImage:(UIImage *)playerDrawnImage
 {
     NSMutableArray *result = [[NSMutableArray alloc] init];
     [result addObject:[NSNumber numberWithBool:NO]];
@@ -52,10 +44,10 @@
     for( Pattern *pattern in self.patternsInCollection)
     {
         float score = [pattern match: playerDrawnImage];
-        
+        NSLog(@"now matching with pattern with name: %@", pattern.name);
         if(score <= 100.0) //threshold!!!!!!!!!!!!
         {
-            [result addObject:[NSNumber numberWithBool:YES]];
+            [result replaceObjectAtIndex:0 withObject:[NSNumber numberWithBool:YES]];
             [result addObject:[NSNumber numberWithFloat:score]];
             [result addObject:pattern.name];
             NSLog(@"Bingo! playerDrawnImage is matched with %@, and the score is: %f", pattern.name, score);

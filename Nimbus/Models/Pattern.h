@@ -10,11 +10,11 @@
 
 @interface Pattern : NSObject
 
-@property (nonatomic, strong, readwrite) NSString *name;
-@property (nonatomic, strong, readwrite) UIImage *patternImage;
-@property (nonatomic, strong, readwrite) UIImage *guardianImage;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) UIImage *patternImage;
+@property (nonatomic, strong) UIImage *guardianImage;
 
--(instancetype) initWithFirstPattern;
+-(void) addFirstPatternPixel;
 -(float) match: (UIImage *) playerDrawnImage;
 
 @end
