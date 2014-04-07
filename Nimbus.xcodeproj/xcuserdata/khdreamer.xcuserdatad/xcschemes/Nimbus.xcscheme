@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1869229218E83166001474AD"
-               BuildableName = "painter_test.app"
+               BuildableName = "Nimbus.app"
                BlueprintName = "Nimbus"
                ReferencedContainer = "container:Nimbus.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "186922BD18E83167001474AD"
-               BuildableName = "painter_testTests.xctest"
+               BuildableName = "NimbusTests.xctest"
                BlueprintName = "NimbusTests"
                ReferencedContainer = "container:Nimbus.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1869229218E83166001474AD"
-            BuildableName = "painter_test.app"
+            BuildableName = "Nimbus.app"
             BlueprintName = "Nimbus"
             ReferencedContainer = "container:Nimbus.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1869229218E83166001474AD"
-            BuildableName = "painter_test.app"
+            BuildableName = "Nimbus.app"
             BlueprintName = "Nimbus"
             ReferencedContainer = "container:Nimbus.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1869229218E83166001474AD"
-            BuildableName = "painter_test.app"
+            BuildableName = "Nimbus.app"
             BlueprintName = "Nimbus"
             ReferencedContainer = "container:Nimbus.xcodeproj">
          </BuildableReference>

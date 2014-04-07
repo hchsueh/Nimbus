@@ -42,8 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1806E4DE18EAC77A000D8594 /* PaintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaintView.h; path = ../PaintView.h; sourceTree = "<group>"; };
-		1806E4DF18EAC77A000D8594 /* PaintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaintView.m; path = ../PaintView.m; sourceTree = "<group>"; };
+		1806E4DE18EAC77A000D8594 /* PaintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintView.h; sourceTree = "<group>"; };
+		1806E4DF18EAC77A000D8594 /* PaintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintView.m; sourceTree = "<group>"; };
 		1806E4E118EAE057000D8594 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		1869229318E83166001474AD /* Nimbus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nimbus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1869229618E83166001474AD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -185,7 +185,7 @@
 				1806E4DE18EAC77A000D8594 /* PaintView.h */,
 				1806E4DF18EAC77A000D8594 /* PaintView.m */,
 			);
-			name = Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		1C3FA86C18EAFCB800B87A88 /* Controllers */ = {
@@ -194,7 +194,7 @@
 				186922B018E83166001474AD /* ViewController.h */,
 				186922B118E83166001474AD /* ViewController.m */,
 			);
-			name = Controllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		1C3FA87118EBEC2900B87A88 /* Resources */ = {
@@ -205,7 +205,6 @@
 				1C3FA87418EBECAC00B87A88 /* Particle.sks */,
 			);
 			name = Resources;
-			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -350,6 +349,7 @@
 				186922AB18E83166001474AD /* Base */,
 			);
 			name = Main_iPhone.storyboard;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		186922AD18E83166001474AD /* Main_iPad.storyboard */ = {
@@ -358,6 +358,7 @@
 				186922AE18E83166001474AD /* Base */,
 			);
 			name = Main_iPad.storyboard;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		186922C818E83167001474AD /* InfoPlist.strings */ = {
