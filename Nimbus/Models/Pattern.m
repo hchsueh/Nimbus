@@ -10,15 +10,37 @@
 
 @interface Pattern()
 
+@property (nonatomic, strong, readwrite) NSMutableArray *patternPixelInGrayscale;
+
 - (NSMutableArray*) getRGBAsFromImage:(UIImage*) image;
-
 - (CGContextRef) createARGBBitmapContextFromImage:(CGImageRef) inImage;
-
 - (NSNumber*) getPixelColorAtLocation:(CGPoint)point ofImage:(UIImage *) image;
 
 @end
 
 @implementation Pattern
+
+-(instancetype) initWithFirstPattern
+{
+    self = [super init];
+
+    if(self)
+    {
+        _name = @"Baby Golden Snitch";
+        self.patternImage = [UIImage imageNamed:@"BabyGoldenSnitchPattern"];
+        NSLog(@"self.patternImage w:%f, h:%f", self.patternImage.size.width, self.patternImage.size.height);
+        self.guardianImage = nil;
+//        self.patternPixelInGrayscale = [self getRGBAsFromImage:self.patternImage];
+        _patternPixelInGrayscale = [self getRGBAsFromImage:self.patternImage];
+//        for( NSNumber *value in self.patternPixelInGrayscale)
+//        {
+//            float valueFloat = [value floatValue];
+//            if( valueFloat != 0.0 ) NSLog(@"non-zero value!");
+//        }
+    }
+    
+    return self;
+}
 
 -(float) match:(UIImage *) playerDrawnImage
 {
@@ -26,23 +48,21 @@
     
     //perform matching operation
     NSMutableArray *standard = [self getRGBAsFromImage:self.patternImage];
-    
-    NSLog(@"Get array of standard pattern for operation!");
-    
+    NSMutableArray *standard2 = self.patternPixelInGrayscale;
+//    NSLog(@"self.name = %@", self.name);
+    NSLog(@"NAnana!");
+    NSLog(@"Equality check: %d", [standard isEqualToArray:standard2]);
+
+    // Get array of standard pattern for operation!
     NSMutableArray *player   = [self getRGBAsFromImage:playerDrawnImage];
     
-    NSLog(@"Get two arrays for operation!");
-    
     NSInteger count = [standard count];
-    NSLog(@"array count: %d",count);
+//    NSLog(@"array count: %d",count);
+//    NSInteger countPlayerImage = [player count];
+//    NSLog(@"player array count: %d", countPlayerImage);
     
     for(int i=0 ; i<count ; i++)
-    {
-        if([[standard objectAtIndex:i] floatValue] != [[player objectAtIndex:i] floatValue])
-        {
-//            NSLog(@"the two UIImage is different!");
-        }
-        
+    {        
         score += fabsf( [[standard objectAtIndex:i] floatValue]
                         - [[player objectAtIndex:i] floatValue] );
     }

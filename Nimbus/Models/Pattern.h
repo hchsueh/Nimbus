@@ -14,6 +14,7 @@
 @property (nonatomic, strong, readwrite) UIImage *patternImage;
 @property (nonatomic, strong, readwrite) UIImage *guardianImage;
 
+-(instancetype) initWithFirstPattern;
 -(float) match: (UIImage *) playerDrawnImage;
 
 @end

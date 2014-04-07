@@ -22,11 +22,12 @@
         NSLog(@"initWithFirstPattern called!");
         
         //temporarily adding the first pattern to collection just for testing
-        Pattern *pattern = [[Pattern alloc] init];
-        pattern.name = @"Baby Golden Snitch";
-        pattern.patternImage = [UIImage imageNamed:@"BabyGoldenSnitchPattern"];
+        Pattern *pattern = [[Pattern alloc] initWithFirstPattern];
+        
+//        Pattern *pattern = [[Pattern alloc] init];
+//        pattern.name = @"Baby Golden Snitch";
+//        pattern.patternImage = [UIImage imageNamed:@"BabyGoldenSnitchPattern"];
 //        pattern.guardianImage = nil;
-//        [self.patternsInCollection addObject:@"NANAN"];
         [self.patternsInCollection addObject:pattern];
     }
     return self;
@@ -46,7 +47,7 @@
 {
     NSMutableArray *result = [[NSMutableArray alloc] init];
     [result addObject:[NSNumber numberWithBool:NO]];
-    
+    NSLog(@"playerDrawnImage w:%f, h:%f", playerDrawnImage.size.width, playerDrawnImage.size.height);
     //do matching and conditioning
     for( Pattern *pattern in self.patternsInCollection)
     {

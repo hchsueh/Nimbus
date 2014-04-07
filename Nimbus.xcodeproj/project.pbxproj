@@ -45,8 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1806E4DE18EAC77A000D8594 /* PaintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaintView.h; path = ../PaintView.h; sourceTree = "<group>"; };
-		1806E4DF18EAC77A000D8594 /* PaintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaintView.m; path = ../PaintView.m; sourceTree = "<group>"; };
+		1806E4DE18EAC77A000D8594 /* PaintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaintView.h; path = Views/PaintView.h; sourceTree = "<group>"; };
+		1806E4DF18EAC77A000D8594 /* PaintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaintView.m; path = Views/PaintView.m; sourceTree = "<group>"; };
 		1806E4E118EAE057000D8594 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		1806E4F218EF25A0000D8594 /* Pattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Pattern.h; path = Models/Pattern.h; sourceTree = "<group>"; };
 		1806E4F318EF25A0000D8594 /* Pattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Pattern.m; path = Models/Pattern.m; sourceTree = "<group>"; };
@@ -65,18 +65,18 @@
 		186922A818E83166001474AD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		186922AB18E83166001474AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		186922AE18E83166001474AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		186922B018E83166001474AD /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		186922B118E83166001474AD /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		186922B318E83166001474AD /* ParticleScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParticleScene.h; sourceTree = "<group>"; };
-		186922B418E83166001474AD /* ParticleScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParticleScene.m; sourceTree = "<group>"; };
+		186922B018E83166001474AD /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = Controllers/ViewController.h; sourceTree = "<group>"; };
+		186922B118E83166001474AD /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = Controllers/ViewController.m; sourceTree = "<group>"; };
+		186922B318E83166001474AD /* ParticleScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ParticleScene.h; path = Views/ParticleScene.h; sourceTree = "<group>"; };
+		186922B418E83166001474AD /* ParticleScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ParticleScene.m; path = Views/ParticleScene.m; sourceTree = "<group>"; };
 		186922B818E83166001474AD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		186922BE18E83167001474AD /* NimbusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NimbusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		186922BF18E83167001474AD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		186922C718E83167001474AD /* NimbusTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NimbusTests-Info.plist"; sourceTree = "<group>"; };
 		186922C918E83167001474AD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		186922CB18E83167001474AD /* NimbusTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NimbusTest.m; sourceTree = "<group>"; };
-		18F0252318F0F75E002743CD /* AuxiliaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuxiliaryView.h; sourceTree = "<group>"; };
-		18F0252418F0F75E002743CD /* AuxiliaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuxiliaryView.m; sourceTree = "<group>"; };
+		18F0252318F0F75E002743CD /* AuxiliaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuxiliaryView.h; path = Views/AuxiliaryView.h; sourceTree = "<group>"; };
+		18F0252418F0F75E002743CD /* AuxiliaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuxiliaryView.m; path = Views/AuxiliaryView.m; sourceTree = "<group>"; };
 		1C3FA86E18EBDB7800B87A88 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spark.png; path = Resources/spark.png; sourceTree = "<group>"; };
 		1C3FA87418EBECAC00B87A88 /* Particle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Particle.sks; path = Resources/Particle.sks; sourceTree = "<group>"; };
 		1C3FA87E18EDDBB500B87A88 /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Fire.sks; path = Resources/Fire.sks; sourceTree = "<group>"; };
