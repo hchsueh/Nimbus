@@ -457,6 +457,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Nimbus/Nimbus-Info.plist";
 				PRODUCT_NAME = Nimbus;
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -472,6 +473,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Nimbus/Nimbus-Info.plist";
 				PRODUCT_NAME = Nimbus;
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

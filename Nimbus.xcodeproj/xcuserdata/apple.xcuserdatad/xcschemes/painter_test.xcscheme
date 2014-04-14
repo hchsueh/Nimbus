@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1869229218E83166001474AD"
-            BuildableName = "painter_test.app"
-            BlueprintName = "painter_test"
-            ReferencedContainer = "container:painter_test.xcodeproj">
+            BuildableName = "Nimbus.app"
+            BlueprintName = "Nimbus"
+            ReferencedContainer = "container:Nimbus.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1869229218E83166001474AD"
-            BuildableName = "painter_test.app"
-            BlueprintName = "painter_test"
-            ReferencedContainer = "container:painter_test.xcodeproj">
+            BuildableName = "Nimbus.app"
+            BlueprintName = "Nimbus"
+            ReferencedContainer = "container:Nimbus.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
