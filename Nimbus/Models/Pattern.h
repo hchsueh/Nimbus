@@ -14,7 +14,6 @@
 @property (nonatomic, strong) UIImage *patternImage;
 @property (nonatomic, strong) UIImage *guardianImage;
 
--(void) addFirstPatternPixel;
 -(float) match: (UIImage *) playerDrawnImage;
 
 @end
