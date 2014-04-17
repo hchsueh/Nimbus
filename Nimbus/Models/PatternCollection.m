@@ -33,6 +33,16 @@
     return self;
 }
 
+-(UIImage *) retrievePattern
+{
+    UIImage *image = nil;
+    for( Pattern *pattern in self.patternsInCollection)
+    {
+        image = [pattern retrievePattern];
+    }
+    return image;
+}
+
 -(NSMutableArray *) matchWithImage:(UIImage *)playerDrawnImage
 {
     NSMutableArray *result = [[NSMutableArray alloc] init];

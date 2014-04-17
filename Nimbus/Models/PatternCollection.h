@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSMutableArray *patternsInCollection;
 
 -(instancetype) initWithFirstPattern;
+-(UIImage *) retrievePattern;
 -(NSMutableArray *) matchWithImage: (UIImage *) playerDrawnImage;
 
 @end

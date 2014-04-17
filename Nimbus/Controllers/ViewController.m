@@ -56,6 +56,10 @@
     NSMutableArray *matchedResult = [self.collection matchWithImage:[UIImage imageNamed:@"BabyGoldenSnitchPattern"]];
     self.playerDrawnImage = nil;
     
+    UIImageView *testView = [[UIImageView alloc] initWithImage:[self.collection retrievePattern]];
+    [testView.layer setBorderWidth: 1.0];
+    [self.view addSubview:testView];
+    
 }
 
 - (void)stopDrawing {

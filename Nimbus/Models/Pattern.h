@@ -15,5 +15,6 @@
 @property (nonatomic, strong) UIImage *guardianImage;
 
 -(float) match: (UIImage *) playerDrawnImage;
+-(UIImage *) retrievePattern;
 
 @end
