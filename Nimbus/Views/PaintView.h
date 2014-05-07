@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WTMGlyphDetector.h"
+
+@class PaintView;
 
 @protocol PathDelegate
 
@@ -16,6 +19,8 @@
 - (void)startDrawing;
 - (void)pauseDrawing;
 
+- (void)PaintView:(PaintView*) theView glyphDetected:(WTMGlyph *)glyph withScore:(float)score;
+
 @end
 
 @interface PaintView : UIView <PathDelegate>
@@ -23,5 +28,8 @@
 @property (strong, nonatomic) NSMutableArray *paths;
 @property (assign, nonatomic) id delegate;
 @property (nonatomic) BOOL canDraw;
+
+- (void) loadTemplatesWithNames:(NSString*)firstTemplate, ... NS_REQUIRES_NIL_TERMINATION;
+- (void) endDrawing;
 
 @end

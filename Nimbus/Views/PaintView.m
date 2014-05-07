@@ -11,6 +11,10 @@
 
 @interface PaintView()
 
+@property (nonatomic, strong) WTMGlyphDetector *glyphDetector;
+@property (nonatomic, strong) NSMutableArray *glyphNamesArray;
+
+
 @property (strong, nonatomic) UIImage *storedImage;
 @property (strong, nonatomic) UIImage *glowPathImage;
 @property (nonatomic) CGSize viewSize;
@@ -28,6 +32,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         
+        [self initGestureDetector];
+        
         self.viewSize = self.bounds.size;
         self.points = [[NSMutableArray alloc] initWithCapacity:5];
         self.paths = [NSMutableArray array];
@@ -38,6 +44,44 @@
     
     return self;
 }
+
+- (void)initGestureDetector
+{
+    self.glyphDetector = [WTMGlyphDetector detector];
+    self.glyphDetector.delegate = self;
+    self.glyphDetector.timeoutSeconds = 1;
+    
+    if (self.glyphNamesArray == nil)
+        self.glyphNamesArray = [[NSMutableArray alloc] init];
+}
+
+#pragma mark - Public Interfaces
+- (NSString *)getGlyphNamesString
+{
+    if (self.glyphNamesArray == nil || [self.glyphNamesArray count] <= 0)
+        return @"";
+    
+    return [self.glyphNamesArray componentsJoinedByString: @", "];
+}
+
+- (void)loadTemplatesWithNames:(NSString*)firstTemplate, ...
+{
+    va_list args;
+    va_start(args, firstTemplate);
+    for (NSString *glyphName = firstTemplate; glyphName != nil; glyphName = va_arg(args, id))
+    {
+        if (![glyphName isKindOfClass:[NSString class]])
+            continue;
+        
+        [self.glyphNamesArray addObject:glyphName];
+        
+        NSData *jsonData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:glyphName ofType:@"json"]];
+        [self.glyphDetector addGlyphFromJSON:jsonData name:glyphName];
+    }
+    va_end(args);
+}
+
+#pragma mark - Touch events
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -51,6 +95,8 @@
         
         self.index = 0;
         CGPoint p = [touch locationInView:self];
+        [self.glyphDetector addPoint:p];
+        
         self.points[0] = [NSValue valueWithCGPoint:p];
         
         self.pathBeganTime = [NSDate date];
@@ -70,6 +116,7 @@
     if(self.canDraw){
         UITouch *touch = [touches anyObject];
         CGPoint p = [touch locationInView:self];
+        [self.glyphDetector addPoint:p];
         
         self.index++;
         self.points[self.index] = [NSValue valueWithCGPoint:p];
@@ -85,7 +132,10 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self drawBitmap];
+    UITouch *touch = [touches anyObject];
+    CGPoint p = [touch locationInView:self];
+    [self.glyphDetector addPoint:p];
+
     self.index = 0;
     [self.delegate closePath];
     [self.delegate pauseDrawing];
@@ -97,8 +147,27 @@
     [self touchesEnded:touches withEvent:event];
 }
 
+#pragma mark - Delegate
+- (void)glyphDetected:(WTMGlyph *)glyph withScore:(float)score
+{
+    //Simply forward it to my parent
+//    if ([self.delegate respondsToSelector:@selector(PaintView:glyphDetected:withScore:)])
+        [self.delegate PaintView:self glyphDetected:glyph withScore:score];
+    
+}
+
+
+#pragma mark - Drawing Methods
+
 - (void)drawRect:(CGRect)rect
 {
+    [[UIColor whiteColor] setStroke];
+    for(UIBezierPath* path in self.paths){
+        path.lineWidth = 15.0;
+        path.lineCapStyle = kCGLineCapRound;
+        [path strokeWithBlendMode:kCGBlendModeNormal alpha:0.3];
+    }
+    
 //    CGContextRef context = UIGraphicsGetCurrentContext();
 //    
 //    // clear context
@@ -115,15 +184,6 @@
 //    CGContextAddPath(context, [[self.paths lastObject] CGPath]);
 //    CGContextSetLineWidth(context,  1);
 //    CGContextStrokePath(context);
-}
-
-- (void)drawBitmap
-{
-    UIGraphicsBeginImageContextWithOptions(self.viewSize, NO, 0.0);
-    [self.storedImage drawAtPoint:CGPointZero];
-    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
-    self.storedImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
 }
 
 - (UIBezierPath *)createBezier
@@ -152,5 +212,17 @@
     return pathSegment;
     
 }
+
+- (void) endDrawing
+{
+    [self.paths removeAllObjects];
+    [self.glyphDetector detectGlyph];
+    NSLog(@"glyphDetector: finish detecting!");
+    [self.glyphDetector reset];
+    NSLog(@"glyphDetector: reset!");
+    
+    [self setNeedsDisplay];
+}
+
 
 @end

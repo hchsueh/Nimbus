@@ -10,11 +10,14 @@
 #import "ParticleScene.h"
 #import "PaintView.h"
 
+#define GESTURE_SCORE_THRESHOLD         2.0f
+
 @interface ViewController()
 
 @property (strong, nonatomic) PaintView *paintView;
 @property (strong, nonatomic) ParticleScene *particleScene;
-@property (strong, nonatomic) NSTimer *timer;
+@property (strong, nonatomic) NSTimer *timerPause;
+@property (strong, nonatomic) NSTimer *timerStop;
 
 @end
 
@@ -38,6 +41,8 @@
     
     // put paintView
     self.paintView = [[PaintView alloc] initWithFrame: self.view.bounds];
+    self.paintView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.paintView loadTemplatesWithNames:@"N",@"W", @"V", @"circle", nil];
     self.paintView.delegate = self;
     self.paintView.canDraw = true;
     [self.view addSubview: self.paintView];
@@ -49,16 +54,19 @@
 
 - (void)stopDrawing {
 
-    self.paintView.canDraw = false;
-    self.particleScene.alpha = 0;
+//    self.paintView.canDraw = false;
+//    self.particleScene.alpha = 0;
+    [self.timerStop invalidate];
+    [self.particleScene endMoving]; // tells ParticleScene to remove all children
+    [self.paintView endDrawing]; // tells paintView to start glyph detection
 
 }
 
 // Protocol Methods
 
 - (void)pauseDrawing {
-
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+    [self.particleScene endMoving];
+    self.timerPause = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                   target:self
                                                 selector:@selector(stopDrawing)
                                                 userInfo:nil
@@ -68,7 +76,7 @@
 
 - (void)startDrawing {
     
-    [NSTimer scheduledTimerWithTimeInterval:10.0
+    self.timerStop = [NSTimer scheduledTimerWithTimeInterval:10.0
                                     target:self
                                   selector:@selector(stopDrawing)
                                   userInfo:nil
@@ -84,16 +92,43 @@
 
 - (void)closePath{
 
-    [self.particleScene endMoving];
-
+//    [self.particleScene endMoving];
+    NSLog(@"call particleScene endMoving");
+//    [self.paintView endDrawing];
 }
 
 - (void)beginPath:(CGPoint)position{
 
     [self.particleScene beginMoving:position];
-    [self.timer invalidate];
+    [self.timerPause invalidate];
 
 }
+
+#pragma mark - Delegate
+
+- (void)PaintView:(PaintView*)theView glyphDetected:(WTMGlyph *)glyph withScore:(float)score
+{
+    //Reject detection when quality too low
+    //More info: http://britg.com/2011/07/17/complex-gesture-recognition-understanding-the-score/
+    
+    //    if (score < GESTURE_SCORE_THRESHOLD){
+    //        NSLog(@"not a recognized shape! hightes score: %.3f", score);
+    //        return;
+    //    }
+    
+    NSLog(@"ViewController serves as delegate to execute method!");
+    
+    if(score < GESTURE_SCORE_THRESHOLD){
+        NSLog(@"No gesture detected!\nScore: %.3f (highest)", score);
+    }
+    else{
+        NSLog(@"Last gesture detected: %@\nScore: %.3f", glyph.name, score);
+        [self.particleScene displayAnimation];
+    }
+    
+}
+
+#pragma mark - Default Settings
 
 - (BOOL)shouldAutorotate
 {

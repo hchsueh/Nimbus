@@ -15,4 +15,6 @@
 -(void)beginMoving:(CGPoint)position;
 //-(void)clearAll;
 
+-(void) displayAnimation;
+
 @end
