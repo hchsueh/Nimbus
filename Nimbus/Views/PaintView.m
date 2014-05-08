@@ -161,12 +161,13 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    [[UIColor whiteColor] setStroke];
-    for(UIBezierPath* path in self.paths){
-        path.lineWidth = 15.0;
-        path.lineCapStyle = kCGLineCapRound;
-        [path strokeWithBlendMode:kCGBlendModeNormal alpha:0.3];
-    }
+    
+//    [[UIColor colorWithPatternImage:[UIImage imageNamed:@"blur.png"]] setStroke];
+//    UIBezierPath *path = [self.paths lastObject];
+//    path.lineWidth = 25.0;
+//    path.lineCapStyle = kCGLineCapRound;
+//    [path strokeWithBlendMode:kCGBlendModeNormal alpha: 1];
+
     
 //    CGContextRef context = UIGraphicsGetCurrentContext();
 //    
@@ -177,13 +178,16 @@
 //    [self.storedImage drawInRect:rect];
 //
 //    // set color of path and shadow/glow
-//    CGContextSetStrokeColorWithColor(context, [UIColor whiteColor].CGColor);
-//    CGContextSetShadowWithColor(context, CGSizeMake(0, 0), 5.0, [UIColor whiteColor].CGColor);
+//    CGContextSetLineWidth(context, 15.0);
+//    CGContextSetStrokeColorWithColor(context, [UIColor colorWithRed:1 green:1 blue:1 alpha:0.3].CGColor);
+//    CGContextSetShadowWithColor(context, CGSizeMake(0, 0), 15.0, [UIColor whiteColor].CGColor);
+//    CGContextSetLineCap(context, kCGLineCapRound);
 //    
 //    // put path on
 //    CGContextAddPath(context, [[self.paths lastObject] CGPath]);
-//    CGContextSetLineWidth(context,  1);
 //    CGContextStrokePath(context);
+
+    
 }
 
 - (UIBezierPath *)createBezier

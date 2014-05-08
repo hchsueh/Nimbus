@@ -56,8 +56,9 @@
 		18B1CA6619112D0900C91722 /* W.json in Resources */ = {isa = PBXBuildFile; fileRef = 18B1CA5D19112D0900C91722 /* W.json */; };
 		18B1CA681911613100C91722 /* BabyGoldenSnitch.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 18B1CA671911613100C91722 /* BabyGoldenSnitch.atlas */; };
 		1C3FA87018EBDB7800B87A88 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C3FA86E18EBDB7800B87A88 /* spark.png */; };
-		1C3FA87518EBECAC00B87A88 /* Particle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1C3FA87418EBECAC00B87A88 /* Particle.sks */; };
-		1C3FA87F18EDDBB500B87A88 /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1C3FA87E18EDDBB500B87A88 /* Fire.sks */; };
+		1C3FA87518EBECAC00B87A88 /* Path.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1C3FA87418EBECAC00B87A88 /* Path.sks */; };
+		1CB6B098191B200600AA6E05 /* Spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1CB6B097191B200600AA6E05 /* Spark.sks */; };
+		1CB6B09A191B25D100AA6E05 /* blur.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CB6B099191B25D100AA6E05 /* blur.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,8 +148,9 @@
 		18B1CA5D19112D0900C91722 /* W.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = W.json; sourceTree = "<group>"; };
 		18B1CA671911613100C91722 /* BabyGoldenSnitch.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = BabyGoldenSnitch.atlas; path = Resources/BabyGoldenSnitch.atlas; sourceTree = "<group>"; };
 		1C3FA86E18EBDB7800B87A88 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spark.png; path = Resources/spark.png; sourceTree = "<group>"; };
-		1C3FA87418EBECAC00B87A88 /* Particle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Particle.sks; path = Resources/Particle.sks; sourceTree = "<group>"; };
-		1C3FA87E18EDDBB500B87A88 /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Fire.sks; path = Resources/Fire.sks; sourceTree = "<group>"; };
+		1C3FA87418EBECAC00B87A88 /* Path.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Path.sks; path = Resources/Path.sks; sourceTree = "<group>"; };
+		1CB6B097191B200600AA6E05 /* Spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Spark.sks; path = Resources/Spark.sks; sourceTree = "<group>"; };
+		1CB6B099191B25D100AA6E05 /* blur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blur.png; path = Resources/blur.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -367,10 +369,11 @@
 		1C3FA87118EBEC2900B87A88 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1CB6B099191B25D100AA6E05 /* blur.png */,
 				18B1CA671911613100C91722 /* BabyGoldenSnitch.atlas */,
 				1C3FA86E18EBDB7800B87A88 /* spark.png */,
-				1C3FA87E18EDDBB500B87A88 /* Fire.sks */,
-				1C3FA87418EBECAC00B87A88 /* Particle.sks */,
+				1CB6B097191B200600AA6E05 /* Spark.sks */,
+				1C3FA87418EBECAC00B87A88 /* Path.sks */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -456,19 +459,20 @@
 				18B1CA6119112D0900C91722 /* P.json in Resources */,
 				1C3FA87018EBDB7800B87A88 /* spark.png in Resources */,
 				18B1CA6519112D0900C91722 /* V.json in Resources */,
-				1C3FA87518EBECAC00B87A88 /* Particle.sks in Resources */,
-				1C3FA87F18EDDBB500B87A88 /* Fire.sks in Resources */,
+				1C3FA87518EBECAC00B87A88 /* Path.sks in Resources */,
 				186922B918E83166001474AD /* Images.xcassets in Resources */,
 				18B1CA6219112D0900C91722 /* square.json in Resources */,
 				18B1CA681911613100C91722 /* BabyGoldenSnitch.atlas in Resources */,
 				186922AF18E83166001474AD /* Main_iPad.storyboard in Resources */,
 				18B1CA431911281900C91722 /* protractor-chi2010.pdf in Resources */,
 				18B1CA6419112D0900C91722 /* triangle.json in Resources */,
+				1CB6B09A191B25D100AA6E05 /* blur.png in Resources */,
 				18B1CA6019112D0900C91722 /* N.json in Resources */,
 				186922AC18E83166001474AD /* Main_iPhone.storyboard in Resources */,
 				18B1CA6319112D0900C91722 /* T.json in Resources */,
 				18B1CA6619112D0900C91722 /* W.json in Resources */,
 				186922A318E83166001474AD /* InfoPlist.strings in Resources */,
+				1CB6B098191B200600AA6E05 /* Spark.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

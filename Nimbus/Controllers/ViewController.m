@@ -33,7 +33,7 @@
     skView.showsNodeCount = NO;
     
     // Create and configure the scene.
-    self.particleScene = [ParticleScene sceneWithSize: skView.bounds.size];
+    self.particleScene = [ParticleScene sceneWithSize: CGSizeMake(skView.bounds.size.height, skView.bounds.size.width)];
     self.particleScene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.
@@ -57,15 +57,15 @@
 //    self.paintView.canDraw = false;
 //    self.particleScene.alpha = 0;
     [self.timerStop invalidate];
-    [self.particleScene endMoving]; // tells ParticleScene to remove all children
-    [self.paintView endDrawing]; // tells paintView to start glyph detection
+    [self.particleScene endMoving]; // tell ParticleScene to remove all children
+    [self.paintView endDrawing]; // tell paintView to start glyph detection
 
 }
 
 // Protocol Methods
 
 - (void)pauseDrawing {
-    [self.particleScene endMoving];
+    [self.particleScene pauseMoving];
     self.timerPause = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                   target:self
                                                 selector:@selector(stopDrawing)
@@ -132,7 +132,7 @@
 
 - (BOOL)shouldAutorotate
 {
-    return NO;
+    return YES;
 }
 
 - (NSUInteger)supportedInterfaceOrientations

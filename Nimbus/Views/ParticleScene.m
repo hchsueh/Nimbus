@@ -50,27 +50,37 @@
     [path applyTransform:CGAffineTransformMakeTranslation(0, self.frame.size.height)];
     SKAction *track = [SKAction followPath:path.CGPath asOffset:NO orientToPath:YES duration:interval];
     [self.particle runAction:track];
-//    [self.fire runAction:track];
+    [self.fire runAction:track];
     NSLog(@"%f", interval);
     
 }
 
+-(void)pauseMoving{
+    
+//    [self removeAllChildren];
+    [self.particle removeFromParent];
+    self.fire.particleBirthRate = 0;
+    
+}
+
 -(void)endMoving{
+    
     [self removeAllChildren];
+    
 }
 
 -(void)beginMoving:(CGPoint)position{
 
-    NSString *particlePath = [[NSBundle mainBundle] pathForResource:@"Particle" ofType:@"sks"];
-//    NSString *firePath = [[NSBundle mainBundle] pathForResource:@"Fire" ofType:@"sks"];
+    NSString *particlePath = [[NSBundle mainBundle] pathForResource:@"Spark" ofType:@"sks"];
+    NSString *firePath = [[NSBundle mainBundle] pathForResource:@"Path" ofType:@"sks"];
     self.particle = [NSKeyedUnarchiver unarchiveObjectWithFile:particlePath];
-//    self.fire = [NSKeyedUnarchiver unarchiveObjectWithFile:firePath];
+    self.fire = [NSKeyedUnarchiver unarchiveObjectWithFile:firePath];
     self.particle.targetNode = self;
-//    self.fire.targetNode = self;
+    self.fire.targetNode = self;
     self.particle.position = position;
-//    self.fire.position = position;
+    self.fire.position = position;
+    [self addChild:self.fire];
     [self addChild:self.particle];
-//    [self addChild:self.fire];
 
 }
 

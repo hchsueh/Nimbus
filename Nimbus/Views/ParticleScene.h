@@ -12,6 +12,7 @@
 
 -(void)followPath:(UIBezierPath *)path withTimeInterval:(NSTimeInterval)interval;
 -(void)endMoving;
+-(void)pauseMoving;
 -(void)beginMoving:(CGPoint)position;
 //-(void)clearAll;
 
