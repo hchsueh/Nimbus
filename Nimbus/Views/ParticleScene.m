@@ -65,7 +65,9 @@
 
 -(void)endMoving{
     
-    [self removeAllChildren];
+//    [self removeAllChildren];
+    [self.particle removeFromParent];
+    [self.fire removeFromParent];
     
 }
 
