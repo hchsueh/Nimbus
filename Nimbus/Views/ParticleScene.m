@@ -12,8 +12,13 @@
 
 @property (strong, nonatomic) SKEmitterNode *particle;
 @property (strong, nonatomic) SKEmitterNode *fire;
+@property (strong ,nonatomic) NSMutableArray *particleArray;
+@property (strong ,nonatomic) NSMutableArray *fireArray;
+
 @property (strong, nonatomic) NSArray *magicFrames;
 @property (strong, nonatomic) SKSpriteNode *magic;
+
+@property (nonatomic, strong) PBParallaxScrolling * parallaxBackground;
 
 @end
 
@@ -38,6 +43,20 @@
 //        //        self.magic.hidden = YES;
 //        [self addChild: self.magic];
 //        [self startMagicAnimation];
+        
+        self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+        self.scaleMode = SKSceneScaleModeAspectFit;
+        NSArray * imageNames = @[@"pForegroundHorizontal",
+                                 @"pMiddleHorizontal",
+                                 @"pBackgroundHorizontal"];
+        
+        self.particleArray = [NSMutableArray array];
+        self.fireArray = [NSMutableArray array];
+        
+        PBParallaxScrolling * parallax = [[PBParallaxScrolling alloc] initWithBackgrounds:imageNames size:size direction:kPBParallaxBackgroundDirectionLeft fastestSpeed:kPBParallaxBackgroundDefaultSpeed*2 andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential*2];
+        
+        self.parallaxBackground = parallax;
+        [self addChild:parallax];
 
     }
     return self;
@@ -69,6 +88,13 @@
     [self.particle removeFromParent];
     [self.fire removeFromParent];
     
+    for( id obj in self.particleArray ){
+        [obj removeFromParent];
+    }
+    for( id obj in self.fireArray ){
+        [obj removeFromParent];
+    }
+    
 }
 
 -(void)beginMoving:(CGPoint)position{
@@ -81,8 +107,13 @@
     self.fire.targetNode = self;
     self.particle.position = position;
     self.fire.position = position;
-    [self addChild:self.fire];
-    [self addChild:self.particle];
+//    [self addChild:self.fire];
+//    [self addChild:self.particle];
+    
+    [self.particleArray addObject:self.particle];
+    [self.fireArray addObject:self.fire];
+    [self addChild: [self.particleArray lastObject]];
+    [self addChild: [self.fireArray lastObject]];
 
 }
 
@@ -129,6 +160,8 @@
 
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
+    [self.parallaxBackground update:currentTime];
+
 }
 
 @end

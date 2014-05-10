@@ -10,7 +10,7 @@
 #import "ParticleScene.h"
 #import "PaintView.h"
 
-#define GESTURE_SCORE_THRESHOLD         2.0f
+#define GESTURE_SCORE_THRESHOLD         2.55f
 
 @interface ViewController()
 

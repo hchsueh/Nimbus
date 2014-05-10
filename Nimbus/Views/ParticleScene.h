@@ -7,6 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "PBParallaxScrolling.h"
 
 @interface ParticleScene : SKScene
 

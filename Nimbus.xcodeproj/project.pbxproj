@@ -26,6 +26,14 @@
 		186922C218E83167001474AD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1869229A18E83166001474AD /* UIKit.framework */; };
 		186922CA18E83167001474AD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 186922C818E83167001474AD /* InfoPlist.strings */; };
 		186922CC18E83167001474AD /* NimbusTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 186922CB18E83167001474AD /* NimbusTest.m */; };
+		18729F0D191BCD9500E86E76 /* PBParallaxScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 18729F0C191BCD9500E86E76 /* PBParallaxScrolling.m */; };
+		18729F15191BCDA100E86E76 /* pBackgroundHorizontal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18729F0F191BCDA100E86E76 /* pBackgroundHorizontal.png */; };
+		18729F16191BCDA100E86E76 /* pBackgroundHorizontal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18729F10191BCDA100E86E76 /* pBackgroundHorizontal@2x.png */; };
+		18729F17191BCDA100E86E76 /* pForegroundHorizontal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18729F11191BCDA100E86E76 /* pForegroundHorizontal.png */; };
+		18729F18191BCDA100E86E76 /* pForegroundHorizontal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18729F12191BCDA100E86E76 /* pForegroundHorizontal@2x.png */; };
+		18729F19191BCDA100E86E76 /* pMiddleHorizontal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18729F13191BCDA100E86E76 /* pMiddleHorizontal.png */; };
+		18729F1A191BCDA100E86E76 /* pMiddleHorizontal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18729F14191BCDA100E86E76 /* pMiddleHorizontal@2x.png */; };
+		18729F1D191D089900E86E76 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 18729F1C191D089900E86E76 /* Player.m */; };
 		18B1CA351911281900C91722 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B1CA081911281900C91722 /* CDataScanner.m */; };
 		18B1CA371911281900C91722 /* CFilteringJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B1CA0C1911281900C91722 /* CFilteringJSONSerializer.m */; };
 		18B1CA381911281900C91722 /* CJSONDeserializer_BlocksExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B1CA0E1911281900C91722 /* CJSONDeserializer_BlocksExtensions.m */; };
@@ -98,6 +106,16 @@
 		186922C718E83167001474AD /* NimbusTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NimbusTests-Info.plist"; sourceTree = "<group>"; };
 		186922C918E83167001474AD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		186922CB18E83167001474AD /* NimbusTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NimbusTest.m; sourceTree = "<group>"; };
+		18729F0B191BCD9500E86E76 /* PBParallaxScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBParallaxScrolling.h; sourceTree = "<group>"; };
+		18729F0C191BCD9500E86E76 /* PBParallaxScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBParallaxScrolling.m; sourceTree = "<group>"; };
+		18729F0F191BCDA100E86E76 /* pBackgroundHorizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pBackgroundHorizontal.png; sourceTree = "<group>"; };
+		18729F10191BCDA100E86E76 /* pBackgroundHorizontal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pBackgroundHorizontal@2x.png"; sourceTree = "<group>"; };
+		18729F11191BCDA100E86E76 /* pForegroundHorizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pForegroundHorizontal.png; sourceTree = "<group>"; };
+		18729F12191BCDA100E86E76 /* pForegroundHorizontal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pForegroundHorizontal@2x.png"; sourceTree = "<group>"; };
+		18729F13191BCDA100E86E76 /* pMiddleHorizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pMiddleHorizontal.png; sourceTree = "<group>"; };
+		18729F14191BCDA100E86E76 /* pMiddleHorizontal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pMiddleHorizontal@2x.png"; sourceTree = "<group>"; };
+		18729F1B191D089900E86E76 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		18729F1C191D089900E86E76 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		18B1CA071911281900C91722 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
 		18B1CA081911281900C91722 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
 		18B1CA0B1911281900C91722 /* CFilteringJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFilteringJSONSerializer.h; sourceTree = "<group>"; };
@@ -214,6 +232,7 @@
 		1869229E18E83166001474AD /* Nimbus */ = {
 			isa = PBXGroup;
 			children = (
+				18729F0A191BCD9500E86E76 /* Models */,
 				18B1CA061911281900C91722 /* WTMGlyph */,
 				1C3FA86C18EAFCB800B87A88 /* Controllers */,
 				186922B818E83166001474AD /* Images.xcassets */,
@@ -253,6 +272,31 @@
 				186922C818E83167001474AD /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		18729F0A191BCD9500E86E76 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				18729F0B191BCD9500E86E76 /* PBParallaxScrolling.h */,
+				18729F0C191BCD9500E86E76 /* PBParallaxScrolling.m */,
+				18729F1B191D089900E86E76 /* Player.h */,
+				18729F1C191D089900E86E76 /* Player.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		18729F0E191BCDA100E86E76 /* BackgroundImages */ = {
+			isa = PBXGroup;
+			children = (
+				18729F0F191BCDA100E86E76 /* pBackgroundHorizontal.png */,
+				18729F10191BCDA100E86E76 /* pBackgroundHorizontal@2x.png */,
+				18729F11191BCDA100E86E76 /* pForegroundHorizontal.png */,
+				18729F12191BCDA100E86E76 /* pForegroundHorizontal@2x.png */,
+				18729F13191BCDA100E86E76 /* pMiddleHorizontal.png */,
+				18729F14191BCDA100E86E76 /* pMiddleHorizontal@2x.png */,
+			);
+			name = BackgroundImages;
+			path = Resources/BackgroundImages;
 			sourceTree = "<group>";
 		};
 		18B1CA061911281900C91722 /* WTMGlyph */ = {
@@ -369,6 +413,7 @@
 		1C3FA87118EBEC2900B87A88 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				18729F0E191BCDA100E86E76 /* BackgroundImages */,
 				1CB6B099191B25D100AA6E05 /* blur.png */,
 				18B1CA671911613100C91722 /* BabyGoldenSnitch.atlas */,
 				1C3FA86E18EBDB7800B87A88 /* spark.png */,
@@ -455,20 +500,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				18B1CA5F19112D0900C91722 /* D.json in Resources */,
+				18729F19191BCDA100E86E76 /* pMiddleHorizontal.png in Resources */,
 				18B1CA5E19112D0900C91722 /* circle.json in Resources */,
+				18729F15191BCDA100E86E76 /* pBackgroundHorizontal.png in Resources */,
 				18B1CA6119112D0900C91722 /* P.json in Resources */,
 				1C3FA87018EBDB7800B87A88 /* spark.png in Resources */,
 				18B1CA6519112D0900C91722 /* V.json in Resources */,
 				1C3FA87518EBECAC00B87A88 /* Path.sks in Resources */,
 				186922B918E83166001474AD /* Images.xcassets in Resources */,
+				18729F18191BCDA100E86E76 /* pForegroundHorizontal@2x.png in Resources */,
 				18B1CA6219112D0900C91722 /* square.json in Resources */,
 				18B1CA681911613100C91722 /* BabyGoldenSnitch.atlas in Resources */,
 				186922AF18E83166001474AD /* Main_iPad.storyboard in Resources */,
 				18B1CA431911281900C91722 /* protractor-chi2010.pdf in Resources */,
 				18B1CA6419112D0900C91722 /* triangle.json in Resources */,
+				18729F1A191BCDA100E86E76 /* pMiddleHorizontal@2x.png in Resources */,
 				1CB6B09A191B25D100AA6E05 /* blur.png in Resources */,
 				18B1CA6019112D0900C91722 /* N.json in Resources */,
+				18729F16191BCDA100E86E76 /* pBackgroundHorizontal@2x.png in Resources */,
 				186922AC18E83166001474AD /* Main_iPhone.storyboard in Resources */,
+				18729F17191BCDA100E86E76 /* pForegroundHorizontal.png in Resources */,
 				18B1CA6319112D0900C91722 /* T.json in Resources */,
 				18B1CA6619112D0900C91722 /* W.json in Resources */,
 				186922A318E83166001474AD /* InfoPlist.strings in Resources */,
@@ -503,6 +554,7 @@
 				18B1CA481911281900C91722 /* WTMGlyphDetector.m in Sources */,
 				18B1CA371911281900C91722 /* CFilteringJSONSerializer.m in Sources */,
 				18B1CA471911281900C91722 /* WTMGlyphDefaults.m in Sources */,
+				18729F0D191BCD9500E86E76 /* PBParallaxScrolling.m in Sources */,
 				18B1CA3E1911281900C91722 /* CJSONScanner.m in Sources */,
 				18B1CA461911281900C91722 /* WTMGlyph.m in Sources */,
 				18B1CA491911281900C91722 /* WTMGlyphStroke.m in Sources */,
@@ -514,6 +566,7 @@
 				18B1CA3F1911281900C91722 /* CJSONSerializer.m in Sources */,
 				1806E4E018EAC77A000D8594 /* PaintView.m in Sources */,
 				186922A518E83166001474AD /* main.m in Sources */,
+				18729F1D191D089900E86E76 /* Player.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
