@@ -7,8 +7,13 @@
 //
 
 #import "ParticleScene.h"
+#import "Player.h"
+#import "Enemy.h"
 
-@interface ParticleScene()
+static const uint32_t magicCategory = 0x1 << 0;
+static const uint32_t enemyCategory = 0x1 << 1;
+
+@interface ParticleScene() <SKPhysicsContactDelegate>
 
 @property (strong, nonatomic) SKEmitterNode *particle;
 @property (strong, nonatomic) SKEmitterNode *fire;
@@ -20,6 +25,8 @@
 
 @property (nonatomic, strong) PBParallaxScrolling * parallaxBackground;
 
+@property (nonatomic, strong) Player *player;
+@property (nonatomic, strong) Enemy *enemy;
 @end
 
 @implementation ParticleScene
@@ -44,12 +51,15 @@
 //        [self addChild: self.magic];
 //        [self startMagicAnimation];
         
+        
+        self.physicsWorld.gravity = CGVectorMake(0, 0);
+        self.physicsWorld.contactDelegate = self; // not working ?????
+        
         self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
         self.scaleMode = SKSceneScaleModeAspectFit;
         NSArray * imageNames = @[@"pForegroundHorizontal",
                                  @"pMiddleHorizontal",
                                  @"pBackgroundHorizontal"];
-        
         self.particleArray = [NSMutableArray array];
         self.fireArray = [NSMutableArray array];
         
@@ -57,7 +67,26 @@
         
         self.parallaxBackground = parallax;
         [self addChild:parallax];
-
+        
+        
+        SKTextureAtlas *playerAtlas = [SKTextureAtlas atlasNamed:@"BabyGoldenSnitch"];
+        NSString *name1 = [NSString stringWithFormat:@"BabyGoldenSnitch_frame%d",1];
+        SKTexture *temp1 = [playerAtlas textureNamed:name1];
+        self.player = [[Player alloc] initWithTexture:temp1 AtPosition:CGPointMake(150,400)];
+        [self.player runAnimationIdle];
+        [self addChild:self.player];
+        
+        SKTextureAtlas *enemyAtlas = [SKTextureAtlas atlasNamed:@"BabyGoldenSnitch"];
+        NSString *name2 = [NSString stringWithFormat:@"BabyGoldenSnitch_frame%d",1];
+        SKTexture *temp2 = [enemyAtlas textureNamed:name2];
+        self.enemy = [[Enemy alloc] initWithTexture:temp2 AtPosition:CGPointMake(900,400)];
+        self.enemy.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.enemy.size];
+        self.enemy.physicsBody.dynamic = YES;
+        self.enemy.physicsBody.categoryBitMask = enemyCategory;
+        self.enemy.physicsBody.contactTestBitMask = magicCategory;
+        self.enemy.physicsBody.collisionBitMask = 0; // ?
+        [self.enemy runAnimationIdle];
+        [self addChild:self.enemy];
     }
     return self;
 }
@@ -133,12 +162,21 @@
     self.magicFrames = frames;
     SKTexture *temp = self.magicFrames[0];
     self.magic = [SKSpriteNode spriteNodeWithTexture:temp];
-    self.magic.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+//    self.magic.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    self.magic.position = self.player.position;
+    
+    self.magic.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.magic.size.width/2];
+    self.magic.physicsBody.dynamic = YES;
+    self.magic.physicsBody.categoryBitMask = magicCategory;
+    self.magic.physicsBody.contactTestBitMask = enemyCategory;
+    self.magic.physicsBody.collisionBitMask = 0; // ?
+    self.magic.physicsBody.usesPreciseCollisionDetection = YES; // magic may be moving fast !
     [self addChild: self.magic];
     [self startMagicAnimation];
 }
 
 -(void) startMagicAnimation{
+    [self.magic runAction: [SKAction scaleBy:0.2 duration:0.1f]];
     [self.magic runAction:[SKAction repeatActionForever:
                           [SKAction animateWithTextures:self.magicFrames
                                            timePerFrame:0.1f
@@ -156,12 +194,50 @@
 //    
 //}
 
+#pragma mark - SK Nodes Collision Handling
+-(void) didBeginContact:(SKPhysicsContact *)contact
+{
+    SKPhysicsBody *firstBody, *secondBody;
+    
+    if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask)
+    {
+        firstBody = contact.bodyA;
+        secondBody = contact.bodyB;
+    }
+    else
+    {
+        firstBody = contact.bodyB;
+        secondBody = contact.bodyA;
+    }
+    
+    if ((firstBody.categoryBitMask & magicCategory) != 0 &&
+        (secondBody.categoryBitMask & enemyCategory) != 0)
+    {
+        // magic collides with enemy!! Yay!!!
+        NSLog(@"smacked the enemy's ass!");
+        [self.magic removeFromParent];
+        self.magic = nil;
+        [self.enemy runAnimationInjured];
+    }
+    
+}
+
 #pragma mark - Default Settings
 
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
     [self.parallaxBackground update:currentTime];
-
+    
+    int diff_x = self.enemy.position.x - self.magic.position.x;
+    int diff_y = self.enemy.position.y - self.magic.position.y;
+    int dist_y = (int) diff_y/diff_x;
+    
+    [self.magic runAction: [SKAction moveByX:20 y:dist_y*20 duration:0.1f]];
+    if(self.magic.position.x > self.frame.size.width || self.magic.position.y > self.frame.size.height){
+        NSLog(@"magic leaves the screen!");
+        [self.magic removeFromParent];
+        self.magic = nil;
+    }
 }
 
 @end
