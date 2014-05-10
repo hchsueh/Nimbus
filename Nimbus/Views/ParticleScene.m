@@ -9,6 +9,7 @@
 #import "ParticleScene.h"
 #import "Player.h"
 #import "Enemy.h"
+#import "Magic.h"
 
 static const uint32_t magicCategory = 0x1 << 0;
 static const uint32_t enemyCategory = 0x1 << 1;
@@ -21,7 +22,7 @@ static const uint32_t enemyCategory = 0x1 << 1;
 @property (strong ,nonatomic) NSMutableArray *fireArray;
 
 @property (strong, nonatomic) NSArray *magicFrames;
-@property (strong, nonatomic) SKSpriteNode *magic;
+@property (strong, nonatomic) Magic *magic;
 
 @property (nonatomic, strong) PBParallaxScrolling * parallaxBackground;
 
@@ -35,22 +36,6 @@ static const uint32_t enemyCategory = 0x1 << 1;
     if (self = [super initWithSize:size]) {
         
         self.backgroundColor = [SKColor colorWithRed:0 green:0 blue:0 alpha:1.0];
-        
-//        SKTextureAtlas *BabyGoldenSnitchAtlas = [SKTextureAtlas atlasNamed:@"BabyGoldenSnitch"];
-//        NSMutableArray *frames = [NSMutableArray array];
-//        for(int i=1; i<=BabyGoldenSnitchAtlas.textureNames.count; i++){
-//            NSString *name = [NSString stringWithFormat:@"BabyGoldenSnitch_frame%d",i];
-//            SKTexture *temp = [BabyGoldenSnitchAtlas textureNamed:name];
-//            [frames addObject:temp];
-//        }
-//        self.magicFrames = frames;
-//        SKTexture *temp = self.magicFrames[0];
-//        self.magic = [SKSpriteNode spriteNodeWithTexture:temp];
-//        self.magic.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-//        //        self.magic.hidden = YES;
-//        [self addChild: self.magic];
-//        [self startMagicAnimation];
-        
         
         self.physicsWorld.gravity = CGVectorMake(0, 0);
         self.physicsWorld.contactDelegate = self; // not working ?????
@@ -161,9 +146,8 @@ static const uint32_t enemyCategory = 0x1 << 1;
     }
     self.magicFrames = frames;
     SKTexture *temp = self.magicFrames[0];
-    self.magic = [SKSpriteNode spriteNodeWithTexture:temp];
-//    self.magic.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-    self.magic.position = self.player.position;
+    
+    self.magic = [[Magic alloc] initWithTexture:temp AtPosition:self.player.position];
     
     self.magic.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.magic.size.width/2];
     self.magic.physicsBody.dynamic = YES;
@@ -171,18 +155,8 @@ static const uint32_t enemyCategory = 0x1 << 1;
     self.magic.physicsBody.contactTestBitMask = enemyCategory;
     self.magic.physicsBody.collisionBitMask = 0; // ?
     self.magic.physicsBody.usesPreciseCollisionDetection = YES; // magic may be moving fast !
+    [self.magic runAnimationIdle];
     [self addChild: self.magic];
-    [self startMagicAnimation];
-}
-
--(void) startMagicAnimation{
-    [self.magic runAction: [SKAction scaleBy:0.2 duration:0.1f]];
-    [self.magic runAction:[SKAction repeatActionForever:
-                          [SKAction animateWithTextures:self.magicFrames
-                                           timePerFrame:0.1f
-                                                 resize:NO
-                                                restore:YES]] withKey:@"thisIsMagic"];
-    return;
 }
 
 //-(void)clearAll{
@@ -215,8 +189,7 @@ static const uint32_t enemyCategory = 0x1 << 1;
     {
         // magic collides with enemy!! Yay!!!
         NSLog(@"smacked the enemy's ass!");
-        [self.magic removeFromParent];
-        self.magic = nil;
+        [self.magic runAnimationHitTarget];
         [self.enemy runAnimationInjured];
     }
     

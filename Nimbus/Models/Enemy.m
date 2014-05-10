@@ -14,6 +14,7 @@
 
 @end
 
+
 @implementation Enemy
 
 - (id)initWithTexture: (SKTexture *) texture AtPosition:(CGPoint)position
@@ -23,7 +24,6 @@
     if(self){
         [self setupIdleFrames];
         self.position = position;
-        NSLog(@"enemy initAtPosition");
     }
     return self;
     
@@ -39,8 +39,6 @@
         [frames addObject:temp];
     }
     self.idleFrames = frames;
-    NSLog(@"idleFrames count: %d", self.idleFrames.count);
-
     [self runAction: [SKAction scaleBy:0.5 duration:0.5f]];
 }
 

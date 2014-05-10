@@ -10,4 +10,8 @@
 
 @interface Magic : SKSpriteNode
 
+- (id)initWithTexture: (SKTexture *) texture AtPosition:(CGPoint)position;
+- (void) runAnimationIdle;
+- (void) runAnimationHitTarget;
+
 @end

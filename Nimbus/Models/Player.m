@@ -14,6 +14,7 @@
 
 @end
 
+
 @implementation Player
 
 #pragma mark - Initialization
@@ -29,9 +30,7 @@
             [frames addObject:temp];
         }
         self.playerIdleFrames = frames;
-        NSLog(@"playerIdleFrames count: %d", self.playerIdleFrames.count);
         self.position = position;
-        NSLog(@"player initAtPosition");
         self.playerState = PlayerAnimationStateIdle;
     }
     return self;
