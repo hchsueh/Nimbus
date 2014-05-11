@@ -11,6 +11,7 @@
 @interface Magic()
 
 @property (strong, nonatomic) NSArray *idleFrames;
+@property (strong, nonatomic) SKEmitterNode *heart;
 
 @end
 
@@ -22,8 +23,9 @@
     self = [super initWithTexture: texture];
     
     if(self){
-        [self setupIdleFrames];
+        self.hasHit = NO;
         self.position = position;
+        [self setupIdleFrames];
     }
     return self;
     
@@ -39,7 +41,16 @@
         [frames addObject:temp];
     }
     self.idleFrames = frames;    
-    [self runAction: [SKAction scaleBy:0.2 duration:0.1f]];
+    [self runAction: [SKAction scaleBy:0.4 duration:0.1f]];
+}
+
+-(void) installHeartWithTargetNode: (SKNode *) node
+{    
+    NSString *particlePath = [[NSBundle mainBundle] pathForResource:@"BabyGoldenSnitchHeart" ofType:@"sks"];
+    self.heart = [NSKeyedUnarchiver unarchiveObjectWithFile:particlePath];
+    self.heart.targetNode = node;
+    self.heart.position = CGPointMake(self.frame.origin.x, self.frame.origin.y + 100);
+    [self addChild: self.heart];
 }
 
 - (void) runAnimationIdle
@@ -53,9 +64,10 @@
 
 -(void) runAnimationHitTarget
 {
-    [self runAction: [SKAction sequence:@[[SKAction rotateByAngle:4*M_PI duration:0.5f],
+    [self runAction: [SKAction sequence:@[[SKAction rotateByAngle:2*M_PI duration:0.5f],
                                           [SKAction removeFromParent]
                                           ]]];
+    [self runAction: [SKAction scaleBy:0.1 duration:0.5f]];
 }
 
 

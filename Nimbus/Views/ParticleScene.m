@@ -147,6 +147,7 @@ static const uint32_t enemyCategory = 0x1 << 1;
     self.magicFrames = frames;
     SKTexture *temp = self.magicFrames[0];
     
+    NSLog(@"player position: (%f,%f)", self.player.position.x, self.player.position.y);
     self.magic = [[Magic alloc] initWithTexture:temp AtPosition:self.player.position];
     
     self.magic.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.magic.size.width/2];
@@ -155,8 +156,9 @@ static const uint32_t enemyCategory = 0x1 << 1;
     self.magic.physicsBody.contactTestBitMask = enemyCategory;
     self.magic.physicsBody.collisionBitMask = 0; // ?
     self.magic.physicsBody.usesPreciseCollisionDetection = YES; // magic may be moving fast !
-    [self.magic runAnimationIdle];
     [self addChild: self.magic];
+    [self.magic installHeartWithTargetNode:self];
+    [self.magic runAnimationIdle];
 }
 
 //-(void)clearAll{
@@ -189,6 +191,7 @@ static const uint32_t enemyCategory = 0x1 << 1;
     {
         // magic collides with enemy!! Yay!!!
         NSLog(@"smacked the enemy's ass!");
+        self.magic.hasHit = YES;
         [self.magic runAnimationHitTarget];
         [self.enemy runAnimationInjured];
     }
@@ -205,11 +208,13 @@ static const uint32_t enemyCategory = 0x1 << 1;
     int diff_y = self.enemy.position.y - self.magic.position.y;
     int dist_y = (int) diff_y/diff_x;
     
-    [self.magic runAction: [SKAction moveByX:20 y:dist_y*20 duration:0.1f]];
     if(self.magic.position.x > self.frame.size.width || self.magic.position.y > self.frame.size.height){
         NSLog(@"magic leaves the screen!");
         [self.magic removeFromParent];
         self.magic = nil;
+    }
+    else if(self.magic.hasHit == NO){
+        [self.magic runAction: [SKAction moveByX:40 y:dist_y*40 duration:0.1f]];
     }
 }
 

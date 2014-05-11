@@ -39,7 +39,7 @@
         [frames addObject:temp];
     }
     self.idleFrames = frames;
-    [self runAction: [SKAction scaleBy:0.5 duration:0.5f]];
+    [self runAction: [SKAction scaleBy:0.7 duration:0.5f]];
 }
 
 - (void) runAnimationIdle

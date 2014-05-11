@@ -10,7 +10,10 @@
 
 @interface Magic : SKSpriteNode
 
+@property (nonatomic) bool hasHit;
+
 - (id)initWithTexture: (SKTexture *) texture AtPosition:(CGPoint)position;
+- (void) installHeartWithTargetNode: (SKNode *) node;
 - (void) runAnimationIdle;
 - (void) runAnimationHitTarget;
 

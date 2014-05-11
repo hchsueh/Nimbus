@@ -16,6 +16,8 @@ typedef enum : uint8_t {
 @interface Player : SKSpriteNode
 
 @property (nonatomic) PlayerAnimationState playerState;
+@property (nonatomic) int health;
+@property (nonatomic) int mana;
 
 - (id)initWithTexture: (SKTexture *) texture AtPosition:(CGPoint)position;
 - (void) runAnimationIdle;
