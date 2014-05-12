@@ -60,7 +60,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="6Ad-HT-7mf"/>
                     <connections>
-                        <segue destination="R9W-QM-b4d" kind="modal" identifier="SEGUE_TO_LOBBY" modalTransitionStyle="crossDissolve" id="QWc-xp-gmA"/>
+                        <segue destination="R9W-QM-b4d" kind="modal" identifier="SEGUE_TO_LOBBY" modalTransitionStyle="flipHorizontal" id="QWc-xp-gmA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cCS-fo-3EE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -82,7 +82,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="ruz-U5-kJh"/>
                     <connections>
-                        <segue destination="BV1-FR-VrT" kind="modal" identifier="SEGUE_TO_GAME" modalTransitionStyle="partialCurl" id="7aE-mi-Pph"/>
+                        <segue destination="BV1-FR-VrT" kind="modal" identifier="SEGUE_TO_GAME" modalTransitionStyle="flipHorizontal" id="7aE-mi-Pph"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ea9-gr-DOR" userLabel="First Responder" sceneMemberID="firstResponder"/>
