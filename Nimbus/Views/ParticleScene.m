@@ -11,6 +11,8 @@
 #import "Enemy.h"
 #import "Magic.h"
 
+#define MAX_IMG_NUM 5
+
 static const uint32_t magicCategory = 0x1 << 0;
 static const uint32_t enemyCategory = 0x1 << 1;
 
@@ -24,7 +26,8 @@ static const uint32_t enemyCategory = 0x1 << 1;
 @property (strong, nonatomic) NSArray *magicFrames;
 @property (strong, nonatomic) Magic *magic;
 
-@property (nonatomic, strong) PBParallaxScrolling * parallaxBackground;
+@property (nonatomic, strong) NSMutableDictionary *backgroundInformation;
+@property (nonatomic, strong) NSMutableDictionary *backgroundImages;
 
 @property (nonatomic, strong) Player *player;
 @property (nonatomic, strong) Enemy *enemy;
@@ -35,24 +38,21 @@ static const uint32_t enemyCategory = 0x1 << 1;
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
         
-        self.backgroundColor = [SKColor colorWithRed:0 green:0 blue:0 alpha:1.0];
+//        self.backgroundColor = [SKColor colorWithRed:0.008 green:0.008 blue:0.008 alpha:1.0];
+        self.backgroundColor = [SKColor colorWithRed:1 green:1 blue:1 alpha:0];
+        self.particleArray = [NSMutableArray array];
+        self.fireArray = [NSMutableArray array];
+        self.backgroundInformation = [NSMutableDictionary dictionary];
+        self.backgroundImages = [NSMutableDictionary dictionary];
         
         self.physicsWorld.gravity = CGVectorMake(0, 0);
         self.physicsWorld.contactDelegate = self; // not working ?????
-        
         self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
         self.scaleMode = SKSceneScaleModeAspectFit;
-        NSArray * imageNames = @[@"pForegroundHorizontal",
-                                 @"pMiddleHorizontal",
-                                 @"pBackgroundHorizontal"];
-        self.particleArray = [NSMutableArray array];
-        self.fireArray = [NSMutableArray array];
-        
-        PBParallaxScrolling * parallax = [[PBParallaxScrolling alloc] initWithBackgrounds:imageNames size:size direction:kPBParallaxBackgroundDirectionLeft fastestSpeed:kPBParallaxBackgroundDefaultSpeed*2 andSpeedDecrease:kPBParallaxBackgroundDefaultSpeedDifferential*2];
-        
-        self.parallaxBackground = parallax;
-        [self addChild:parallax];
-        
+
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"ImageSet" ofType:@"plist"];
+        [self setupBackgroundWithImageSet:[NSArray arrayWithContentsOfFile:path]];
+        NSLog(@"image set: %@", [NSArray arrayWithContentsOfFile:path]);
         
         SKTextureAtlas *playerAtlas = [SKTextureAtlas atlasNamed:@"BabyGoldenSnitch"];
         NSString *name1 = [NSString stringWithFormat:@"BabyGoldenSnitch_frame%d",1];
@@ -72,9 +72,171 @@ static const uint32_t enemyCategory = 0x1 << 1;
         self.enemy.physicsBody.collisionBitMask = 0; // ?
         [self.enemy runAnimationIdle];
         [self addChild:self.enemy];
+
+
     }
     return self;
 }
+
+#pragma Background
+
+- (void)setupBackgroundWithImageSet:(NSArray *)imageSet{
+
+    NSLog(@"self size: %@", NSStringFromCGSize(self.size));
+    int z = 0;
+    for(NSDictionary *imageData in imageSet){
+        
+        // get image name
+        BOOL continuous = [[imageData objectForKey:@"continuous"] boolValue];
+        NSString *key = [imageData objectForKey:@"name"];
+        if(continuous){
+            
+            for(int i = 1; i <= MAX_IMG_NUM; i++){
+            
+                NSString *name = [NSString stringWithFormat:@"%@_0%d", key, i];
+                SKSpriteNode *node = [[SKSpriteNode alloc] initWithImageNamed:name];
+                node.zPosition = -100 - z;
+                node.position = CGPointMake(self.size.width*2, self.size.height/2);
+                [self addChild:node];
+                
+                NSMutableArray *arr = [self.backgroundImages objectForKey:key];
+                if(arr) [arr addObject:node];
+                else{
+                    
+                    arr = [NSMutableArray arrayWithObject:node];
+                    [self.backgroundImages setObject:arr forKey:key];
+                    
+                }
+
+            }
+            
+            // save background info
+            NSNumber *currentIndex = [NSNumber numberWithInt:2];
+            NSNumber *offset = [NSNumber numberWithFloat:0.0f];
+            NSNumber *speed = [imageData objectForKey:@"speed"];
+            NSString *direction = [imageData objectForKey:@"direction"];
+            SKSpriteNode *last = [[self.backgroundImages objectForKey:key] objectAtIndex:0];
+            SKSpriteNode *current = [[self.backgroundImages objectForKey:key] objectAtIndex:1];
+            SKSpriteNode *next = [[self.backgroundImages objectForKey:key] objectAtIndex:2];
+            
+            NSMutableDictionary *info = [NSMutableDictionary
+                                  dictionaryWithObjects:@[currentIndex, offset, speed, direction, last, current, next]
+                                  forKeys:@[@"currentIndex", @"offset", @"speed", @"direction", @"last", @"current", @"next"]];
+            [self.backgroundInformation setObject:info forKey:key];
+            
+            // put node on
+            if([direction isEqualToString:@"left"]){
+                
+                last.position = CGPointMake(last.size.width/2, self.size.height/2);
+                current.position = CGPointMake(current.size.width/2 + last.size.width, self.size.height/2);
+                next.position = CGPointMake(next.size.width/2 + last.size.width + current.size.width, self.size.height/2);
+                
+            }
+            else if([direction isEqualToString:@"right"]){
+            
+                last.position = CGPointMake(last.size.width/2 - next.size.width - current.size.width, self.size.height/2);
+                current.position = CGPointMake(current.size.width/2 - next.size.width, self.size.height/2);
+                next.position = CGPointMake(next.size.width/2, self.size.height/2);
+                
+            }
+        
+        }
+        else{
+
+            SKSpriteNode *node = [[SKSpriteNode alloc] initWithImageNamed:key];
+            if([key isEqualToString:@"moon"]) node.position = CGPointMake(self.size.width*0.85, self.size.height*0.9);
+            else node.position = CGPointMake(self.size.width/2, self.size.height/2);
+            node.zPosition = -100 - z;
+            [self addChild:node];
+        
+        }
+        z++;
+        
+    }
+
+}
+
+- (void)moveBackground{
+
+    for(id key in self.backgroundInformation){
+
+        // get information
+        NSMutableDictionary *info = [self.backgroundInformation objectForKey:key];
+        float speed = [[info objectForKey:@"speed"] floatValue];
+        float offset = [[info objectForKey:@"offset"] floatValue];
+        int currentIndex = [[info objectForKey:@"currentIndex"] integerValue];
+        NSString *direction = [info objectForKey:@"direction"];
+        SKSpriteNode *last = [info objectForKey:@"last"];
+        SKSpriteNode *current = [info objectForKey:@"current"];
+        SKSpriteNode *next = [info objectForKey:@"next"];
+        
+        // calculate offset
+        if([direction isEqualToString:@"left"]){
+            
+            last.position = CGPointMake(last.position.x - speed, last.position.y);
+            current.position = CGPointMake(current.position.x - speed, current.position.y);
+            next.position = CGPointMake(next.position.x - speed, next.position.y);
+            
+            offset-=speed;
+            
+            // offset exceeds screen width => load next image
+            if(fabsf(offset) >= self.size.width){
+                
+                currentIndex++;
+                if(currentIndex > 5) currentIndex = 1;
+                [info setObject:[NSNumber numberWithInt:currentIndex] forKey:@"currentIndex"];
+                last = current;
+                current = next;
+                [info setObject:last forKey:@"last"];
+                [info setObject:current forKey:@"current"];
+
+                int nextIndex = currentIndex+1;
+                if(nextIndex > 5) nextIndex = 1;
+//                if([key isEqualToString:@"fog_back"]) NSLog(@"chage from %d to %d", currentIndex, nextIndex);
+                next = [[self.backgroundImages objectForKey:key] objectAtIndex:nextIndex-1];
+                next.position = CGPointMake(current.position.x + current.size.width, self.size.height/2);
+                [info setObject:next forKey:@"next"];
+                if([key isEqualToString:@"fog_back"]) NSLog(@"last: %@, current: %@, next: %@", last, current, next);
+                offset = 0.0f;
+                
+            }
+        
+        }
+        else if([direction isEqualToString:@"right"]){
+            
+            last.position = CGPointMake(last.position.x + speed, last.position.y);
+            current.position = CGPointMake(current.position.x + speed, current.position.y);
+            next.position = CGPointMake(next.position.x + speed, next.position.y);
+            
+            offset+=speed;
+            
+            if(fabsf(offset) >= last.size.width){
+                
+                currentIndex--;
+                if(currentIndex < 1) currentIndex = 5;
+                [info setObject:current forKey:@"next"];
+                [info setObject:last forKey:@"current"];
+                
+                int nextIndex = currentIndex-1;
+                if(nextIndex < 1) nextIndex = 5;
+                SKSpriteNode *tmp = [[SKSpriteNode alloc] initWithImageNamed:[NSString stringWithFormat:@"%@_0%d", key, nextIndex]];
+                tmp.position = CGPointMake(last.position.x - last.size.width, last.position.y);
+                [self addChild:tmp];
+                [next removeFromParent];
+                [info setObject:tmp forKey:@"last"];
+                
+                offset = 0;
+                
+            }
+            
+        }
+        [info setObject:[NSNumber numberWithFloat:offset] forKey:@"offset"];
+    
+    }
+    
+}
+
+#pragma Drawing Path
 
 -(void)followPath:(UIBezierPath *)path withTimeInterval:(NSTimeInterval)interval{
 
@@ -201,8 +363,8 @@ static const uint32_t enemyCategory = 0x1 << 1;
 #pragma mark - Default Settings
 
 -(void)update:(CFTimeInterval)currentTime {
+
     /* Called before each frame is rendered */
-    [self.parallaxBackground update:currentTime];
     
     int diff_x = self.enemy.position.x - self.magic.position.x;
     int diff_y = self.enemy.position.y - self.magic.position.y;
@@ -216,6 +378,9 @@ static const uint32_t enemyCategory = 0x1 << 1;
     else if(self.magic.hasHit == NO){
         [self.magic runAction: [SKAction moveByX:40 y:dist_y*40 duration:0.1f]];
     }
+
+    [self moveBackground];
+    
 }
 
 @end

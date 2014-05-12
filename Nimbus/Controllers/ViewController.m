@@ -28,9 +28,11 @@
 {
     [super viewDidLoad];
     
+    NSLog(@"view did load");
+    
     // Configure the view.
     SKView * skView = (SKView *)self.view;
-    skView.showsFPS = NO;
+    skView.showsFPS = YES;
     skView.showsNodeCount = NO;
     
     self.particleScene = [ParticleScene sceneWithSize: CGSizeMake(skView.bounds.size.height, skView.bounds.size.width)];
@@ -52,7 +54,7 @@
 //    [super viewDidLoad];
 }
 
-#pragma mark - Timer Selector
+#pragma mark - Drawing methods
 - (void)stopDrawing {
 
 //    self.paintView.canDraw = false;

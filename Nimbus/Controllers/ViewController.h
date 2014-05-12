@@ -13,7 +13,7 @@
 
 - (void)createPath:(UIBezierPath *)path withTimeInterval:(NSTimeInterval)interval;
 - (void)closePath;
-- (void)beginPath;
+- (void)beginPath:(CGPoint)position;
 - (void)pauseDrawing;
 - (void)startDrawing;
 
