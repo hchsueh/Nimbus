@@ -184,6 +184,7 @@
 		1C3FA87518EBECAC00B87A88 /* Path.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1C3FA87418EBECAC00B87A88 /* Path.sks */; };
 		1CB6B098191B200600AA6E05 /* Spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1CB6B097191B200600AA6E05 /* Spark.sks */; };
 		1CB6B09A191B25D100AA6E05 /* blur.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CB6B099191B25D100AA6E05 /* blur.png */; };
+		1CD15095192117400016759A /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1CD15094192117400016759A /* Fire.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -394,6 +395,7 @@
 		1C3FA87418EBECAC00B87A88 /* Path.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Path.sks; path = Resources/Path.sks; sourceTree = "<group>"; };
 		1CB6B097191B200600AA6E05 /* Spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Spark.sks; path = Resources/Spark.sks; sourceTree = "<group>"; };
 		1CB6B099191B25D100AA6E05 /* blur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blur.png; path = Resources/blur.png; sourceTree = "<group>"; };
+		1CD15094192117400016759A /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Fire.sks; path = Resources/Fire.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -831,6 +833,7 @@
 		1C3FA87118EBEC2900B87A88 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1CD15094192117400016759A /* Fire.sks */,
 				1C16BA69191FC8D400B3B8D6 /* Background */,
 				18729F0E191BCDA100E86E76 /* BackgroundImages */,
 				1CB6B099191B25D100AA6E05 /* blur.png */,
@@ -989,6 +992,7 @@
 				18729F1A191BCDA100E86E76 /* pMiddleHorizontal@2x.png in Resources */,
 				1C16BAE3191FC8D400B3B8D6 /* fog_front_04~ipad.png in Resources */,
 				1CB6B09A191B25D100AA6E05 /* blur.png in Resources */,
+				1CD15095192117400016759A /* Fire.sks in Resources */,
 				1C16BB1B191FC8D400B3B8D6 /* trees_far~ipad@2x.png in Resources */,
 				1C16BAEE191FC8D400B3B8D6 /* grass_03~ipad@2x.png in Resources */,
 				1C16BB07191FC8D400B3B8D6 /* trees_back_02~ipad@2x.png in Resources */,
