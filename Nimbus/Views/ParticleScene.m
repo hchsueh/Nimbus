@@ -110,6 +110,12 @@ static const uint32_t enemyCategory = 0x1 << 1;
 
             }
             
+            /******************************************************/
+            /***************** Performance Tuning *****************/
+            /******** No need to store last, current, next ********/
+            /*********** Knowing currentIndex is enough ***********/
+            /******************************************************/
+
             // save background info
             NSNumber *currentIndex = [NSNumber numberWithInt:2];
             NSNumber *offset = [NSNumber numberWithFloat:0.0f];
@@ -210,22 +216,25 @@ static const uint32_t enemyCategory = 0x1 << 1;
             
             offset+=speed;
             
-            if(fabsf(offset) >= last.size.width){
+            // offset exceeds screen width => load next image
+            if(fabsf(offset) >= self.size.width){
                 
                 currentIndex--;
                 if(currentIndex < 1) currentIndex = 5;
-                [info setObject:current forKey:@"next"];
-                [info setObject:last forKey:@"current"];
+                [info setObject:[NSNumber numberWithInt:currentIndex] forKey:@"currentIndex"];
+                next = current;
+                current = last;
+                [info setObject:next forKey:@"next"];
+                [info setObject:current forKey:@"current"];
                 
-                int nextIndex = currentIndex-1;
-                if(nextIndex < 1) nextIndex = 5;
-                SKSpriteNode *tmp = [[SKSpriteNode alloc] initWithImageNamed:[NSString stringWithFormat:@"%@_0%d", key, nextIndex]];
-                tmp.position = CGPointMake(last.position.x - last.size.width, last.position.y);
-                [self addChild:tmp];
-                [next removeFromParent];
-                [info setObject:tmp forKey:@"last"];
-                
-                offset = 0;
+                int lastIndex = currentIndex-1;
+                if(lastIndex < 1) lastIndex = 5;
+//                if([key isEqualToString:@"fog_back"]) NSLog(@"chage from %d to %d", currentIndex, nextIndex);
+                last = [[self.backgroundImages objectForKey:key] objectAtIndex:lastIndex-1];
+                last.position = CGPointMake(current.position.x - last.size.width, self.size.height/2);
+                [info setObject:last forKey:@"last"];
+                if([key isEqualToString:@"fog_back"]) NSLog(@"last: %@, current: %@, next: %@", last, current, next);
+                offset = 0.0f;
                 
             }
             

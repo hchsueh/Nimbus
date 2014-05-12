@@ -18,9 +18,9 @@
 		<key>name</key>
 		<string>fog_front</string>
 		<key>speed</key>
-		<real>0.8</real>
+		<real>2.4</real>
 		<key>direction</key>
-		<string>left</string>
+		<string>right</string>
 	</dict>
 	<dict>
 		<key>name</key>
