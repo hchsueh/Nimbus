@@ -2,12 +2,24 @@
 //  Player.h
 //  Nimbus
 //
-//  Created by Apple on 2014/5/9.
+//  Created by Apple on 2014/5/10.
 //
 //
 
-#import <Foundation/Foundation.h>
+#import <SpriteKit/SpriteKit.h>
 
-@interface Player : NSObject
+typedef enum : uint8_t {
+    PlayerAnimationStateIdle = 0,
+    PlayerAnimationStateInjured
+} PlayerAnimationState;
+
+@interface Player : SKSpriteNode
+
+@property (nonatomic) PlayerAnimationState playerState;
+@property (nonatomic) int health;
+@property (nonatomic) int mana;
+
+- (id)initWithTexture: (SKTexture *) texture AtPosition:(CGPoint)position;
+- (void) runAnimationIdle;
 
 @end

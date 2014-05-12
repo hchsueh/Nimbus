@@ -16,6 +16,7 @@
 
 @property (strong, nonatomic) PaintView *paintView;
 @property (strong, nonatomic) ParticleScene *particleScene;
+//@property (strong, nonatomic) WelcomeScene *welcomeScene;
 @property (strong, nonatomic) NSTimer *timerPause;
 @property (strong, nonatomic) NSTimer *timerStop;
 
@@ -32,11 +33,12 @@
     skView.showsFPS = NO;
     skView.showsNodeCount = NO;
     
+    self.particleScene = [ParticleScene sceneWithSize: CGSizeMake(skView.bounds.size.height, skView.bounds.size.width)];
+    self.paintView = [[PaintView alloc] initWithFrame: self.view.bounds];
+    
     // Create and configure the scene.
     self.particleScene = [ParticleScene sceneWithSize: CGSizeMake(skView.bounds.size.height, skView.bounds.size.width)];
     self.particleScene.scaleMode = SKSceneScaleModeAspectFill;
-    
-    // Present the scene.
     [skView presentScene: self.particleScene];
     
     // put paintView
@@ -47,11 +49,10 @@
     self.paintView.canDraw = true;
     [self.view addSubview: self.paintView];
 
-    [super viewDidLoad];
-    
-    
+//    [super viewDidLoad];
 }
 
+#pragma mark - Timer Selector
 - (void)stopDrawing {
 
 //    self.paintView.canDraw = false;
@@ -62,8 +63,7 @@
 
 }
 
-// Protocol Methods
-
+#pragma mark - PaintView Delegate Protocol Methods
 - (void)pauseDrawing {
     [self.particleScene pauseMoving];
     self.timerPause = [NSTimer scheduledTimerWithTimeInterval:1.0
@@ -103,8 +103,6 @@
     [self.timerPause invalidate];
 
 }
-
-#pragma mark - Delegate
 
 - (void)PaintView:(PaintView*)theView glyphDetected:(WTMGlyph *)glyph withScore:(float)score
 {

@@ -39,22 +39,22 @@
     // Resample the points
     NSMutableArray *resampled = [NSMutableArray arrayWithArray:Resample(self.points, WTMGlyphResamplePointsCount)];
 //    DebugLog(@"Resampled points %@", resampled);
-    NSLog(@"Resampled points %@", resampled);
+//    NSLog(@"Resampled points %@", resampled);
     
     // Calculate indicative angle (radians)
     float radians = IndicativeAngle(resampled);
 //    DebugLog(@"Indicative angle %f", radians);
-    NSLog(@"Indicative angle %f", radians);
+//    NSLog(@"Indicative angle %f", radians);
     
     // Scale points to the desired resolution
     NSMutableArray *scaled = [NSMutableArray arrayWithArray:Scale(resampled, WTMGlyphResolution, WTMGlyph1DThreshold)];
 //    DebugLog(@"Scaled points %@", scaled);
-    NSLog(@"Scaled points %@", scaled);
+//    NSLog(@"Scaled points %@", scaled);
     
     // Translate points to 0,0
     NSMutableArray *translated = [NSMutableArray arrayWithArray:TranslateToOrigin(scaled)];
 //    DebugLog(@"Translated points %@", translated);
-    NSLog(@"Translated points %@", translated);
+//    NSLog(@"Translated points %@", translated);
     
     self.normalizedPoints = translated;
     

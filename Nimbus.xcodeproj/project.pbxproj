@@ -33,7 +33,17 @@
 		18729F18191BCDA100E86E76 /* pForegroundHorizontal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18729F12191BCDA100E86E76 /* pForegroundHorizontal@2x.png */; };
 		18729F19191BCDA100E86E76 /* pMiddleHorizontal.png in Resources */ = {isa = PBXBuildFile; fileRef = 18729F13191BCDA100E86E76 /* pMiddleHorizontal.png */; };
 		18729F1A191BCDA100E86E76 /* pMiddleHorizontal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 18729F14191BCDA100E86E76 /* pMiddleHorizontal@2x.png */; };
-		18729F1D191D089900E86E76 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 18729F1C191D089900E86E76 /* Player.m */; };
+		18729F20191DDB1A00E86E76 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 18729F1F191DDB1A00E86E76 /* Player.m */; };
+		18729F23191DFD2D00E86E76 /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = 18729F22191DFD2D00E86E76 /* Enemy.m */; };
+		18729F26191E053200E86E76 /* Magic.m in Sources */ = {isa = PBXBuildFile; fileRef = 18729F25191E053200E86E76 /* Magic.m */; };
+		18729F2A191E335F00E86E76 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 18729F28191E335F00E86E76 /* spark.png */; };
+		18729F2E191E343300E86E76 /* BabyGoldenSnitchHeart.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18729F2D191E343300E86E76 /* BabyGoldenSnitchHeart.sks */; };
+		18729F34191F565300E86E76 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18729F33191F565300E86E76 /* WelcomeViewController.m */; };
+		18729F37191F572900E86E76 /* WelcomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18729F36191F572900E86E76 /* WelcomeView.m */; };
+		18729F3A191FC45400E86E76 /* LobbyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18729F39191FC45400E86E76 /* LobbyViewController.m */; };
+		18729F3D191FC46E00E86E76 /* IntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18729F3C191FC46E00E86E76 /* IntroductionViewController.m */; };
+		18729F40191FC49600E86E76 /* IntroductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18729F3F191FC49600E86E76 /* IntroductionView.m */; };
+		18729F43191FC4AD00E86E76 /* LobbyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18729F42191FC4AD00E86E76 /* LobbyView.m */; };
 		18B1CA351911281900C91722 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B1CA081911281900C91722 /* CDataScanner.m */; };
 		18B1CA371911281900C91722 /* CFilteringJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B1CA0C1911281900C91722 /* CFilteringJSONSerializer.m */; };
 		18B1CA381911281900C91722 /* CJSONDeserializer_BlocksExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B1CA0E1911281900C91722 /* CJSONDeserializer_BlocksExtensions.m */; };
@@ -114,8 +124,26 @@
 		18729F12191BCDA100E86E76 /* pForegroundHorizontal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pForegroundHorizontal@2x.png"; sourceTree = "<group>"; };
 		18729F13191BCDA100E86E76 /* pMiddleHorizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pMiddleHorizontal.png; sourceTree = "<group>"; };
 		18729F14191BCDA100E86E76 /* pMiddleHorizontal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pMiddleHorizontal@2x.png"; sourceTree = "<group>"; };
-		18729F1B191D089900E86E76 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
-		18729F1C191D089900E86E76 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		18729F1E191DDB1A00E86E76 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		18729F1F191DDB1A00E86E76 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		18729F21191DFD2D00E86E76 /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
+		18729F22191DFD2D00E86E76 /* Enemy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Enemy.m; sourceTree = "<group>"; };
+		18729F24191E053200E86E76 /* Magic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Magic.h; sourceTree = "<group>"; };
+		18729F25191E053200E86E76 /* Magic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Magic.m; sourceTree = "<group>"; };
+		18729F28191E335F00E86E76 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		18729F2D191E343300E86E76 /* BabyGoldenSnitchHeart.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BabyGoldenSnitchHeart.sks; sourceTree = "<group>"; };
+		18729F32191F565300E86E76 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WelcomeViewController.h; path = ../Views/WelcomeViewController.h; sourceTree = "<group>"; };
+		18729F33191F565300E86E76 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WelcomeViewController.m; path = ../Views/WelcomeViewController.m; sourceTree = "<group>"; };
+		18729F35191F572900E86E76 /* WelcomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeView.h; sourceTree = "<group>"; };
+		18729F36191F572900E86E76 /* WelcomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeView.m; sourceTree = "<group>"; };
+		18729F38191FC45400E86E76 /* LobbyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LobbyViewController.h; sourceTree = "<group>"; };
+		18729F39191FC45400E86E76 /* LobbyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LobbyViewController.m; sourceTree = "<group>"; };
+		18729F3B191FC46E00E86E76 /* IntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroductionViewController.h; sourceTree = "<group>"; };
+		18729F3C191FC46E00E86E76 /* IntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroductionViewController.m; sourceTree = "<group>"; };
+		18729F3E191FC49600E86E76 /* IntroductionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroductionView.h; sourceTree = "<group>"; };
+		18729F3F191FC49600E86E76 /* IntroductionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroductionView.m; sourceTree = "<group>"; };
+		18729F41191FC4AD00E86E76 /* LobbyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LobbyView.h; sourceTree = "<group>"; };
+		18729F42191FC4AD00E86E76 /* LobbyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LobbyView.m; sourceTree = "<group>"; };
 		18B1CA071911281900C91722 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
 		18B1CA081911281900C91722 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
 		18B1CA0B1911281900C91722 /* CFilteringJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFilteringJSONSerializer.h; sourceTree = "<group>"; };
@@ -236,6 +264,7 @@
 				18B1CA061911281900C91722 /* WTMGlyph */,
 				1C3FA86C18EAFCB800B87A88 /* Controllers */,
 				186922B818E83166001474AD /* Images.xcassets */,
+				1C3FA86B18EAFCAB00B87A88 /* Views */,
 				1869229F18E83166001474AD /* Supporting Files */,
 				1C3FA87118EBEC2900B87A88 /* Resources */,
 			);
@@ -279,8 +308,12 @@
 			children = (
 				18729F0B191BCD9500E86E76 /* PBParallaxScrolling.h */,
 				18729F0C191BCD9500E86E76 /* PBParallaxScrolling.m */,
-				18729F1B191D089900E86E76 /* Player.h */,
-				18729F1C191D089900E86E76 /* Player.m */,
+				18729F1E191DDB1A00E86E76 /* Player.h */,
+				18729F1F191DDB1A00E86E76 /* Player.m */,
+				18729F21191DFD2D00E86E76 /* Enemy.h */,
+				18729F22191DFD2D00E86E76 /* Enemy.m */,
+				18729F24191E053200E86E76 /* Magic.h */,
+				18729F25191E053200E86E76 /* Magic.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -395,17 +428,27 @@
 				186922B418E83166001474AD /* ParticleScene.m */,
 				1806E4DE18EAC77A000D8594 /* PaintView.h */,
 				1806E4DF18EAC77A000D8594 /* PaintView.m */,
+				18729F35191F572900E86E76 /* WelcomeView.h */,
+				18729F36191F572900E86E76 /* WelcomeView.m */,
+				18729F3E191FC49600E86E76 /* IntroductionView.h */,
+				18729F3F191FC49600E86E76 /* IntroductionView.m */,
+				18729F41191FC4AD00E86E76 /* LobbyView.h */,
+				18729F42191FC4AD00E86E76 /* LobbyView.m */,
 			);
-			name = Views;
-			path = ../Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		1C3FA86C18EAFCB800B87A88 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				18729F32191F565300E86E76 /* WelcomeViewController.h */,
+				18729F33191F565300E86E76 /* WelcomeViewController.m */,
 				186922B018E83166001474AD /* ViewController.h */,
 				186922B118E83166001474AD /* ViewController.m */,
-				1C3FA86B18EAFCAB00B87A88 /* Views */,
+				18729F38191FC45400E86E76 /* LobbyViewController.h */,
+				18729F39191FC45400E86E76 /* LobbyViewController.m */,
+				18729F3B191FC46E00E86E76 /* IntroductionViewController.h */,
+				18729F3C191FC46E00E86E76 /* IntroductionViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -419,6 +462,8 @@
 				1C3FA86E18EBDB7800B87A88 /* spark.png */,
 				1CB6B097191B200600AA6E05 /* Spark.sks */,
 				1C3FA87418EBECAC00B87A88 /* Path.sks */,
+				18729F28191E335F00E86E76 /* spark.png */,
+				18729F2D191E343300E86E76 /* BabyGoldenSnitchHeart.sks */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -517,6 +562,8 @@
 				18729F1A191BCDA100E86E76 /* pMiddleHorizontal@2x.png in Resources */,
 				1CB6B09A191B25D100AA6E05 /* blur.png in Resources */,
 				18B1CA6019112D0900C91722 /* N.json in Resources */,
+				18729F2A191E335F00E86E76 /* spark.png in Resources */,
+				18729F2E191E343300E86E76 /* BabyGoldenSnitchHeart.sks in Resources */,
 				18729F16191BCDA100E86E76 /* pBackgroundHorizontal@2x.png in Resources */,
 				186922AC18E83166001474AD /* Main_iPhone.storyboard in Resources */,
 				18729F17191BCDA100E86E76 /* pForegroundHorizontal.png in Resources */,
@@ -542,14 +589,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18729F3D191FC46E00E86E76 /* IntroductionViewController.m in Sources */,
 				18B1CA451911281900C91722 /* WTMDetectionResult.m in Sources */,
 				18B1CA4B1911281900C91722 /* WTMGlyphUtilities.m in Sources */,
+				18729F37191F572900E86E76 /* WelcomeView.m in Sources */,
+				18729F23191DFD2D00E86E76 /* Enemy.m in Sources */,
 				18B1CA391911281900C91722 /* CJSONSerialization.m in Sources */,
+				18729F3A191FC45400E86E76 /* LobbyViewController.m in Sources */,
 				18B1CA411911281900C91722 /* ndollar.js in Sources */,
 				186922B518E83166001474AD /* ParticleScene.m in Sources */,
+				18729F26191E053200E86E76 /* Magic.m in Sources */,
+				18729F40191FC49600E86E76 /* IntroductionView.m in Sources */,
 				186922B218E83166001474AD /* ViewController.m in Sources */,
 				18B1CA3A1911281900C91722 /* CJSONSerializedData.m in Sources */,
 				18B1CA3C1911281900C91722 /* NSDictionary_JSONExtensions.m in Sources */,
+				18729F43191FC4AD00E86E76 /* LobbyView.m in Sources */,
 				18B1CA4A1911281900C91722 /* WTMGlyphTemplate.m in Sources */,
 				18B1CA481911281900C91722 /* WTMGlyphDetector.m in Sources */,
 				18B1CA371911281900C91722 /* CFilteringJSONSerializer.m in Sources */,
@@ -562,11 +616,12 @@
 				18B1CA3B1911281900C91722 /* CDataScanner_Extensions.m in Sources */,
 				18B1CA381911281900C91722 /* CJSONDeserializer_BlocksExtensions.m in Sources */,
 				186922A918E83166001474AD /* AppDelegate.m in Sources */,
+				18729F34191F565300E86E76 /* WelcomeViewController.m in Sources */,
 				18B1CA3D1911281900C91722 /* CJSONDeserializer.m in Sources */,
 				18B1CA3F1911281900C91722 /* CJSONSerializer.m in Sources */,
 				1806E4E018EAC77A000D8594 /* PaintView.m in Sources */,
 				186922A518E83166001474AD /* main.m in Sources */,
-				18729F1D191D089900E86E76 /* Player.m in Sources */,
+				18729F20191DDB1A00E86E76 /* Player.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
