@@ -27,9 +27,11 @@
 {
     [super viewDidLoad];
     
+    NSLog(@"view did load");
+    
     // Configure the view.
     SKView * skView = (SKView *)self.view;
-    skView.showsFPS = NO;
+    skView.showsFPS = YES;
     skView.showsNodeCount = NO;
     
     // Create and configure the scene.
@@ -51,6 +53,8 @@
     
     
 }
+
+#pragma mark - Drawing methods
 
 - (void)stopDrawing {
 
