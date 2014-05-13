@@ -36,6 +36,7 @@
 		18A1D692192100050088B1C0 /* WelcomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18729F36191F572900E86E76 /* WelcomeView.m */; };
 		18A1D693192100050088B1C0 /* IntroductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18729F3F191FC49600E86E76 /* IntroductionView.m */; };
 		18A1D694192100050088B1C0 /* LobbyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18729F42191FC4AD00E86E76 /* LobbyView.m */; };
+		18A1D69619213A570088B1C0 /* BabyGoldenSnitchPattern.json in Resources */ = {isa = PBXBuildFile; fileRef = 18A1D69519213A570088B1C0 /* BabyGoldenSnitchPattern.json */; };
 		18B1CA351911281900C91722 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B1CA081911281900C91722 /* CDataScanner.m */; };
 		18B1CA371911281900C91722 /* CFilteringJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B1CA0C1911281900C91722 /* CFilteringJSONSerializer.m */; };
 		18B1CA381911281900C91722 /* CJSONDeserializer_BlocksExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B1CA0E1911281900C91722 /* CJSONDeserializer_BlocksExtensions.m */; };
@@ -241,6 +242,7 @@
 		18A1D6891920FEAA0088B1C0 /* Magic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Magic.m; sourceTree = "<group>"; };
 		18A1D68A1920FEAA0088B1C0 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		18A1D68B1920FEAA0088B1C0 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		18A1D69519213A570088B1C0 /* BabyGoldenSnitchPattern.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BabyGoldenSnitchPattern.json; sourceTree = "<group>"; };
 		18B1CA071911281900C91722 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
 		18B1CA081911281900C91722 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
 		18B1CA0B1911281900C91722 /* CFilteringJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFilteringJSONSerializer.h; sourceTree = "<group>"; };
@@ -456,8 +458,8 @@
 				18729F0A191BCD9500E86E76 /* Models */,
 				18B1CA061911281900C91722 /* WTMGlyph */,
 				1C3FA86C18EAFCB800B87A88 /* Controllers */,
-				186922B818E83166001474AD /* Images.xcassets */,
 				1C3FA86B18EAFCAB00B87A88 /* Views */,
+				186922B818E83166001474AD /* Images.xcassets */,
 				1869229F18E83166001474AD /* Supporting Files */,
 				1CD1509A19211B840016759A /* Resources */,
 			);
@@ -586,6 +588,7 @@
 		18B1CA5419112D0900C91722 /* gestures */ = {
 			isa = PBXGroup;
 			children = (
+				18A1D69519213A570088B1C0 /* BabyGoldenSnitchPattern.json */,
 				18B1CA5519112D0900C91722 /* circle.json */,
 				18B1CA5619112D0900C91722 /* D.json */,
 				18B1CA5719112D0900C91722 /* N.json */,
@@ -966,6 +969,7 @@
 				186922B918E83166001474AD /* Images.xcassets in Resources */,
 				1CD1512C19211B840016759A /* grass_02~ipad@2x.png in Resources */,
 				18B1CA6219112D0900C91722 /* square.json in Resources */,
+				18A1D69619213A570088B1C0 /* BabyGoldenSnitchPattern.json in Resources */,
 				1CD1511919211B840016759A /* fog_back_05~ipad.png in Resources */,
 				1CD1512719211B840016759A /* fog_front~ipad.png in Resources */,
 				1CD1513419211B840016759A /* grass~ipad@2x.png in Resources */,

@@ -46,7 +46,7 @@
     // put paintView
     self.paintView = [[PaintView alloc] initWithFrame: self.view.bounds];
     self.paintView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.paintView loadTemplatesWithNames:@"N",@"W", @"V", @"circle", nil];
+    [self.paintView loadTemplatesWithNames:@"BabyGoldenSnitchPattern", @"N",@"W", @"V", @"circle", nil];
     self.paintView.delegate = self;
     self.paintView.canDraw = true;
     [self.view addSubview: self.paintView];

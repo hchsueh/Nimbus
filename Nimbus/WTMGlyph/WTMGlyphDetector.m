@@ -146,7 +146,7 @@
     while ((glyph = (WTMGlyph *)[eachGlyph nextObject])) {
         float score = 1 / [glyph recognize:inputTemplate];
 //        DebugLog(@"Glyph: %@ Score: %f", glyph.name, score);
-//        NSLog(@"Glyph: %@ Score: %f", glyph.name, score);
+        NSLog(@"Glyph: %@ Score: %f", glyph.name, score);
         result = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:glyph.name, [NSNumber numberWithFloat:score], nil]
                                              forKeys:[NSArray arrayWithObjects:@"name", @"score", nil]];
         [results addObject:result];
