@@ -12,6 +12,7 @@
 #import "Magic.h"
 
 #define MAX_IMG_NUM 5
+#define SLOWING_THRESHOLD 100
 
 static const uint32_t magicCategory = 0x1 << 0;
 static const uint32_t enemyCategory = 0x1 << 1;
@@ -28,6 +29,9 @@ static const uint32_t enemyCategory = 0x1 << 1;
 
 @property (nonatomic, strong) NSMutableDictionary *backgroundInformation;
 @property (nonatomic, strong) NSMutableDictionary *backgroundImages;
+@property (nonatomic) float speedFactor;
+@property (nonatomic) BOOL isSlowingDown;
+@property (nonatomic) BOOL isSpeedingUp;
 
 @property (nonatomic, strong) Player *player;
 @property (nonatomic, strong) Enemy *enemy;
@@ -38,18 +42,21 @@ static const uint32_t enemyCategory = 0x1 << 1;
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
         
-//        self.backgroundColor = [SKColor colorWithRed:0.008 green:0.008 blue:0.008 alpha:1.0];
-        self.backgroundColor = [SKColor colorWithRed:1 green:1 blue:1 alpha:0];
+        self.backgroundColor = [SKColor colorWithRed:1 green:1 blue:1 alpha:1];
         self.particleArray = [NSMutableArray array];
         self.fireArray = [NSMutableArray array];
-        self.backgroundInformation = [NSMutableDictionary dictionary];
-        self.backgroundImages = [NSMutableDictionary dictionary];
-        
+
         self.physicsWorld.gravity = CGVectorMake(0, 0);
         self.physicsWorld.contactDelegate = self; // not working ?????
         self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
         self.scaleMode = SKSceneScaleModeAspectFit;
-
+        
+        // background
+        self.speedFactor = 1.0f;
+        self.isSlowingDown = NO;
+        self.isSpeedingUp = NO;
+        self.backgroundInformation = [NSMutableDictionary dictionary];
+        self.backgroundImages = [NSMutableDictionary dictionary];
         NSString *path = [[NSBundle mainBundle] pathForResource:@"ImageSet" ofType:@"plist"];
         [self setupBackgroundWithImageSet:[NSArray arrayWithContentsOfFile:path]];
         NSLog(@"image set: %@", [NSArray arrayWithContentsOfFile:path]);
@@ -87,9 +94,9 @@ static const uint32_t enemyCategory = 0x1 << 1;
     for(NSDictionary *imageData in imageSet){
         
         // get image name
-        BOOL continuous = [[imageData objectForKey:@"continuous"] boolValue];
+        BOOL moving = ![[imageData objectForKey:@"direction"] isEqualToString:@"still"];
         NSString *key = [imageData objectForKey:@"name"];
-        if(continuous){
+        if(moving){
             
             for(int i = 1; i <= MAX_IMG_NUM; i++){
             
@@ -168,13 +175,24 @@ static const uint32_t enemyCategory = 0x1 << 1;
 
         // get information
         NSMutableDictionary *info = [self.backgroundInformation objectForKey:key];
-        float speed = [[info objectForKey:@"speed"] floatValue];
         float offset = [[info objectForKey:@"offset"] floatValue];
         int currentIndex = [[info objectForKey:@"currentIndex"] integerValue];
         NSString *direction = [info objectForKey:@"direction"];
         SKSpriteNode *last = [info objectForKey:@"last"];
         SKSpriteNode *current = [info objectForKey:@"current"];
         SKSpriteNode *next = [info objectForKey:@"next"];
+        
+        float speed = [[info objectForKey:@"speed"] floatValue];
+        if(!([key isEqualToString:@"fog_back"] || [key isEqualToString:@"fog_front"])){
+            
+            speed /= self.speedFactor;
+            if(self.speedFactor > SLOWING_THRESHOLD){
+                
+                self.isSlowingDown = NO;
+                speed = 0;
+                
+            }
+        }
         
         // calculate offset
         if([direction isEqualToString:@"left"]){
@@ -245,10 +263,23 @@ static const uint32_t enemyCategory = 0x1 << 1;
     
 }
 
+-(void)slowDown{
+
+    self.isSlowingDown = YES;
+    self.isSpeedingUp = NO;
+
+}
+
+-(void)speedUp{
+
+    self.isSpeedingUp = YES;
+    self.isSlowingDown = NO;
+
+}
+
 #pragma Drawing Path
 
 -(void)followPath:(UIBezierPath *)path withTimeInterval:(NSTimeInterval)interval{
-
 
     [path applyTransform:CGAffineTransformMakeScale(1.0, -1.0)];
     [path applyTransform:CGAffineTransformMakeTranslation(0, self.frame.size.height)];
@@ -280,6 +311,8 @@ static const uint32_t enemyCategory = 0x1 << 1;
         [obj removeFromParent];
     }
     
+    [self speedUp];
+    
 }
 
 -(void)beginMoving:(CGPoint)position{
@@ -299,6 +332,8 @@ static const uint32_t enemyCategory = 0x1 << 1;
     [self.fireArray addObject:self.fire];
     [self addChild: [self.particleArray lastObject]];
     [self addChild: [self.fireArray lastObject]];
+    
+    [self slowDown];
 
 }
 
@@ -388,6 +423,19 @@ static const uint32_t enemyCategory = 0x1 << 1;
         [self.magic runAction: [SKAction moveByX:40 y:dist_y*40 duration:0.1f]];
     }
 
+    // handle acceleration
+    if(self.isSlowingDown){
+    
+        self.speedFactor *= 2;
+    
+    }
+    else if(self.isSpeedingUp){
+    
+        self.speedFactor /= 2;
+        if(self.speedFactor == 1) self.isSpeedingUp = NO;
+    
+    }
+    
     [self moveBackground];
     
 }
