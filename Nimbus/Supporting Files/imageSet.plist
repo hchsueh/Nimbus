@@ -3,8 +3,6 @@
 <plist version="1.0">
 <array>
 	<dict>
-		<key>continuous</key>
-		<true/>
 		<key>name</key>
 		<string>grass</string>
 		<key>speed</key>
@@ -13,8 +11,6 @@
 		<string>left</string>
 	</dict>
 	<dict>
-		<key>continuous</key>
-		<true/>
 		<key>name</key>
 		<string>fog_front</string>
 		<key>speed</key>
@@ -33,8 +29,6 @@
 		<true/>
 	</dict>
 	<dict>
-		<key>continuous</key>
-		<true/>
 		<key>direction</key>
 		<string>left</string>
 		<key>name</key>
@@ -45,8 +39,6 @@
 	<dict>
 		<key>name</key>
 		<string>trees_back</string>
-		<key>continuous</key>
-		<true/>
 		<key>direction</key>
 		<string>left</string>
 		<key>speed</key>
@@ -55,8 +47,6 @@
 	<dict>
 		<key>name</key>
 		<string>trees_far</string>
-		<key>continuous</key>
-		<true/>
 		<key>direction</key>
 		<string>left</string>
 		<key>speed</key>
@@ -65,28 +55,22 @@
 	<dict>
 		<key>name</key>
 		<string>mountain</string>
-		<key>continuous</key>
-		<true/>
 		<key>direction</key>
 		<string>left</string>
 		<key>speed</key>
 		<real>0.4</real>
 	</dict>
 	<dict>
-		<key>continuous</key>
-		<false/>
 		<key>direction</key>
-		<string>left</string>
+		<string>still</string>
 		<key>speed</key>
 		<integer>0</integer>
 		<key>name</key>
 		<string>moon</string>
 	</dict>
 	<dict>
-		<key>continuous</key>
-		<false/>
 		<key>direction</key>
-		<string>left</string>
+		<string>still</string>
 		<key>speed</key>
 		<integer>0</integer>
 		<key>name</key>
