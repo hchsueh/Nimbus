@@ -636,12 +636,12 @@
 			children = (
 				18729F32191F565300E86E76 /* WelcomeViewController.h */,
 				18729F33191F565300E86E76 /* WelcomeViewController.m */,
-				186922B018E83166001474AD /* ViewController.h */,
-				186922B118E83166001474AD /* ViewController.m */,
-				18729F38191FC45400E86E76 /* LobbyViewController.h */,
-				18729F39191FC45400E86E76 /* LobbyViewController.m */,
 				18729F3B191FC46E00E86E76 /* IntroductionViewController.h */,
 				18729F3C191FC46E00E86E76 /* IntroductionViewController.m */,
+				18729F38191FC45400E86E76 /* LobbyViewController.h */,
+				18729F39191FC45400E86E76 /* LobbyViewController.m */,
+				186922B018E83166001474AD /* ViewController.h */,
+				186922B118E83166001474AD /* ViewController.m */,
 				18A1D699192312430088B1C0 /* StageclearViewController.h */,
 				18A1D69A192312430088B1C0 /* StageclearViewController.m */,
 			);

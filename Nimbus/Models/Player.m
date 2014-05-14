@@ -32,6 +32,7 @@
         self.playerIdleFrames = frames;
         self.position = position;
         self.playerState = PlayerAnimationStateIdle;
+        self.health = 15;
     }
     return self;
 }

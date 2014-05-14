@@ -9,11 +9,13 @@
 #import "ViewController.h"
 #import "ParticleScene.h"
 #import "PaintView.h"
+#import "StageclearViewController.h"
 
 #define GESTURE_SCORE_THRESHOLD         2.55f
 
 @interface ViewController()
 
+@property (strong, nonatomic) NSMutableArray *gameInfo;
 @property (strong, nonatomic) PaintView *paintView;
 @property (strong, nonatomic) ParticleScene *particleScene;
 //@property (strong, nonatomic) WelcomeScene *welcomeScene;
@@ -129,9 +131,25 @@
 
 #pragma mark - particleScene Delegate Methods
 
--(void) stageEnded
+-(void) stageEndedWithInformation: (NSMutableArray *) information;
 {
+    self.gameInfo = information;
     [self performSegueWithIdentifier:@"SEGUE_TO_STAGECLEAR" sender:self];
+}
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if([[segue identifier] isEqualToString:@"SEGUE_TO_STAGECLEAR"])
+    {
+        StageclearViewController *vc = [segue destinationViewController];
+        vc.gameDuration = [[self.gameInfo objectAtIndex:0] doubleValue];
+        vc.gamePlayerHealthLeft = [[self.gameInfo objectAtIndex:1] integerValue];
+    }
 }
 
 #pragma mark - Default Settings

@@ -10,4 +10,7 @@
 
 @interface StageclearViewController : UIViewController
 
+@property (nonatomic) int gamePlayerHealthLeft;
+@property (nonatomic) NSTimeInterval gameDuration;
+
 @end

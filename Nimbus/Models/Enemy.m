@@ -72,13 +72,13 @@
 
 - (void) runAnimationDead
 {
-    [self runAction: [SKAction sequence:@[[SKAction rotateByAngle:2*M_PI duration:1.0f],
+    [self runAction: [SKAction sequence:@[[SKAction rotateByAngle:2*M_PI duration:2.0f],
                                           [SKAction removeFromParent]
                                           ]
                       ]
      ];
-    [self runAction: [SKAction fadeOutWithDuration:1.0f]];
-    [self runAction: [SKAction scaleBy:0.2 duration:1.0f]];
+    [self runAction: [SKAction fadeOutWithDuration:2.0f]];
+    [self runAction: [SKAction scaleBy:0.1 duration:2.0f]];
 }
 
 

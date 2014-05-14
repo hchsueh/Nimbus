@@ -39,6 +39,7 @@ static const uint32_t enemyCategory = 0x1 << 1;
 @property (strong, nonatomic) NSMutableArray *stageInformation;
 @property (nonatomic) int currentSubstageNum;
 @property (strong, nonatomic) NSTimer *stageTransitionTimer;
+@property (strong, nonatomic) NSDate *startOffTime;
 
 @property (nonatomic) BOOL isReady;
 
@@ -99,6 +100,7 @@ static const uint32_t enemyCategory = 0x1 << 1;
         NSLog(@"currentStage = %d", self.currentStage);
         self.stageTransitionTimer = nil;
         self.isReady = YES;
+        self.startOffTime = [NSDate date];
     }
     return self;
 }
@@ -544,7 +546,15 @@ static const uint32_t enemyCategory = 0x1 << 1;
 -(void) stageEnding {
     // ending animation, goto ending scene
     NSLog(@"This stage ends!");
-    [self.delegate stageEnded];
+    NSMutableArray *info = [NSMutableArray array];
+    
+    NSDate *endTime = [NSDate date];
+    NSTimeInterval gameDuration = [endTime timeIntervalSinceDate:self.startOffTime];
+    [info addObject: [NSNumber numberWithDouble:gameDuration]]; // a double
+    [info addObject: [NSNumber numberWithInt:self.player.health]]; // an integer
+    
+    [self.delegate stageEndedWithInformation: info];
+
 }
 
 @end

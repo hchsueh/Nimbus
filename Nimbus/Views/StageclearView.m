@@ -17,7 +17,7 @@
         // Initialization code
         self.backgroundColor = [UIColor blackColor];
         
-        UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.frame)-100, CGRectGetMidY(self.frame)-100, 200, 200)];
+        UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.frame)-200, CGRectGetMidY(self.frame)-200, 400, 400)];
         title.font = [UIFont fontWithName:@"Baskerville-SemiBoldItalic" size:30];
         title.text = @"~ Stage Cleared ~";
         title.textColor = [UIColor whiteColor];

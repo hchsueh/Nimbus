@@ -34,6 +34,7 @@
 {
     StageclearView *stageclearView = [[StageclearView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:stageclearView];
+    NSLog(@"stage info: playerHealthLeft: %d, gameDuration: %e", self.gamePlayerHealthLeft, self.gameDuration);
 }
 
 - (void)didReceiveMemoryWarning

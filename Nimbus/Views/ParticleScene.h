@@ -10,7 +10,7 @@
 
 @protocol gameSceneDelegate
 
--(void) stageEnded;
+-(void) stageEndedWithInformation: (NSMutableArray *) information;
 
 @end
 
