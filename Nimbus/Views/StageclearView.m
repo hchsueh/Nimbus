@@ -17,13 +17,19 @@
         // Initialization code
         self.backgroundColor = [UIColor blackColor];
         
-        UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.frame)-200, CGRectGetMidY(self.frame)-200, 400, 400)];
-        title.font = [UIFont fontWithName:@"Baskerville-SemiBoldItalic" size:30];
-        title.text = @"~ Stage Cleared ~";
-        title.textColor = [UIColor whiteColor];
-        title.textAlignment = NSTextAlignmentCenter;
+        UIImageView *bgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StageClear"]];
+        [self addSubview:bgView];
+        UIImageView *breathView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"breathe"]];
+        [self addSubview:breathView];
         
-        [self addSubview:title];
+        [UIView animateWithDuration:2.8
+                              delay:0
+                            options: UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat
+                         animations:^{
+                             breathView.alpha = 0.0;
+                         }
+                         completion:nil];
+        
     }
     return self;
 }

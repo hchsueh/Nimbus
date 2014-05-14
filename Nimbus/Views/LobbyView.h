@@ -10,4 +10,6 @@
 
 @interface LobbyView : UIView
 
+- (id)initWithStage:(int)stage;
+
 @end
