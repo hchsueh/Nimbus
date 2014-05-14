@@ -15,5 +15,6 @@
 -(id) initAtPosition: (CGPoint) position;
 -(void) addParticleWithTargetNode: (SKNode *) node;
 -(void) runAnimationHitTarget;
+-(void) runAnimationBlocked;
 
 @end

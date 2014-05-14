@@ -8,6 +8,10 @@
 
 #import "MagicFromEnemy.h"
 
+@interface MagicFromEnemy()
+@property (strong, nonatomic) SKEmitterNode *particle;
+@end
+
 @implementation MagicFromEnemy
 
 -(id) initAtPosition: (CGPoint) position
@@ -28,6 +32,7 @@
     particle.targetNode = node;
     particle.particlePosition = CGPointMake(0.0,0.0);
     //        particle.zPosition = -1.0; // add heart within the body !
+    self.particle = particle;
     [self addChild: particle];
 }
 
@@ -39,5 +44,13 @@
     [self runAction: [SKAction scaleBy:0.1 duration:0.5f]];
 }
 
+-(void) runAnimationBlocked
+{
+    NSLog(@"runAnimationBlocked");
+    [self runAction:[SKAction sequence:@[[SKAction waitForDuration:1.0f],
+                                        [SKAction removeFromParent]]]];
+    [self.particle setParticleBirthRate:5];
+    
+}
 
 @end

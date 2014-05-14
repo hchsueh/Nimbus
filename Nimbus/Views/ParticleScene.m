@@ -14,7 +14,7 @@
 
 #define MAX_IMG_NUM 5
 #define SLOWING_THRESHOLD 100
-#define ENEMY_ATTACK_TIME 10
+#define ENEMY_ATTACK_TIME 5
 #define ENEMY_ATTACK_RANGE 1
 
 static const uint32_t magicCategory          = 0x1 << 0;
@@ -48,6 +48,9 @@ static const uint32_t playerCategory         = 0x1 << 3;
 @property (nonatomic, strong) NSMutableArray *magicFromEnemy;
 @property (nonatomic, strong) NSTimer *gameOverTimer;
 @property (nonatomic, strong) NSMutableArray *healthPoints;
+@property (nonatomic, strong) SKEmitterNode *shield;
+@property (nonatomic) BOOL hasShield;
+@property (nonatomic, strong) NSTimer *shieldTimer;
 
 @property (strong, nonatomic) NSMutableArray *stageInformation;
 @property (nonatomic) int currentSubstageNum;
@@ -99,6 +102,9 @@ static const uint32_t playerCategory         = 0x1 << 3;
         
         self.healthPoints = [NSMutableArray array];
         [self addPlayerHealthPoints];
+        
+        self.hasShield = NO;
+        self.shieldTimer = nil;
 //        UIImage *enemyImage = [UIImage imageNamed:@"smallFireMonster.png"];
 //        SKTexture *enemyTexture = [SKTexture textureWithCGImage:enemyImage.CGImage];
 //        self.enemy = [[Enemy alloc] initWithTexture:enemyTexture AtPosition:CGPointMake(900,400)];
@@ -414,34 +420,66 @@ static const uint32_t playerCategory         = 0x1 << 3;
 
 #pragma mark - Magic Animation
 
--(void) displayAnimation{
-    // initialize magic animation
-    SKTextureAtlas *BabyGoldenSnitchAtlas = [SKTextureAtlas atlasNamed:@"BabyGoldenSnitch"];
-    NSMutableArray *frames = [NSMutableArray array];
-    for(int i=1; i<=BabyGoldenSnitchAtlas.textureNames.count; i++){
-        NSString *name = [NSString stringWithFormat:@"BabyGoldenSnitch_frame%d",i];
-        SKTexture *temp = [BabyGoldenSnitchAtlas textureNamed:name];
-        [frames addObject:temp];
+-(void) displayAnimationWithPatternNum: (int) num
+{
+    if(num == 2){
+        // initialize magic animation
+        SKTextureAtlas *BabyGoldenSnitchAtlas = [SKTextureAtlas atlasNamed:@"BabyGoldenSnitch"];
+        NSMutableArray *frames = [NSMutableArray array];
+        for(int i=1; i<=BabyGoldenSnitchAtlas.textureNames.count; i++){
+            NSString *name = [NSString stringWithFormat:@"BabyGoldenSnitch_frame%d",i];
+            SKTexture *temp = [BabyGoldenSnitchAtlas textureNamed:name];
+            [frames addObject:temp];
+        }
+        self.magicFrames = frames;
+        SKTexture *temp = self.magicFrames[0];
+        
+        
+        self.magic = [[Magic alloc] initWithTexture:temp
+                                         AtPosition:CGPointMake(self.player.position.x + 50, self.player.position.y + 50)];
+        
+        self.magic.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.magic.size.width/2];
+        self.magic.physicsBody.dynamic = YES;
+        self.magic.physicsBody.categoryBitMask = magicCategory;
+        self.magic.physicsBody.contactTestBitMask = enemyCategory;
+        self.magic.physicsBody.collisionBitMask = 0; // ?
+        self.magic.physicsBody.usesPreciseCollisionDetection = YES; // magic may be moving fast !
+        [self addChild: self.magic];
+        [self.magic installHeartWithTargetNode:self];
+        [self.magic runAnimationIdle];
+        
+    //    [self.magic addObject:magic];
+    //    [self magicShowOff];
     }
-    self.magicFrames = frames;
-    SKTexture *temp = self.magicFrames[0];
+    else if(num == 1){
+        [self.player toGODDAMNRachael];
+    }
+    else {
+        //shield
+        if(!self.hasShield){
+            NSString *particlePath = [[NSBundle mainBundle] pathForResource:@"shield" ofType:@"sks"];
+
+            SKEmitterNode *shield = [NSKeyedUnarchiver unarchiveObjectWithFile:particlePath];
+            shield.targetNode = self;
+            shield.particlePosition = CGPointMake(220, 400);
+            shield.zPosition = 1000;
+            self.shield = shield;
+            self.hasShield = YES;
+            //        point.zPosition = -1.0; // add heart within the body !
+            [self addChild: self.shield];
+            self.shieldTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(shieldEnded) userInfo:nil repeats:NO];
+        }
+    }
+}
+
+-(void) shieldEnded
+{
+    self.shieldTimer = nil;
+    self.hasShield = NO;
     
-    
-    self.magic = [[Magic alloc] initWithTexture:temp
-                                     AtPosition:CGPointMake(self.player.position.x + 50, self.player.position.y + 50)];
-    
-    self.magic.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.magic.size.width/2];
-    self.magic.physicsBody.dynamic = YES;
-    self.magic.physicsBody.categoryBitMask = magicCategory;
-    self.magic.physicsBody.contactTestBitMask = enemyCategory;
-    self.magic.physicsBody.collisionBitMask = 0; // ?
-    self.magic.physicsBody.usesPreciseCollisionDetection = YES; // magic may be moving fast !
-    [self addChild: self.magic];
-    [self.magic installHeartWithTargetNode:self];
-    [self.magic runAnimationIdle];
-    
-//    [self.magic addObject:magic];
-//    [self magicShowOff];
+    [self.shield runAction:[SKAction sequence:@[[SKAction waitForDuration:2.0f],
+                                                [SKAction removeFromParent]]]];
+    [self.shield setParticleBirthRate:20];
 }
 
 //-(void)clearAll{
@@ -501,33 +539,40 @@ static const uint32_t playerCategory         = 0x1 << 3;
     {
         for( MagicFromEnemy *obj in self.magicFromEnemy ){
             if( (obj.position.x <= self.player.position.x) && (obj.hasHit == NO) ){
-                NSLog(@"contact: player hit by magicFromEnemy");
-                obj.hasHit = YES;
-                [obj removeAllActions];
-                [obj runAnimationHitTarget];
-                [self.magicFromEnemy removeObject:obj];
-                
-                self.player.health -= 5;
-                NSLog(@"contact: Your ass got kicked! Now your health is %d", self.player.health);
-                
-                if(self.player.health <= 0) {
-                    [self.player runAnimationDead];
-                    self.player = nil;
-                    SKEmitterNode *lastObj = [self.healthPoints lastObject];
-                    [lastObj setParticleBirthRate:20];
-                    [lastObj runAction:[SKAction sequence:@[[SKAction waitForDuration:1.0f],
-                                                            [SKAction removeFromParent]]]];
-                    [self.healthPoints removeLastObject];
+                if(!self.hasShield){
+                    NSLog(@"contact: player hit by magicFromEnemy");
+                    obj.hasHit = YES;
+                    [obj removeAllActions];
+                    [obj runAnimationHitTarget];
+                    [self.magicFromEnemy removeObject:obj];
                     
-                    self.gameOverTimer = [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(gameOver) userInfo:nil repeats:NO];
+                    self.player.health -= 5;
+                    NSLog(@"contact: Your ass got kicked! Now your health is %d", self.player.health);
+                    
+                    if(self.player.health <= 0) {
+                        [self.player runAnimationDead];
+                        self.player = nil;
+                        SKEmitterNode *lastObj = [self.healthPoints lastObject];
+                        [lastObj setParticleBirthRate:20];
+                        [lastObj runAction:[SKAction sequence:@[[SKAction waitForDuration:1.0f],
+                                                                [SKAction removeFromParent]]]];
+                        [self.healthPoints removeLastObject];
+                        
+                        self.gameOverTimer = [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(gameOver) userInfo:nil repeats:NO];
+                    }
+                    else {
+                        [self.player runAnimationInjured];
+                        SKEmitterNode *lastObj = [self.healthPoints lastObject];
+                        [lastObj setParticleBirthRate:20];
+                        [lastObj runAction:[SKAction sequence:@[[SKAction waitForDuration:1.0f],
+                                                                [SKAction removeFromParent]]]];
+                        [self.healthPoints removeLastObject];
+                    }
                 }
-                else {
-                    [self.player runAnimationInjured];
-                    SKEmitterNode *lastObj = [self.healthPoints lastObject];
-                    [lastObj setParticleBirthRate:20];
-                    [lastObj runAction:[SKAction sequence:@[[SKAction waitForDuration:1.0f],
-                                                            [SKAction removeFromParent]]]];
-                    [self.healthPoints removeLastObject];
+                else{
+                    // has shield ! under protection A___A
+                    obj.hasHit = YES;
+                    [obj runAnimationBlocked];
                 }
 
             }

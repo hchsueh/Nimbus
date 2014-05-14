@@ -47,7 +47,7 @@
     // put paintView
     self.paintView = [[PaintView alloc] initWithFrame: self.view.bounds];
     self.paintView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.paintView loadTemplatesWithNames:@"BabyGoldenSnitchPattern", @"N",@"W", @"V", @"circle", nil];
+    [self.paintView loadTemplatesWithNames:@"W", @"V", @"shieldPattern", nil];
     self.paintView.delegate = self;
     self.paintView.canDraw = true;
     [self.view addSubview: self.paintView];
@@ -124,7 +124,18 @@
     }
     else{
         NSLog(@"Last gesture detected: %@\nScore: %.3f", glyph.name, score);
-        [self.particleScene displayAnimation];
+        if( [glyph.name isEqualToString:@"W"]){
+            [self.particleScene displayAnimationWithPatternNum:1];
+            NSLog(@"W means RACHAEL!!! ARGHHHHHHHH");
+        }
+        else if( [glyph.name isEqualToString:@"V"] ){
+            [self.particleScene displayAnimationWithPatternNum:2];
+            NSLog(@"V means babyGoldenSnitch!!!");
+        }
+        else {
+            [self.particleScene displayAnimationWithPatternNum:3];
+            NSLog(@"Come'n Shield Pattern!!!");
+        }
     }
     
 }

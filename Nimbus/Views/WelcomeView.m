@@ -33,7 +33,7 @@
         NSLog(@"Welcome view");
         [self addSubview:breathView];
        
-        [UIView animateWithDuration:2.8
+        [UIView animateWithDuration:1.7
                               delay:0
                             options: UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat
                          animations:^{

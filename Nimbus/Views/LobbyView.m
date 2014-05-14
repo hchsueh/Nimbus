@@ -27,7 +27,7 @@
     if (self) {
         // Initialization code
         self.backgroundColor = [UIColor blackColor];
-        
+        if(!stage) stage = 1;
         UIImageView *bgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"map%d", stage]]];
         NSLog(@"%d", stage);
         [self addSubview:bgView];

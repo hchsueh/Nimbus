@@ -16,6 +16,7 @@
 
 @interface StageclearViewController ()
 @property (nonatomic) BOOL canTouch;
+@property (nonatomic, strong) StageclearView *stageclearView;
 @end
 
 @implementation StageclearViewController
@@ -47,7 +48,16 @@
               
         NSLog(@"JSON: %@", responseObject);
         self.canTouch = YES;
-              
+        NSError *err;
+        NSLog(@"%@", [responseObject class]);
+        NSDictionary *data = [NSDictionary dictionaryWithDictionary:responseObject];
+        [self.stageclearView updateLabel:[[data objectForKey:@"rank"] integerValue]];
+        
+        
+//        NSDictionary *data = [NSDictionary dictionaryWithDictionary: [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&err]];
+//        self.stageclearView.rank = [[data objectForKey:@"rank"] integerValue];
+//        NSLog(@"%d", self.stageclearView.rank);
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         NSLog(@"Error: %@", error);
@@ -58,8 +68,8 @@
 
 -(void) viewDidAppear:(BOOL)animated
 {
-    StageclearView *stageclearView = [[StageclearView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:stageclearView];
+    self.stageclearView = [[StageclearView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:self.stageclearView];
     NSLog(@"stage info: playerHealthLeft: %d, gameDuration: %e", self.gamePlayerHealthLeft.integerValue, self.gameDuration.doubleValue);
 }
 

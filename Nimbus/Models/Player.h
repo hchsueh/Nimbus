@@ -23,5 +23,6 @@ typedef enum : uint8_t {
 - (void) runAnimationIdle;
 - (void) runAnimationInjured;
 - (void) runAnimationDead;
+- (void) toGODDAMNRachael;
 
 @end

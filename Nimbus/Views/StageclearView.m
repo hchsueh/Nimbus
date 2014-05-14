@@ -22,7 +22,7 @@
         UIImageView *breathView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"breathe"]];
         [self addSubview:breathView];
         
-        [UIView animateWithDuration:2.8
+        [UIView animateWithDuration:1.7
                               delay:0
                             options: UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat
                          animations:^{
@@ -30,8 +30,20 @@
                          }
                          completion:nil];
         
-    }
+            }
     return self;
+}
+
+-(void) updateLabel:(int)rank
+{
+    NSLog(@"updateLabel rank: %d" ,rank);
+
+    UILabel *rankLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.frame)-100, CGRectGetMidY(self.frame)-100, 200, 200)];
+    rankLabel.text = [NSString stringWithFormat:@"rank: %d", rank];
+    rankLabel.textColor = [UIColor whiteColor];
+    rankLabel.textAlignment = NSTextAlignmentCenter;
+    
+    [self addSubview:rankLabel];
 }
 
 /*

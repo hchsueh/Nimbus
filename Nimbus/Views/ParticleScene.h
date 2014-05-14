@@ -25,6 +25,6 @@
 -(void)beginMoving:(CGPoint)position;
 //-(void)clearAll;
 
--(void) displayAnimation;
+-(void) displayAnimationWithPatternNum: (int) num;
 
 @end
