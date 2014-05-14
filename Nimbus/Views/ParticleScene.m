@@ -47,6 +47,7 @@ static const uint32_t playerCategory         = 0x1 << 3;
 //@property (nonatomic, strong) MagicFromEnemy *magicFromEnemy;
 @property (nonatomic, strong) NSMutableArray *magicFromEnemy;
 @property (nonatomic, strong) NSTimer *gameOverTimer;
+@property (nonatomic, strong) NSMutableArray *healthPoints;
 
 @property (strong, nonatomic) NSMutableArray *stageInformation;
 @property (nonatomic) int currentSubstageNum;
@@ -96,6 +97,8 @@ static const uint32_t playerCategory         = 0x1 << 3;
         [self.player runAnimationIdle];
         [self addChild:self.player];
         
+        self.healthPoints = [NSMutableArray array];
+        [self addPlayerHealthPoints];
 //        UIImage *enemyImage = [UIImage imageNamed:@"smallFireMonster.png"];
 //        SKTexture *enemyTexture = [SKTexture textureWithCGImage:enemyImage.CGImage];
 //        self.enemy = [[Enemy alloc] initWithTexture:enemyTexture AtPosition:CGPointMake(900,400)];
@@ -319,6 +322,42 @@ static const uint32_t playerCategory         = 0x1 << 3;
 
 }
 
+-(void) addPlayerHealthPoints
+{
+//    UIBezierPath *circlePath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(0,0) radius:100 startAngle:0 endAngle:180 clockwise:YES];
+//    SKShapeNode *square = [SKShapeNode node];
+//    square.path = circlePath.CGPath;
+//    square.position = CGPointMake(150,400);
+//    square.strokeColor = [UIColor whiteColor];
+//    [self addChild:square];
+    
+    for(int i=0; i<3; i++){
+        NSString *particlePath = [[NSBundle mainBundle] pathForResource:@"healthPoint" ofType:@"sks"];
+        SKEmitterNode *point = [NSKeyedUnarchiver unarchiveObjectWithFile:particlePath];
+        point.targetNode = self;
+        if(i==0) point.particlePosition = CGPointMake(150, 300);
+        else if(i==1) point.particlePosition = CGPointMake(220, 470);
+        else point.particlePosition = CGPointMake(80, 470);
+        
+        //        point.zPosition = -1.0; // add heart within the body !
+        [self addChild: point];
+        [self.healthPoints addObject:point];
+        
+        UIBezierPath *circlePath = [UIBezierPath bezierPath];
+        if(i==0) {
+            circlePath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(0,100) radius:100 startAngle:0 endAngle:2*M_PI clockwise:YES];
+        }
+        else if(i==1) {
+            circlePath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(-70,-70) radius:100 startAngle:M_PI*2/3 endAngle:M_PI*2/3 + 2*M_PI clockwise:YES];
+        }
+        else {
+            circlePath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(70,-70) radius:100 startAngle:M_PI*4/3 endAngle:M_PI*4/3 + 2*M_PI clockwise:YES];
+        }
+        
+        [point runAction:[SKAction repeatActionForever:[SKAction followPath:circlePath.CGPath asOffset:NO orientToPath:NO duration:5.0]] ];
+        
+    }
+}
 #pragma Drawing Path
 
 -(void)followPath:(UIBezierPath *)path withTimeInterval:(NSTimeInterval)interval{
@@ -464,6 +503,7 @@ static const uint32_t playerCategory         = 0x1 << 3;
             if( (obj.position.x <= self.player.position.x) && (obj.hasHit == NO) ){
                 NSLog(@"contact: player hit by magicFromEnemy");
                 obj.hasHit = YES;
+                [obj removeAllActions];
                 [obj runAnimationHitTarget];
                 [self.magicFromEnemy removeObject:obj];
                 
@@ -473,10 +513,21 @@ static const uint32_t playerCategory         = 0x1 << 3;
                 if(self.player.health <= 0) {
                     [self.player runAnimationDead];
                     self.player = nil;
+                    SKEmitterNode *lastObj = [self.healthPoints lastObject];
+                    [lastObj setParticleBirthRate:20];
+                    [lastObj runAction:[SKAction sequence:@[[SKAction waitForDuration:1.0f],
+                                                            [SKAction removeFromParent]]]];
+                    [self.healthPoints removeLastObject];
+                    
                     self.gameOverTimer = [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(gameOver) userInfo:nil repeats:NO];
                 }
                 else {
                     [self.player runAnimationInjured];
+                    SKEmitterNode *lastObj = [self.healthPoints lastObject];
+                    [lastObj setParticleBirthRate:20];
+                    [lastObj runAction:[SKAction sequence:@[[SKAction waitForDuration:1.0f],
+                                                            [SKAction removeFromParent]]]];
+                    [self.healthPoints removeLastObject];
                 }
 
             }
@@ -627,12 +678,13 @@ static const uint32_t playerCategory         = 0x1 << 3;
         NSLog(@" final Substage! The BOSS's coming ...");
         self.enemy.health = 15;
         self.enemy.size = CGSizeMake(self.enemy.size.width*5, self.enemy.size.height*5);
+        [self.enemy installFireWithTargetNode:self position:self.enemy.position boss:YES];
     }
     else {
         self.enemy.health = 10;
+        [self.enemy installFireWithTargetNode:self position:self.enemy.position boss:NO];
     }
     
-    [self.enemy installFireWithTargetNode:self position:self.enemy.position];
     [self.enemy runAnimationIdle];
     [self addChild:self.enemy];
     [self enemyEntering];
@@ -691,6 +743,8 @@ static const uint32_t playerCategory         = 0x1 << 3;
     self.enemyAttackTimer = nil;
     self.enemy = nil;
     self.magic = nil;
+    
+    self.healthPoints = nil;
     [self.magicFromEnemy removeAllObjects];
     [self removeAllChildren];
     

@@ -61,6 +61,8 @@
 		18A1D6DB19233DC70088B1C0 /* smallFireBall.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18A1D6DA19233DC70088B1C0 /* smallFireBall.sks */; };
 		18A1D6DE192345F10088B1C0 /* GameOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A1D6DD192345F10088B1C0 /* GameOverViewController.m */; };
 		18A1D6E11923461F0088B1C0 /* GameOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A1D6E01923461F0088B1C0 /* GameOverView.m */; };
+		18A1D6E61923E8070088B1C0 /* healthPoint.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18A1D6E51923E8070088B1C0 /* healthPoint.sks */; };
+		18A1D6E8192402960088B1C0 /* FireBOSS.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18A1D6E7192402960088B1C0 /* FireBOSS.sks */; };
 		18B1CA351911281900C91722 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B1CA081911281900C91722 /* CDataScanner.m */; };
 		18B1CA371911281900C91722 /* CFilteringJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B1CA0C1911281900C91722 /* CFilteringJSONSerializer.m */; };
 		18B1CA381911281900C91722 /* CJSONDeserializer_BlocksExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B1CA0E1911281900C91722 /* CJSONDeserializer_BlocksExtensions.m */; };
@@ -312,6 +314,8 @@
 		18A1D6DD192345F10088B1C0 /* GameOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverViewController.m; sourceTree = "<group>"; };
 		18A1D6DF1923461F0088B1C0 /* GameOverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverView.h; sourceTree = "<group>"; };
 		18A1D6E01923461F0088B1C0 /* GameOverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverView.m; sourceTree = "<group>"; };
+		18A1D6E51923E8070088B1C0 /* healthPoint.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = healthPoint.sks; sourceTree = "<group>"; };
+		18A1D6E7192402960088B1C0 /* FireBOSS.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireBOSS.sks; sourceTree = "<group>"; };
 		18B1CA071911281900C91722 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
 		18B1CA081911281900C91722 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
 		18B1CA0B1911281900C91722 /* CFilteringJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFilteringJSONSerializer.h; sourceTree = "<group>"; };
@@ -998,6 +1002,8 @@
 				1CD1510D19211B840016759A /* spark.png */,
 				1CD1510E19211B840016759A /* Spark.sks */,
 				18A1D6DA19233DC70088B1C0 /* smallFireBall.sks */,
+				18A1D6E51923E8070088B1C0 /* healthPoint.sks */,
+				18A1D6E7192402960088B1C0 /* FireBOSS.sks */,
 			);
 			path = Particles;
 			sourceTree = "<group>";
@@ -1151,12 +1157,14 @@
 				1CD1515E19211B840016759A /* trees_front_02~ipad.png in Resources */,
 				1CD1514319211B840016759A /* rename.sh in Resources */,
 				18A1D6DB19233DC70088B1C0 /* smallFireBall.sks in Resources */,
+				18A1D6E61923E8070088B1C0 /* healthPoint.sks in Resources */,
 				1CD1515719211B840016759A /* trees_far_04~ipad@2x.png in Resources */,
 				1CD1511719211B840016759A /* fog_back_04~ipad.png in Resources */,
 				1CD1516A19211B840016759A /* BabyGoldenSnitch_frame2~ipad.png in Resources */,
 				1CD1516219211B840016759A /* trees_front_04~ipad.png in Resources */,
 				1CD1512F19211B840016759A /* grass_04~ipad.png in Resources */,
 				1CD1512119211B840016759A /* fog_front_03~ipad.png in Resources */,
+				18A1D6E8192402960088B1C0 /* FireBOSS.sks in Resources */,
 				1CD1516D19211B840016759A /* BabyGoldenSnitchHeart.sks in Resources */,
 				1CD1513619211B840016759A /* moon~ipad@2x.png in Resources */,
 				1CD1515D19211B840016759A /* trees_front_01~ipad@2x.png in Resources */,

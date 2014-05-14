@@ -17,6 +17,7 @@
 - (void) runAnimationInjured;
 - (void) runAnimationDead;
 
--(void) installFireWithTargetNode: (SKNode *) node position: (CGPoint) position;
+-(void) installFireWithTargetNode: (SKNode *) node position: (CGPoint) position boss:(BOOL) boss;
+-(void) setAsBoss;
 
 @end

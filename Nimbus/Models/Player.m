@@ -11,6 +11,7 @@
 @interface Player()
 
 @property (strong, nonatomic) NSArray *playerIdleFrames;
+@property (strong, nonatomic) NSMutableArray *healthPoints;
 
 @end
 
@@ -33,6 +34,7 @@
         self.position = position;
         self.playerState = PlayerAnimationStateIdle;
         self.health = 15;
+        self.healthPoints = [NSMutableArray array];
     }
     return self;
 }
@@ -63,7 +65,9 @@
 //                                      timePerFrame:0.1f
 //                                            resize:NO
 //                                           restore:YES]] withKey:@"playerIdle"];
+    
 }
+
 
 - (void) runAnimationInjured
 {
