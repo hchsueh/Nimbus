@@ -44,13 +44,22 @@
                                                       [SKAction moveByX:0 y:10 duration:0.2f]
                                                       ]
                                                     ]
-                      ]];
+                      ]
+     ];
     
-    [self runAction:[SKAction repeatActionForever:
-                     [SKAction animateWithTextures:self.playerIdleFrames
-                                      timePerFrame:0.1f
-                                            resize:NO
-                                           restore:YES]] withKey:@"playerIdle"];
+    [self runAction: [SKAction repeatActionForever:[SKAction sequence:
+                                                    @[[SKAction fadeAlphaTo:0.6 duration:0.4f],
+                                                      [SKAction fadeAlphaTo:1 duration:0.4f],
+                                                      [SKAction waitForDuration:2.0f withRange:0.9f]]
+                                                    ]
+                      ]
+     ];
+    
+//    [self runAction:[SKAction repeatActionForever:
+//                     [SKAction animateWithTextures:self.playerIdleFrames
+//                                      timePerFrame:0.1f
+//                                            resize:NO
+//                                           restore:YES]] withKey:@"playerIdle"];
 }
 
 -(void) animationDidComplete: (PlayerAnimationState) state

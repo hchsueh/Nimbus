@@ -8,7 +8,6 @@
 
 #import "WelcomeViewController.h"
 #import "WelcomeView.h"
-#import "ViewController.h"
 
 @interface WelcomeViewController ()
 
@@ -77,7 +76,6 @@
     // Pass the selected object to the new view controller.
     if([[segue identifier] isEqualToString:@"SEGUE_TO_INTRODUCTION"])
     {
-        ViewController *vc = [segue destinationViewController];
     }
 }
 

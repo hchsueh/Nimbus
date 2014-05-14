@@ -35,6 +35,13 @@ static const uint32_t enemyCategory = 0x1 << 1;
 
 @property (nonatomic, strong) Player *player;
 @property (nonatomic, strong) Enemy *enemy;
+
+@property (strong, nonatomic) NSMutableArray *stageInformation;
+@property (nonatomic) int currentSubstageNum;
+@property (strong, nonatomic) NSTimer *stageTransitionTimer;
+
+@property (nonatomic) BOOL isReady;
+
 @end
 
 @implementation ParticleScene
@@ -42,6 +49,7 @@ static const uint32_t enemyCategory = 0x1 << 1;
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
         
+//        NSLog(@"ParticleScene initWithSize");
         self.backgroundColor = [SKColor colorWithRed:1 green:1 blue:1 alpha:1];
         self.particleArray = [NSMutableArray array];
         self.fireArray = [NSMutableArray array];
@@ -53,34 +61,44 @@ static const uint32_t enemyCategory = 0x1 << 1;
         
         // background
         self.speedFactor = 1.0f;
+//        self.speedFactor = SLOWING_THRESHOLD + 1;
         self.isSlowingDown = NO;
         self.isSpeedingUp = NO;
         self.backgroundInformation = [NSMutableDictionary dictionary];
         self.backgroundImages = [NSMutableDictionary dictionary];
         NSString *path = [[NSBundle mainBundle] pathForResource:@"ImageSet" ofType:@"plist"];
         [self setupBackgroundWithImageSet:[NSArray arrayWithContentsOfFile:path]];
-        NSLog(@"image set: %@", [NSArray arrayWithContentsOfFile:path]);
+//        NSLog(@"image set: %@", [NSArray arrayWithContentsOfFile:path]);
         
-        SKTextureAtlas *playerAtlas = [SKTextureAtlas atlasNamed:@"BabyGoldenSnitch"];
-        NSString *name1 = [NSString stringWithFormat:@"BabyGoldenSnitch_frame%d",1];
-        SKTexture *temp1 = [playerAtlas textureNamed:name1];
-        self.player = [[Player alloc] initWithTexture:temp1 AtPosition:CGPointMake(150,400)];
+        UIImage *playerImage = [UIImage imageNamed:@"char.png"];
+        SKTexture *playerTexture= [SKTexture textureWithCGImage:playerImage.CGImage];
+        self.player = [[Player alloc] initWithTexture:playerTexture AtPosition:CGPointMake(150,400)];
+        self.player.size = CGSizeMake(self.player.size.width/2, self.player.size.height/2);
         [self.player runAnimationIdle];
         [self addChild:self.player];
         
-        SKTextureAtlas *enemyAtlas = [SKTextureAtlas atlasNamed:@"BabyGoldenSnitch"];
-        NSString *name2 = [NSString stringWithFormat:@"BabyGoldenSnitch_frame%d",1];
-        SKTexture *temp2 = [enemyAtlas textureNamed:name2];
-        self.enemy = [[Enemy alloc] initWithTexture:temp2 AtPosition:CGPointMake(900,400)];
-        self.enemy.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.enemy.size];
-        self.enemy.physicsBody.dynamic = YES;
-        self.enemy.physicsBody.categoryBitMask = enemyCategory;
-        self.enemy.physicsBody.contactTestBitMask = magicCategory;
-        self.enemy.physicsBody.collisionBitMask = 0; // ?
-        [self.enemy runAnimationIdle];
-        [self addChild:self.enemy];
+//        UIImage *enemyImage = [UIImage imageNamed:@"smallFireMonster.png"];
+//        SKTexture *enemyTexture = [SKTexture textureWithCGImage:enemyImage.CGImage];
+//        self.enemy = [[Enemy alloc] initWithTexture:enemyTexture AtPosition:CGPointMake(900,400)];
+//        self.enemy.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.enemy.size];
+//        self.enemy.physicsBody.dynamic = YES;
+//        self.enemy.physicsBody.categoryBitMask = enemyCategory;
+//        self.enemy.physicsBody.contactTestBitMask = magicCategory;
+//        self.enemy.physicsBody.collisionBitMask = 0; // ?
+//        self.enemy.health = 10;
+//        [self.enemy installFireWithTargetNode:self position:self.enemy.position];
+//        [self.enemy runAnimationIdle];
+//        [self addChild:self.enemy];
+        
+        NSMutableDictionary *stage1 = [NSMutableDictionary dictionaryWithObjects:@[@3, @[@"smallFire", @"smallFire", @"bigFire"]] forKeys:@[@"substageCount", @"monsters"]];
+        NSMutableDictionary *stage2 = [NSMutableDictionary dictionaryWithObjects:@[@3, @[@"smallFire", @"smallFire", @"bigFire"]] forKeys:@[@"substageCount", @"monsters"]];
+        self.stageInformation = [NSMutableArray arrayWithObjects:stage1, stage2, nil];
 
-
+        self.currentSubstageNum = 0;
+        self.currentStage = 1;
+        NSLog(@"currentStage = %d", self.currentStage);
+        self.stageTransitionTimer = nil;
+        self.isReady = YES;
     }
     return self;
 }
@@ -89,7 +107,7 @@ static const uint32_t enemyCategory = 0x1 << 1;
 
 - (void)setupBackgroundWithImageSet:(NSArray *)imageSet{
 
-    NSLog(@"self size: %@", NSStringFromCGSize(self.size));
+//    NSLog(@"self size: %@", NSStringFromCGSize(self.size));
     int z = 0;
     for(NSDictionary *imageData in imageSet){
         
@@ -220,7 +238,7 @@ static const uint32_t enemyCategory = 0x1 << 1;
                 next = [[self.backgroundImages objectForKey:key] objectAtIndex:nextIndex-1];
                 next.position = CGPointMake(current.position.x + current.size.width, self.size.height/2);
                 [info setObject:next forKey:@"next"];
-                if([key isEqualToString:@"fog_back"]) NSLog(@"last: %@, current: %@, next: %@", last, current, next);
+//                if([key isEqualToString:@"fog_back"]) NSLog(@"last: %@, current: %@, next: %@", last, current, next);
                 offset = 0.0f;
                 
             }
@@ -251,7 +269,7 @@ static const uint32_t enemyCategory = 0x1 << 1;
                 last = [[self.backgroundImages objectForKey:key] objectAtIndex:lastIndex-1];
                 last.position = CGPointMake(current.position.x - last.size.width, self.size.height/2);
                 [info setObject:last forKey:@"last"];
-                if([key isEqualToString:@"fog_back"]) NSLog(@"last: %@, current: %@, next: %@", last, current, next);
+//                if([key isEqualToString:@"fog_back"]) NSLog(@"last: %@, current: %@, next: %@", last, current, next);
                 offset = 0.0f;
                 
             }
@@ -286,7 +304,7 @@ static const uint32_t enemyCategory = 0x1 << 1;
     SKAction *track = [SKAction followPath:path.CGPath asOffset:NO orientToPath:YES duration:interval];
     [self.particle runAction:track];
     [self.fire runAction:track];
-    NSLog(@"%f", interval);
+//    NSLog(@"%f", interval);
     
 }
 
@@ -310,9 +328,6 @@ static const uint32_t enemyCategory = 0x1 << 1;
     for( id obj in self.fireArray ){
         [obj removeFromParent];
     }
-    
-    [self speedUp];
-    
 }
 
 -(void)beginMoving:(CGPoint)position{
@@ -332,16 +347,11 @@ static const uint32_t enemyCategory = 0x1 << 1;
     [self.fireArray addObject:self.fire];
     [self addChild: [self.particleArray lastObject]];
     [self addChild: [self.fireArray lastObject]];
-    
-    [self slowDown];
-
 }
 
 #pragma mark - Magic Animation
 
 -(void) displayAnimation{
-    NSLog(@"display animation!");
-    
     // initialize magic animation
     SKTextureAtlas *BabyGoldenSnitchAtlas = [SKTextureAtlas atlasNamed:@"BabyGoldenSnitch"];
     NSMutableArray *frames = [NSMutableArray array];
@@ -353,8 +363,8 @@ static const uint32_t enemyCategory = 0x1 << 1;
     self.magicFrames = frames;
     SKTexture *temp = self.magicFrames[0];
     
-    NSLog(@"player position: (%f,%f)", self.player.position.x, self.player.position.y);
-    self.magic = [[Magic alloc] initWithTexture:temp AtPosition:self.player.position];
+    self.magic = [[Magic alloc] initWithTexture:temp
+                                     AtPosition:CGPointMake(self.player.position.x + 50, self.player.position.y + 50)];
     
     self.magic.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:self.magic.size.width/2];
     self.magic.physicsBody.dynamic = YES;
@@ -365,6 +375,7 @@ static const uint32_t enemyCategory = 0x1 << 1;
     [self addChild: self.magic];
     [self.magic installHeartWithTargetNode:self];
     [self.magic runAnimationIdle];
+//    [self magicShowOff];
 }
 
 //-(void)clearAll{
@@ -395,11 +406,22 @@ static const uint32_t enemyCategory = 0x1 << 1;
     if ((firstBody.categoryBitMask & magicCategory) != 0 &&
         (secondBody.categoryBitMask & enemyCategory) != 0)
     {
-        // magic collides with enemy!! Yay!!!
-        NSLog(@"smacked the enemy's ass!");
-        self.magic.hasHit = YES;
-        [self.magic runAnimationHitTarget];
-        [self.enemy runAnimationInjured];
+        if(self.enemy){
+            // magic collides with enemy!! Yay!!!
+            self.magic.hasHit = YES;
+            [self.magic runAnimationHitTarget];
+            [self.enemy runAnimationInjured];
+            
+            self.enemy.health -= 5;
+            NSLog(@"Smack the enemy's ass! Now the enemy's health is %d", self.enemy.health);
+            
+            if(self.enemy.health <= 0) {
+                [self.enemy runAnimationDead];
+                self.enemy = nil;
+                [self speedUp];
+                [self gotoNextSubstage];
+            }
+        }
     }
     
 }
@@ -407,20 +429,32 @@ static const uint32_t enemyCategory = 0x1 << 1;
 #pragma mark - Default Settings
 
 -(void)update:(CFTimeInterval)currentTime {
-
+    
+    if(self.isReady){
+        self.isReady = NO; //turns it off to avoid everlasting scene restart !
+        [self gotoNextSubstage];
+    }
+    
     /* Called before each frame is rendered */
     
     int diff_x = self.enemy.position.x - self.magic.position.x;
     int diff_y = self.enemy.position.y - self.magic.position.y;
-    int dist_y = (int) diff_y/diff_x;
-    
-    if(self.magic.position.x > self.frame.size.width || self.magic.position.y > self.frame.size.height){
-        NSLog(@"magic leaves the screen!");
-        [self.magic removeFromParent];
-        self.magic = nil;
+    int dist_y = 0;
+    if(diff_x!=0){
+        dist_y = (int) diff_y/diff_x;
     }
-    else if(self.magic.hasHit == NO){
-        [self.magic runAction: [SKAction moveByX:40 y:dist_y*40 duration:0.1f]];
+    int moveX = 20;
+    int moveY = (self.enemy) ? dist_y*20 : 0;
+    
+    if(self.magic){
+        if(self.magic.position.x > self.frame.size.width || self.magic.position.y > self.frame.size.height){
+            NSLog(@"magic leaves the screen!");
+            [self.magic removeFromParent];
+            self.magic = nil;
+        }
+        else if(!self.magic.hasHit/* && self.magic.hasShownOff*/){
+            [self.magic runAction: [SKAction moveByX:moveX y:moveY duration:0.1f]];
+        }
     }
 
     // handle acceleration
@@ -438,6 +472,79 @@ static const uint32_t enemyCategory = 0x1 << 1;
     
     [self moveBackground];
     
+}
+
+
+#pragma mark - Animation Methods
+
+-(void) magicShowOff {
+    [self.magic runAction: [SKAction sequence:@[ [SKAction moveByX:50.0 y:100.0 duration:0.3f],
+                                                 [SKAction waitForDuration:0.7f]
+                                                 ]
+                            ]
+     ];
+    
+//    [self.magic runAction:[SKAction speedBy:-5 duration:0.3f]];
+    self.magic.hasShownOff = YES;
+}
+
+#pragma mark - Stage Control Methods
+
+-(void) gotoNextSubstage {
+//    NSLog(@"gotoNextSubstage");
+    self.currentSubstageNum ++;
+//    NSLog(@"currentSubstageNum = %d, currentStage = %d", self.currentSubstageNum, self.currentStage);
+//    NSLog(@"substageCount = %d", [[[self.stageInformation objectAtIndex:self.currentStage-1] objectForKey:@"substageCount"] integerValue]);
+    
+    if(self.currentSubstageNum > [[[self.stageInformation objectAtIndex:self.currentStage-1] objectForKey:@"substageCount"] integerValue]){
+        [self stageEnding];
+    }
+    else {
+        NSLog(@"starts timer 2.5s");
+//        [self speedUp];
+        self.stageTransitionTimer = [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(setupNewSubstage:) userInfo:nil repeats:NO];
+    }
+}
+
+-(void) setupNewSubstage: (NSTimer *) timer
+{
+    self.stageTransitionTimer = nil;
+    NSLog(@"setNewSubstage");
+    [self slowDown];
+    UIImage *enemyImage = [UIImage imageNamed:@"smallFireMonster.png"];
+    SKTexture *enemyTexture = [SKTexture textureWithCGImage:enemyImage.CGImage];
+    self.enemy = [[Enemy alloc] initWithTexture:enemyTexture AtPosition:CGPointMake(1200,400)];
+    self.enemy.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.enemy.size];
+    self.enemy.physicsBody.dynamic = YES;
+    self.enemy.physicsBody.categoryBitMask = enemyCategory;
+    self.enemy.physicsBody.contactTestBitMask = magicCategory;
+    self.enemy.physicsBody.collisionBitMask = 0; // ?
+    
+    if(self.currentSubstageNum == [[[self.stageInformation objectAtIndex:self.currentStage-1] objectForKey:@"substageCount"] integerValue]){
+        NSLog(@" final Substage! The BOSS's coming ...");
+        self.enemy.health = 15;
+        self.enemy.size = CGSizeMake(self.enemy.size.width*5, self.enemy.size.height*5);
+    }
+    else {
+        self.enemy.health = 10;
+    }
+    
+    [self.enemy installFireWithTargetNode:self position:self.enemy.position];
+    [self.enemy runAnimationIdle];
+    [self addChild:self.enemy];
+    [self enemyEntering];
+
+}
+
+-(void) enemyEntering
+{
+    [self.enemy runAction: [SKAction moveByX:-300 y:0 duration:1.5f]];
+}
+
+-(void) stageEnding {
+    // ending animation, goto ending scene
+    NSLog(@"This stage ends!");
+    [self.delegate stageEnded];
 }
 
 @end

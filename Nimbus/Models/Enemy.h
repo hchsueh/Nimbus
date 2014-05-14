@@ -10,8 +10,13 @@
 
 @interface Enemy : SKSpriteNode
 
+@property (nonatomic) int health;
+
 - (id)initWithTexture: (SKTexture *) texture AtPosition:(CGPoint)position;
 - (void) runAnimationIdle;
 - (void) runAnimationInjured;
+- (void) runAnimationDead;
+
+-(void) installFireWithTargetNode: (SKNode *) node position: (CGPoint) position;
 
 @end

@@ -19,49 +19,67 @@
 
 - (id)initWithTexture: (SKTexture *) texture AtPosition:(CGPoint)position
 {
-    self = [super initWithTexture: texture];
-    
+//    self = [super initWithTexture: texture];
+    self = [super init];
     if(self){
-        [self setupIdleFrames];
+//        [self setupAnimation];
         self.position = position;
+        self.health = 10;
     }
     return self;
     
 }
 
--(void) setupIdleFrames
+-(void) installFireWithTargetNode: (SKNode *) node position: (CGPoint) position;
 {
-    SKTextureAtlas *enemyAtlas = [SKTextureAtlas atlasNamed:@"BabyGoldenSnitch"];
-    NSMutableArray *frames = [NSMutableArray array];
-    for(int i=1; i<=enemyAtlas.textureNames.count; i++){
-        NSString *name = [NSString stringWithFormat:@"BabyGoldenSnitch_frame%d",i];
-        SKTexture *temp = [enemyAtlas textureNamed:name];
-        [frames addObject:temp];
-    }
-    self.idleFrames = frames;
-    [self runAction: [SKAction scaleBy:0.7 duration:0.5f]];
+    NSString *firePath = [[NSBundle mainBundle] pathForResource:@"Fire" ofType:@"sks"];
+    SKEmitterNode *fire = [NSKeyedUnarchiver unarchiveObjectWithFile:firePath];
+    fire.targetNode = node;
+//    fire.particlePosition = position;
+    fire.particlePosition = CGPointMake(2.0,-65.0);
+    fire.zPosition = -1.0;
+//    NSLog(@"fire position (%f, %f)", fire.particlePosition.x, fire.particlePosition.y);
+    [self addChild: fire];
+    
+    SKSpriteNode *image = [SKSpriteNode spriteNodeWithImageNamed:@"smallFireMonster.png"];
+    image.zPosition = 1.0;
+    [self addChild: image];
+    
+//    self.texture = [SKTexture textureWithImage:[UIImage imageNamed:@"smallFireMonster.png"]];
 }
 
 - (void) runAnimationIdle
 {
     [self runAction: [SKAction repeatActionForever:[SKAction sequence:
-                                                    @[[SKAction moveByX:0 y:10 duration:0.2f],
-                                                      [SKAction moveByX:0 y:-20 duration:0.2f],
-                                                      [SKAction moveByX:0 y:10 duration:0.2f]
+                                                    @[[SKAction moveByX:0 y:2 duration:0.2f],
+                                                      [SKAction moveByX:0 y:-4 duration:0.2f],
+                                                      [SKAction moveByX:0 y:2 duration:0.2f]
                                                       ]
                                                     ]
                       ]];
     
-    [self runAction:[SKAction repeatActionForever:
-                     [SKAction animateWithTextures:self.idleFrames
-                                      timePerFrame:0.1f
-                                            resize:NO
-                                           restore:YES]] withKey:@"enemyIdle"];
+//    [self runAction:[SKAction repeatActionForever:
+//                     [SKAction animateWithTextures:self.idleFrames
+//                                      timePerFrame:0.1f
+//                                            resize:NO
+//                                           restore:YES]] withKey:@"enemyIdle"];
 }
 
 -(void) runAnimationInjured
 {
-    [self runAction: [SKAction rotateByAngle:2*M_PI duration:0.5f]];
+    [self runAction: [SKAction rotateByAngle:2*M_PI duration:0.4f]];
 }
+
+- (void) runAnimationDead
+{
+    [self runAction: [SKAction sequence:@[[SKAction rotateByAngle:2*M_PI duration:1.0f],
+                                          [SKAction removeFromParent]
+                                          ]
+                      ]
+     ];
+    [self runAction: [SKAction fadeOutWithDuration:1.0f]];
+    [self runAction: [SKAction scaleBy:0.2 duration:1.0f]];
+}
+
 
 @end

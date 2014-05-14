@@ -24,6 +24,7 @@
     
     if(self){
         self.hasHit = NO;
+        self.hasShownOff = NO;
         self.position = position;
         [self setupIdleFrames];
     }
@@ -49,7 +50,8 @@
     NSString *particlePath = [[NSBundle mainBundle] pathForResource:@"BabyGoldenSnitchHeart" ofType:@"sks"];
     self.heart = [NSKeyedUnarchiver unarchiveObjectWithFile:particlePath];
     self.heart.targetNode = node;
-    self.heart.position = CGPointMake(self.frame.origin.x, self.frame.origin.y + 100);
+    self.heart.particlePosition = CGPointMake(18.0, -20.0);
+    self.heart.zPosition = -1.0; // add heart within the body !
     [self addChild: self.heart];
 }
 

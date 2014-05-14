@@ -8,7 +8,16 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface ParticleScene : SKScene
+@protocol gameSceneDelegate
+
+-(void) stageEnded;
+
+@end
+
+@interface ParticleScene : SKScene <gameSceneDelegate>
+
+@property (nonatomic) int currentStage;
+@property (assign, nonatomic) id delegate;
 
 -(void)followPath:(UIBezierPath *)path withTimeInterval:(NSTimeInterval)interval;
 -(void)endMoving;

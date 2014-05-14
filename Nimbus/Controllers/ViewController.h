@@ -11,6 +11,8 @@
 
 @interface ViewController : UIViewController
 
+@property (nonatomic) int currentStage;
+
 - (void)createPath:(UIBezierPath *)path withTimeInterval:(NSTimeInterval)interval;
 - (void)closePath;
 - (void)beginPath:(CGPoint)position;

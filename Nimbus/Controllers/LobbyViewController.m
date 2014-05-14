@@ -8,6 +8,7 @@
 
 #import "LobbyViewController.h"
 #import "LobbyView.h"
+#import "ViewController.h"
 
 @interface LobbyViewController ()
 
@@ -64,7 +65,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -72,7 +72,14 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if([[segue identifier] isEqualToString:@"SEGUE_TO_GAME"])
+    {
+//        NSLog(@"segue SEGUE_TO_GAME taken!");
+        ViewController *vc = [segue destinationViewController];
+        vc.currentStage = 1;
+//        NSLog(@"vc.currentStage = %d", vc.currentStage);
+    }
 }
-*/
+
 
 @end

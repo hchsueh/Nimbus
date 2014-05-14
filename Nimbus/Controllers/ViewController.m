@@ -28,19 +28,18 @@
 {
     [super viewDidLoad];
     
-    NSLog(@"view did load");
+//    NSLog(@"view did load");
     
     // Configure the view.
     SKView * skView = (SKView *)self.view;
     skView.showsFPS = YES;
     skView.showsNodeCount = NO;
     
-    self.particleScene = [ParticleScene sceneWithSize: CGSizeMake(skView.bounds.size.height, skView.bounds.size.width)];
-    self.paintView = [[PaintView alloc] initWithFrame: self.view.bounds];
-    
     // Create and configure the scene.
     self.particleScene = [ParticleScene sceneWithSize: CGSizeMake(skView.bounds.size.height, skView.bounds.size.width)];
+    self.particleScene.currentStage = self.currentStage;
     self.particleScene.scaleMode = SKSceneScaleModeAspectFill;
+    self.particleScene.delegate = self;
     [skView presentScene: self.particleScene];
     
     // put paintView
@@ -50,7 +49,7 @@
     self.paintView.delegate = self;
     self.paintView.canDraw = true;
     [self.view addSubview: self.paintView];
-
+    
 //    [super viewDidLoad];
 }
 
@@ -95,7 +94,7 @@
 - (void)closePath{
 
 //    [self.particleScene endMoving];
-    NSLog(@"call particleScene endMoving");
+//    NSLog(@"call particleScene endMoving");
 //    [self.paintView endDrawing];
 }
 
@@ -126,6 +125,13 @@
         [self.particleScene displayAnimation];
     }
     
+}
+
+#pragma mark - particleScene Delegate Methods
+
+-(void) stageEnded
+{
+    [self performSegueWithIdentifier:@"SEGUE_TO_STAGECLEAR" sender:self];
 }
 
 #pragma mark - Default Settings
