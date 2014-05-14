@@ -19,7 +19,7 @@
         
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.frame)-100, CGRectGetMidY(self.frame)-100, 200, 200)];
         title.font = [UIFont fontWithName:@"Baskerville-SemiBoldItalic" size:30];
-        title.text = @"Introduction";
+        title.text = @"Introduction: 沒時間打字了辣";
         title.textColor = [UIColor whiteColor];
         title.textAlignment = NSTextAlignmentCenter;
         

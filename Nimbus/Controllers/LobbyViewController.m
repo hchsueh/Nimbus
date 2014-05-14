@@ -29,12 +29,13 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    LobbyView *lobbyView = [[LobbyView alloc] initWithStage:self.stage];
+    [self.view addSubview:lobbyView];
 }
 
 -(void) viewDidAppear:(BOOL)animated
 {
-    LobbyView *lobbyView = [[LobbyView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:lobbyView];
+
 }
 
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
