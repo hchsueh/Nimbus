@@ -8,6 +8,7 @@
 
 #import "StageclearViewController.h"
 #import "StageclearView.h"
+#import "AFNetworking.h"
 
 @interface StageclearViewController ()
 
@@ -28,13 +29,25 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUUID *deviceid = [UIDevice currentDevice].identifierForVendor;
+    
+    NSDictionary *params = @{@"time": self.gameDuration,
+                             @"life": self.gamePlayerHealthLeft,
+                             @"UUID": [deviceid UUIDString],
+                             @"stage": self.gameStage};
+    [manager POST:@"http://140.112.245.144:3000/record" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
 }
 
 -(void) viewDidAppear:(BOOL)animated
 {
     StageclearView *stageclearView = [[StageclearView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:stageclearView];
-    NSLog(@"stage info: playerHealthLeft: %d, gameDuration: %e", self.gamePlayerHealthLeft, self.gameDuration);
+    NSLog(@"stage info: playerHealthLeft: %d, gameDuration: %e", self.gamePlayerHealthLeft.integerValue, self.gameDuration.doubleValue);
 }
 
 - (void)didReceiveMemoryWarning

@@ -10,12 +10,19 @@
 #import "Player.h"
 #import "Enemy.h"
 #import "Magic.h"
+#import "MagicFromEnemy.h"
 
 #define MAX_IMG_NUM 5
 #define SLOWING_THRESHOLD 100
+#define ENEMY_ATTACK_TIME 10
+#define ENEMY_ATTACK_RANGE 1
 
-static const uint32_t magicCategory = 0x1 << 0;
-static const uint32_t enemyCategory = 0x1 << 1;
+static const uint32_t magicCategory          = 0x1 << 0;
+static const uint32_t enemyCategory          = 0x1 << 1;
+static const uint32_t magicFromEnemyCategory = 0x1 << 2;
+static const uint32_t playerCategory         = 0x1 << 3;
+
+
 
 @interface ParticleScene() <SKPhysicsContactDelegate>
 
@@ -26,6 +33,7 @@ static const uint32_t enemyCategory = 0x1 << 1;
 
 @property (strong, nonatomic) NSArray *magicFrames;
 @property (strong, nonatomic) Magic *magic;
+//@property (strong, nonatomic) NSMutableArray *magic;
 
 @property (nonatomic, strong) NSMutableDictionary *backgroundInformation;
 @property (nonatomic, strong) NSMutableDictionary *backgroundImages;
@@ -35,6 +43,10 @@ static const uint32_t enemyCategory = 0x1 << 1;
 
 @property (nonatomic, strong) Player *player;
 @property (nonatomic, strong) Enemy *enemy;
+@property (nonatomic, strong) NSTimer *enemyAttackTimer;
+//@property (nonatomic, strong) MagicFromEnemy *magicFromEnemy;
+@property (nonatomic, strong) NSMutableArray *magicFromEnemy;
+@property (nonatomic, strong) NSTimer *gameOverTimer;
 
 @property (strong, nonatomic) NSMutableArray *stageInformation;
 @property (nonatomic) int currentSubstageNum;
@@ -75,6 +87,12 @@ static const uint32_t enemyCategory = 0x1 << 1;
         SKTexture *playerTexture= [SKTexture textureWithCGImage:playerImage.CGImage];
         self.player = [[Player alloc] initWithTexture:playerTexture AtPosition:CGPointMake(150,400)];
         self.player.size = CGSizeMake(self.player.size.width/2, self.player.size.height/2);
+        self.player.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:50];
+        self.player.physicsBody.dynamic = YES;
+        self.player.physicsBody.categoryBitMask = playerCategory;
+        self.player.physicsBody.contactTestBitMask = magicFromEnemyCategory;
+        self.player.physicsBody.collisionBitMask = 0; // ?
+        self.player.physicsBody.usesPreciseCollisionDetection = YES; // magic may be moving fast !
         [self.player runAnimationIdle];
         [self addChild:self.player];
         
@@ -90,6 +108,10 @@ static const uint32_t enemyCategory = 0x1 << 1;
 //        [self.enemy installFireWithTargetNode:self position:self.enemy.position];
 //        [self.enemy runAnimationIdle];
 //        [self addChild:self.enemy];
+        
+        self.enemyAttackTimer = nil;
+        self.magicFromEnemy = [NSMutableArray array];
+        self.gameOverTimer = nil;
         
         NSMutableDictionary *stage1 = [NSMutableDictionary dictionaryWithObjects:@[@3, @[@"smallFire", @"smallFire", @"bigFire"]] forKeys:@[@"substageCount", @"monsters"]];
         NSMutableDictionary *stage2 = [NSMutableDictionary dictionaryWithObjects:@[@3, @[@"smallFire", @"smallFire", @"bigFire"]] forKeys:@[@"substageCount", @"monsters"]];
@@ -365,6 +387,7 @@ static const uint32_t enemyCategory = 0x1 << 1;
     self.magicFrames = frames;
     SKTexture *temp = self.magicFrames[0];
     
+    
     self.magic = [[Magic alloc] initWithTexture:temp
                                      AtPosition:CGPointMake(self.player.position.x + 50, self.player.position.y + 50)];
     
@@ -377,6 +400,8 @@ static const uint32_t enemyCategory = 0x1 << 1;
     [self addChild: self.magic];
     [self.magic installHeartWithTargetNode:self];
     [self.magic runAnimationIdle];
+    
+//    [self.magic addObject:magic];
 //    [self magicShowOff];
 }
 
@@ -412,16 +437,48 @@ static const uint32_t enemyCategory = 0x1 << 1;
             // magic collides with enemy!! Yay!!!
             self.magic.hasHit = YES;
             [self.magic runAnimationHitTarget];
-            [self.enemy runAnimationInjured];
             
             self.enemy.health -= 5;
             NSLog(@"Smack the enemy's ass! Now the enemy's health is %d", self.enemy.health);
             
             if(self.enemy.health <= 0) {
                 [self.enemy runAnimationDead];
+                [self.enemyAttackTimer invalidate];
                 self.enemy = nil;
                 [self speedUp];
                 [self gotoNextSubstage];
+            }
+            else {
+                [self.enemy runAnimationInjured];
+                double attackTime = arc4random_uniform(ENEMY_ATTACK_RANGE) + ENEMY_ATTACK_TIME;
+                [self.enemyAttackTimer invalidate];
+                self.enemyAttackTimer = [NSTimer scheduledTimerWithTimeInterval:attackTime target:self selector:@selector(enemyAttackTimerRings) userInfo:nil repeats:YES];
+            }
+        }
+    }
+    
+    if ((firstBody.categoryBitMask & magicFromEnemyCategory) != 0 &&
+        (secondBody.categoryBitMask & playerCategory) != 0)
+    {
+        for( MagicFromEnemy *obj in self.magicFromEnemy ){
+            if( (obj.position.x <= self.player.position.x) && (obj.hasHit == NO) ){
+                NSLog(@"contact: player hit by magicFromEnemy");
+                obj.hasHit = YES;
+                [obj runAnimationHitTarget];
+                [self.magicFromEnemy removeObject:obj];
+                
+                self.player.health -= 5;
+                NSLog(@"contact: Your ass got kicked! Now your health is %d", self.player.health);
+                
+                if(self.player.health <= 0) {
+                    [self.player runAnimationDead];
+                    self.player = nil;
+                    self.gameOverTimer = [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(gameOver) userInfo:nil repeats:NO];
+                }
+                else {
+                    [self.player runAnimationInjured];
+                }
+
             }
         }
     }
@@ -431,13 +488,12 @@ static const uint32_t enemyCategory = 0x1 << 1;
 #pragma mark - Default Settings
 
 -(void)update:(CFTimeInterval)currentTime {
+    /* Called before each frame is rendered */
     
     if(self.isReady){
         self.isReady = NO; //turns it off to avoid everlasting scene restart !
         [self gotoNextSubstage];
     }
-    
-    /* Called before each frame is rendered */
     
     int diff_x = self.enemy.position.x - self.magic.position.x;
     int diff_y = self.enemy.position.y - self.magic.position.y;
@@ -459,6 +515,51 @@ static const uint32_t enemyCategory = 0x1 << 1;
         }
     }
 
+    // magicFromEnemy
+    for( MagicFromEnemy *obj in self.magicFromEnemy ){
+//        if(obj.hasHit) obj.hasHit = NO;
+//        else if( obj.position.x <= self.player.position.x ) obj.hasHit = YES;
+        
+        diff_x = obj.position.x - self.player.position.x;
+        diff_y = obj.position.y - self.player.position.y;
+        dist_y = 0;
+        if(diff_x!=0){
+            dist_y = (int) diff_y/diff_x;
+        }
+        moveX = -10;
+        moveY = dist_y * -10;
+        
+//        if(self.magicFromEnemy){
+        if(obj.position.x < 0){
+            NSLog(@"magicFromEnemy leaves the screen!");
+            [obj removeFromParent];
+            [self.magicFromEnemy removeObject:obj];
+            NSLog(@"self.magicFromEnemy count:%d", self.magicFromEnemy.count);
+            
+        }
+//        else if ( (obj.hasHit == YES) && self.player) {
+//            NSLog(@"Your ass got kicked! Now your health is %d", self.player.health);
+//            [obj removeFromParent];
+////            [obj runAnimationHitTarget];
+//            
+//            self.player.health -= 5;
+//            if(self.player.health <= 0) {
+//                [self.player runAnimationDead];
+//                self.player = nil;
+//                self.gameOverTimer = [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(gameOver) userInfo:nil repeats:NO];
+//            }
+//            else {
+//                [self.player runAnimationInjured];
+//            }
+//        }
+        else if(!obj.hasHit){
+            [obj runAction: [SKAction moveByX:moveX y:moveY duration:0.1f]];
+//            if(obj.hasHit) NSLog(@"hasHit and moving!");
+        }
+//        }
+    }
+    
+    
     // handle acceleration
     if(self.isSlowingDown){
     
@@ -535,7 +636,27 @@ static const uint32_t enemyCategory = 0x1 << 1;
     [self.enemy runAnimationIdle];
     [self addChild:self.enemy];
     [self enemyEntering];
+    double attackTime = arc4random_uniform(ENEMY_ATTACK_RANGE) + ENEMY_ATTACK_TIME;
+    self.enemyAttackTimer = [NSTimer scheduledTimerWithTimeInterval:attackTime target:self selector:@selector(enemyAttackTimerRings) userInfo:nil repeats:YES];
 
+}
+
+-(void) enemyAttackTimerRings
+{
+    NSLog(@"Enemy Attacks!");
+    MagicFromEnemy *magicFromEnemy = [[MagicFromEnemy alloc] initAtPosition:
+                                      CGPointMake(self.enemy.position.x - 20, self.enemy.position.y)];
+    [magicFromEnemy addParticleWithTargetNode:self];
+    magicFromEnemy.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:50];
+    magicFromEnemy.physicsBody.dynamic = YES;
+    magicFromEnemy.physicsBody.categoryBitMask = magicFromEnemyCategory;
+    magicFromEnemy.physicsBody.contactTestBitMask = playerCategory;
+    magicFromEnemy.physicsBody.collisionBitMask = 0; // ?
+    magicFromEnemy.physicsBody.usesPreciseCollisionDetection = YES; // magic may be moving fast !
+    [self addChild: magicFromEnemy];
+    [self.magicFromEnemy addObject:magicFromEnemy];
+    NSLog(@"self.magicFromEnemy count: %d", [self.magicFromEnemy count]);
+    
 }
 
 -(void) enemyEntering
@@ -548,13 +669,32 @@ static const uint32_t enemyCategory = 0x1 << 1;
     NSLog(@"This stage ends!");
     NSMutableArray *info = [NSMutableArray array];
     
+    [info addObject: [NSNumber numberWithBool:YES]];
+    [info addObject: [NSNumber numberWithInt:self.currentStage]];
+    [info addObject: [NSNumber numberWithInt:self.player.health]]; // an integer
+
     NSDate *endTime = [NSDate date];
     NSTimeInterval gameDuration = [endTime timeIntervalSinceDate:self.startOffTime];
     [info addObject: [NSNumber numberWithDouble:gameDuration]]; // a double
-    [info addObject: [NSNumber numberWithInt:self.player.health]]; // an integer
     
     [self.delegate stageEndedWithInformation: info];
 
+}
+
+-(void) gameOver
+{
+    NSLog(@"Game OVERRRRRRRR Orz");
+    NSMutableArray *info = [NSMutableArray array];
+    [info addObject: [NSNumber numberWithBool:NO]];
+    
+    [self.enemyAttackTimer invalidate];
+    self.enemyAttackTimer = nil;
+    self.enemy = nil;
+    self.magic = nil;
+    [self.magicFromEnemy removeAllObjects];
+    [self removeAllChildren];
+    
+    [self.delegate stageEndedWithInformation: info];
 }
 
 @end

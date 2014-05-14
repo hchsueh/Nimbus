@@ -46,6 +46,7 @@
                                                       ]
                                                     ]
                       ]
+            withKey:@"idle1"
      ];
     
     [self runAction: [SKAction repeatActionForever:[SKAction sequence:
@@ -54,6 +55,7 @@
                                                       [SKAction waitForDuration:2.0f withRange:0.9f]]
                                                     ]
                       ]
+            withKey:@"idle2"
      ];
     
 //    [self runAction:[SKAction repeatActionForever:
@@ -61,6 +63,24 @@
 //                                      timePerFrame:0.1f
 //                                            resize:NO
 //                                           restore:YES]] withKey:@"playerIdle"];
+}
+
+- (void) runAnimationInjured
+{
+    [self runAction: [SKAction rotateByAngle:2*M_PI duration:0.4f]];
+}
+
+- (void) runAnimationDead
+{
+    [self removeActionForKey:@"idle1"];
+    [self removeActionForKey:@"idle2"];
+    [self runAction: [SKAction sequence:@[[SKAction waitForDuration:1.0f],
+                                         [SKAction removeFromParent]
+                                         ]
+                     ]
+    ];
+    [self runAction: [SKAction fadeOutWithDuration:1.0f]];
+    [self runAction: [SKAction scaleBy:0.1 duration:1.0f]];
 }
 
 -(void) animationDidComplete: (PlayerAnimationState) state

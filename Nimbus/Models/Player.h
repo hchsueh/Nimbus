@@ -21,5 +21,7 @@ typedef enum : uint8_t {
 
 - (id)initWithTexture: (SKTexture *) texture AtPosition:(CGPoint)position;
 - (void) runAnimationIdle;
+- (void) runAnimationInjured;
+- (void) runAnimationDead;
 
 @end

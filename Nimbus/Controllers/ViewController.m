@@ -35,7 +35,7 @@
     // Configure the view.
     SKView * skView = (SKView *)self.view;
     skView.showsFPS = YES;
-    skView.showsNodeCount = NO;
+    skView.showsNodeCount = YES;
     
     // Create and configure the scene.
     self.particleScene = [ParticleScene sceneWithSize: CGSizeMake(skView.bounds.size.height, skView.bounds.size.width)];
@@ -69,7 +69,7 @@
 #pragma mark - PaintView Delegate Protocol Methods
 - (void)pauseDrawing {
     [self.particleScene pauseMoving];
-    self.timerPause = [NSTimer scheduledTimerWithTimeInterval:1.0
+    self.timerPause = [NSTimer scheduledTimerWithTimeInterval:0.5
                                                   target:self
                                                 selector:@selector(stopDrawing)
                                                 userInfo:nil
@@ -134,7 +134,12 @@
 -(void) stageEndedWithInformation: (NSMutableArray *) information;
 {
     self.gameInfo = information;
-    [self performSegueWithIdentifier:@"SEGUE_TO_STAGECLEAR" sender:self];
+    if([[self.gameInfo objectAtIndex:0] boolValue]) {
+        [self performSegueWithIdentifier:@"SEGUE_TO_STAGECLEAR" sender:self];
+    }
+    else {
+        [self performSegueWithIdentifier:@"SEGUE_TO_GAMEOVER" sender:self];
+    }
 }
 
 #pragma mark - Navigation
@@ -147,8 +152,9 @@
     if([[segue identifier] isEqualToString:@"SEGUE_TO_STAGECLEAR"])
     {
         StageclearViewController *vc = [segue destinationViewController];
-        vc.gameDuration = [[self.gameInfo objectAtIndex:0] doubleValue];
-        vc.gamePlayerHealthLeft = [[self.gameInfo objectAtIndex:1] integerValue];
+        vc.gameStage = [self.gameInfo objectAtIndex:1];
+        vc.gamePlayerHealthLeft = [self.gameInfo objectAtIndex:2];
+        vc.gameDuration = [self.gameInfo objectAtIndex:3];
     }
 }
 

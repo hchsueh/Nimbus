@@ -20,11 +20,33 @@
                     <navigationItem key="navigationItem" id="RKs-1F-iGs"/>
                     <connections>
                         <segue destination="eC3-fO-Uia" kind="modal" identifier="SEGUE_TO_STAGECLEAR" id="e6N-3V-9Ov"/>
+                        <segue destination="i1v-jh-XI1" kind="modal" identifier="SEGUE_TO_GAMEOVER" id="60d-u7-7sl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1935" y="-1266"/>
+        </scene>
+        <!--Game Over View Controller-->
+        <scene sceneID="14s-Ca-bkg">
+            <objects>
+                <viewController id="i1v-jh-XI1" customClass="GameOverViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xTP-N6-Lte"/>
+                        <viewControllerLayoutGuide type="bottom" id="m0Y-wh-PYQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QyD-e2-S0p">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="R9W-QM-b4d" kind="modal" identifier="SEGUE_BACK_TO_LOBBY_FROM_GAMEOVER" id="RLt-xW-ti0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ss9-VY-aaw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2186" y="1129"/>
         </scene>
         <!--Stageclear View Controller-->
         <scene sceneID="Cma-tT-BIN">
@@ -45,7 +67,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rts-5t-hHx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3047" y="-250"/>
+            <point key="canvasLocation" x="3391" y="-298"/>
         </scene>
         <!--Welcome View Controller-->
         <scene sceneID="9cx-xL-wU8">
@@ -138,6 +160,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="f0c-tc-9HG"/>
+        <segue reference="RLt-xW-ti0"/>
     </inferredMetricsTieBreakers>
 </document>
