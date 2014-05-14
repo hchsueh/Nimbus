@@ -7,6 +7,7 @@
 //
 
 #import "IntroductionView.h"
+#import <SpriteKit/SpriteKit.h>
 
 @implementation IntroductionView
 
@@ -18,10 +19,16 @@
         self.backgroundColor = [UIColor blackColor];
         
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.frame)-250, CGRectGetMidY(self.frame)-250, 500, 500)];
-        title.font = [UIFont fontWithName:@"Baskerville-SemiBoldItalic" size:30];
-        title.text = @"Introduction: 沒時間打字了辣";
+        title.font = [UIFont fontWithName:@"Baskerville-SemiBoldItalic" size:16];
+        title.numberOfLines = 0;
+        title.text = @"\n\n\n\n\n\n這塊大地已被聖光籠罩了千年\n但是有一天\n那令人恐懼的一天\n天火降臨大地\n燃盡一切的一切\n兇殘的火靈到處肆虐\n\n\nNimbus\n作為一個小不點幽靈\n不知自己從何而來 欲去何方\n不過他發現自己擁有神奇的魔法召喚天賦......\n於是  為了這片曾經美好的大地\n就算是蚍蜉撼樹 也在所不惜...";
         title.textColor = [UIColor whiteColor];
         title.textAlignment = NSTextAlignmentCenter;
+        
+        CGSize labelSize = [title.text sizeWithFont: title.font
+                                  constrainedToSize:title.frame.size
+                                      lineBreakMode:title.lineBreakMode];
+        title.frame = CGRectMake(title.frame.origin.x, title.frame.origin.y, title.frame.size.width, labelSize.height);
         
         [self addSubview:title];
 
