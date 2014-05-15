@@ -57,6 +57,7 @@ static const uint32_t playerCategory         = 0x1 << 3;
 @property (strong, nonatomic) NSTimer *stageTransitionTimer;
 @property (strong, nonatomic) NSDate *startOffTime;
 
+@property (nonatomic) BOOL isBOSS;
 @property (nonatomic) BOOL isReady;
 
 @end
@@ -131,6 +132,7 @@ static const uint32_t playerCategory         = 0x1 << 3;
         NSLog(@"currentStage = %d", self.currentStage);
         self.stageTransitionTimer = nil;
         self.isReady = YES;
+        self.isBOSS = NO;
         self.startOffTime = [NSDate date];
     }
     return self;
@@ -721,6 +723,7 @@ static const uint32_t playerCategory         = 0x1 << 3;
     
     if(self.currentSubstageNum == [[[self.stageInformation objectAtIndex:self.currentStage-1] objectForKey:@"substageCount"] integerValue]){
         NSLog(@" final Substage! The BOSS's coming ...");
+        self.isBOSS = YES;
         self.enemy.health = 15;
         self.enemy.size = CGSizeMake(self.enemy.size.width*5, self.enemy.size.height*5);
         [self.enemy installFireWithTargetNode:self position:self.enemy.position boss:YES];
@@ -734,6 +737,7 @@ static const uint32_t playerCategory         = 0x1 << 3;
     [self addChild:self.enemy];
     [self enemyEntering];
     double attackTime = arc4random_uniform(ENEMY_ATTACK_RANGE) + ENEMY_ATTACK_TIME;
+    if(self.isBOSS) attackTime = arc4random_uniform(ENEMY_ATTACK_RANGE) + ENEMY_ATTACK_TIME - 2;
     self.enemyAttackTimer = [NSTimer scheduledTimerWithTimeInterval:attackTime target:self selector:@selector(enemyAttackTimerRings) userInfo:nil repeats:YES];
 
 }

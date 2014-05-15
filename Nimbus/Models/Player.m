@@ -71,9 +71,9 @@
 -(void) runAnimationIdle
 {
     [self runAction: [SKAction repeatActionForever:[SKAction sequence:
-                                                    @[[SKAction moveByX:0 y:10 duration:0.2f],
-                                                      [SKAction moveByX:0 y:-20 duration:0.2f],
-                                                      [SKAction moveByX:0 y:10 duration:0.2f]
+                                                    @[[SKAction moveByX:0 y:10 duration:0.4f],
+                                                      [SKAction moveByX:0 y:-20 duration:0.4f],
+                                                      [SKAction moveByX:0 y:10 duration:0.4f]
                                                       ]
                                                     ]
                       ]
@@ -83,7 +83,7 @@
     [self runAction: [SKAction repeatActionForever:[SKAction sequence:
                                                     @[[SKAction fadeAlphaTo:0.6 duration:0.4f],
                                                       [SKAction fadeAlphaTo:1 duration:0.4f],
-                                                      [SKAction waitForDuration:2.0f withRange:0.9f]]
+                                                      [SKAction waitForDuration:2.0f withRange:0.4f]]
                                                     ]
                       ]
             withKey:@"idle2"

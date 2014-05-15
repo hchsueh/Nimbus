@@ -34,16 +34,34 @@
     return self;
 }
 
--(void) updateLabel:(int)rank
+-(void) updateLabel:(NSNumber *)rank
 {
-    NSLog(@"updateLabel rank: %d" ,rank);
+    NSLog(@"updateLabel rank: %@" ,rank);
 
     UILabel *rankLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.frame)-100, CGRectGetMidY(self.frame)-100, 200, 200)];
-    rankLabel.text = [NSString stringWithFormat:@"rank: %d", rank];
+    rankLabel.text = [NSString stringWithFormat:@"rank: %d", [rank integerValue] ];
     rankLabel.textColor = [UIColor whiteColor];
     rankLabel.textAlignment = NSTextAlignmentCenter;
     
     [self addSubview:rankLabel];
+}
+
+-(id)initWithRank:(NSNumber *)rank{
+
+    self = [super init];
+    if (self) {
+        // Initialization code
+        
+        UILabel *rankLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.frame)-100, CGRectGetMidY(self.frame)-100, 200, 200)];
+        rankLabel.text = [NSString stringWithFormat:@"rank: %d", [rank integerValue] ];
+        rankLabel.textColor = [UIColor whiteColor];
+        rankLabel.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:rankLabel];
+
+        
+    }
+    return self;
+
 }
 
 /*

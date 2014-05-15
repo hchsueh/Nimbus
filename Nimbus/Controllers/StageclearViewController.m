@@ -11,7 +11,9 @@
 #import "AFNetworking.h"
 #import "LobbyViewController.h"
 
-#define SERVER_URL @"http://140.112.245.144:3000/record"
+//#define SERVER_URL @"http://140.112.245.144:3000/record"
+#define SERVER_URL @"http://140.112.18.200:3000/record"
+
 
 
 @interface StageclearViewController ()
@@ -36,6 +38,42 @@
     
     self.canTouch = NO;
     
+//    // POST
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    NSUUID *deviceid = [UIDevice currentDevice].identifierForVendor;
+//    
+//    NSDictionary *params = @{@"time": self.gameDuration,
+//                             @"life": self.gamePlayerHealthLeft,
+//                             @"UUID": [deviceid UUIDString],
+//                             @"stage": self.gameStage};
+//    [manager POST:SERVER_URL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//              
+//        NSLog(@"JSON: %@", responseObject);
+//        self.canTouch = YES;
+//        NSError *err;
+//        NSLog(@"%@", [responseObject class]);
+//        NSDictionary *data = [NSDictionary dictionaryWithDictionary:responseObject];
+////        [self.stageclearView updateLabel:[responseObject objectForKey:@"rank"] ];
+//        NSLog(@"FFUEHGILAEKEQ");
+//        [self.stageclearView updateLabel:[NSNumber numberWithInt:12]];
+//        
+//        
+////        NSDictionary *data = [NSDictionary dictionaryWithDictionary: [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&err]];
+////        self.stageclearView.rank = [[data objectForKey:@"rank"] integerValue];
+////        NSLog(@"%d", self.stageclearView.rank);
+//        
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        
+//        NSLog(@"Error: %@", error);
+//        
+//    }];
+    
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+
+    
     // POST
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSUUID *deviceid = [UIDevice currentDevice].identifierForVendor;
@@ -45,18 +83,26 @@
                              @"UUID": [deviceid UUIDString],
                              @"stage": self.gameStage};
     [manager POST:SERVER_URL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
+        
         NSLog(@"JSON: %@", responseObject);
         self.canTouch = YES;
         NSError *err;
         NSLog(@"%@", [responseObject class]);
         NSDictionary *data = [NSDictionary dictionaryWithDictionary:responseObject];
-        [self.stageclearView updateLabel:[[data objectForKey:@"rank"] integerValue]];
+        //        [self.stageclearView updateLabel:[responseObject objectForKey:@"rank"] ];
+        NSLog(@"FFUEHGILAEKEQ");
+//        [self.stageclearView updateLabel:[NSNumber numberWithInt:12]];
+        //    self.stageclearView = [[StageclearView alloc] initWithFrame:self.view.bounds];
+        self.stageclearView = [[StageclearView alloc] initWithRank:[responseObject objectForKey:@"rank"]];
+        [self.view addSubview:self.stageclearView];
+        NSLog(@"stage info: playerHealthLeft: %d, gameDuration: %e", self.gamePlayerHealthLeft.integerValue, self.gameDuration.doubleValue);
+        
+
         
         
-//        NSDictionary *data = [NSDictionary dictionaryWithDictionary: [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&err]];
-//        self.stageclearView.rank = [[data objectForKey:@"rank"] integerValue];
-//        NSLog(@"%d", self.stageclearView.rank);
+        //        NSDictionary *data = [NSDictionary dictionaryWithDictionary: [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&err]];
+        //        self.stageclearView.rank = [[data objectForKey:@"rank"] integerValue];
+        //        NSLog(@"%d", self.stageclearView.rank);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -64,13 +110,6 @@
         
     }];
     
-}
-
--(void) viewDidAppear:(BOOL)animated
-{
-    self.stageclearView = [[StageclearView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:self.stageclearView];
-    NSLog(@"stage info: playerHealthLeft: %d, gameDuration: %e", self.gamePlayerHealthLeft.integerValue, self.gameDuration.doubleValue);
 }
 
 - (void)didReceiveMemoryWarning

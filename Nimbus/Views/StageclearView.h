@@ -10,5 +10,6 @@
 
 @interface StageclearView : UIView
 //@property (nonatomic) int rank;
--(void) updateLabel: (int) rank;
+-(void) updateLabel: (NSNumber *) rank;
+-(id)initWithRank:(NSNumber *)rank;
 @end
