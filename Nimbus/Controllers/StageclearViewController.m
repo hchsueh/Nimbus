@@ -89,12 +89,14 @@
         NSError *err;
         NSLog(@"%@", [responseObject class]);
         NSDictionary *data = [NSDictionary dictionaryWithDictionary:responseObject];
-        //        [self.stageclearView updateLabel:[responseObject objectForKey:@"rank"] ];
-        NSLog(@"FFUEHGILAEKEQ");
-//        [self.stageclearView updateLabel:[NSNumber numberWithInt:12]];
-        //    self.stageclearView = [[StageclearView alloc] initWithFrame:self.view.bounds];
-        self.stageclearView = [[StageclearView alloc] initWithRank:[responseObject objectForKey:@"rank"]];
+        
+        NSLog(@"NANANANANA!!!");
+        
+        self.stageclearView = [[StageclearView alloc] initWithFrame:self.view.bounds];
+//        self.stageclearView = [[StageclearView alloc] initWithRank:[responseObject objectForKey:@"rank"]];
         [self.view addSubview:self.stageclearView];
+//        [self.stageclearView updateLabel:[NSNumber numberWithInt:12]];
+        [self.stageclearView updateLabel:[responseObject objectForKey:@"rank"] ];
         NSLog(@"stage info: playerHealthLeft: %d, gameDuration: %e", self.gamePlayerHealthLeft.integerValue, self.gameDuration.doubleValue);
         
 
